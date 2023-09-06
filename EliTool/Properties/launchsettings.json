@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "EliTool (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "EliTool (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

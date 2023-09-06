@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ETool (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ETool (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
