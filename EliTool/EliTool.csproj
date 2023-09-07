@@ -16,6 +16,9 @@
     <DefaultLanguage>zh-hans-CN</DefaultLanguage>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="Assets\Control\Image\Developer-Tools.png" />
+    <Content Remove="Assets\Control\Image\JSON-TO-CS.png" />
+    <Content Remove="Assets\Control\Info\ControlInfos.json" />
     <Content Remove="Assets\ETool.png" />
     <Content Remove="Assets\Header.png" />
   </ItemGroup>
@@ -63,6 +66,10 @@
 
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\ControlPage\Developer-Tools\" />
   </ItemGroup>
   
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">

@@ -9,6 +9,9 @@
 
     <Page.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Controls/ControlItemTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <Color x:Key="HeaderBackgroundFirstStop">#FFCFD8E4</Color>
@@ -46,10 +49,7 @@
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Stretch"/>
             </Grid>
-            <GridView>
-                <GridViewItem>
-                    
-                </GridViewItem>
+            <GridView ItemTemplate="{StaticResource ControlItemTemplate}" ItemsSource="{x:Bind ControlInfos}" ItemClick="GridView_ItemClick">
             </GridView>
         </StackPanel>
     </Grid>

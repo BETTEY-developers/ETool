@@ -44,7 +44,7 @@ public partial class App : Application
 
     public App()
     {
-        InitializeComponent();
+        //InitializeComponent();
 
         Host = Microsoft.Extensions.Hosting.Host.
         CreateDefaultBuilder().
