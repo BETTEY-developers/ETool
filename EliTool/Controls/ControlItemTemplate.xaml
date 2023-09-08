@@ -4,7 +4,7 @@
     xmlns:data="using:EliTool.DataModels"
     x:Class="EliTool.Controls.ControlItemTemplate_">
 
-    <DataTemplate x:Name="ControlItemInfoTemplate" x:DataType="data:ControlInfoDataItem">
+    <DataTemplate x:Key="ControlItemInfoTemplate" x:DataType="data:ControlInfoDataItem">
         <UserControl>
             <Grid
             x:Name="controlRoot"
