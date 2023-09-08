@@ -1,12 +1,15 @@
 ﻿using EliTool.Contracts.Services;
 using EliTool.Helpers;
+using EliTool.Services;
 using EliTool.ViewModels;
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-
+using Microsoft.UI.Xaml.Media.Imaging;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.System;
 
 namespace EliTool.Views;
@@ -46,6 +49,21 @@ public sealed partial class ShellPage : Page
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
         NavigationViewControl.Header = null;
+        foreach (var ControlGroup in App.GetService<MainViewModel>().GetControlInfosAsync().ControlInfoGroups)
+        {
+            NavigationViewItem item = new NavigationViewItem();
+            item.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ControlGroup.ImagePath)) };
+            item.Content = ControlGroup.Title;
+            foreach (var ControlInfo in ControlGroup.ControlInfos)
+            {
+                NavigationViewItem childitem = new NavigationViewItem();
+                childitem.Content = ControlInfo.Title;
+                childitem.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ControlInfo.ImagePath)) };
+                NavigationHelper.SetNavigateTo(childitem, ControlInfo.ClickPath);
+                item.MenuItems.Add(childitem);
+            }
+            NavigationViewControl.MenuItems.Add(item);
+        }
     }
 
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)

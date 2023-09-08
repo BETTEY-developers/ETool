@@ -3,13 +3,13 @@
 	"ControlInfoGroups": [
 		{
 			"Title": "Developer Tools",
-			"ImagePath": "/Assets/Control/Image/Developer-Tools.png",
+			"ImagePath": "ms-appx:///Assets/Control/Image/Developer-Tools.png",
 			"ControlInfos": [
 				{
 					"Title": "Json to CSharp Converter",
 					"Subtitle": "Json code to CSharp data model convert helper.",
-					"ImagePath": "/Assets/Control/Image/JSON-TO-CS.png",
-					"ClickPath": "EliTool.Views.JsonCSharpConverterPage"
+					"ImagePath": "ms-appx:///Assets/Control/Image/JSON-TO-CS.png",
+					"ClickPath": "EliTool.ViewModels.JsonCSharpConverterViewModel"
 				}
 			]
 		}

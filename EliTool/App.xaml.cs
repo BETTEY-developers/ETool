@@ -70,6 +70,8 @@ public partial class App : Application
             services.AddSingleton<Core.Contracts.Services.IFileService, Core.Services.FileService>();
 
             // Views and ViewModels
+            services.AddTransient<JsonCSharpConverterViewModel>();
+            services.AddTransient<Views.ControlPage.DeveloperTools.JsonCSharpConverterPage> ();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
             services.AddTransient<MainViewModel>();

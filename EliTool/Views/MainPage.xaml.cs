@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
+using EliTool.Contracts.Services;
 using EliTool.DataModels;
+using EliTool.Services;
 using EliTool.ViewModels;
 
 using Microsoft.UI.Xaml.Controls;
@@ -36,6 +38,6 @@ public sealed partial class MainPage : Page
 
     private void GridView_ItemClick(object sender, ItemClickEventArgs e)
     {
-        (WindowEx.Current.Content as Frame).Navigate(Assembly.GetExecutingAssembly().GetType((e.ClickedItem as ControlInfoDataItem).ClickPath));
+        Frame.Navigate(App.GetService<IPageService>().GetPageType((e.ClickedItem as ControlInfoDataItem).ClickPath));
     }
 }
