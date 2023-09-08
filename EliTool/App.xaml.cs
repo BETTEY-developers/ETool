@@ -1,5 +1,6 @@
 ﻿using EliTool.Activation;
 using EliTool.Contracts.Services;
+using EliTool.Controls;
 using EliTool.Core.Contracts.Services;
 using EliTool.Core.Services;
 using EliTool.Helpers;
@@ -44,7 +45,7 @@ public partial class App : Application
 
     public App()
     {
-        //InitializeComponent();
+        InitializeComponent();
 
         Host = Microsoft.Extensions.Hosting.Host.
         CreateDefaultBuilder().
@@ -66,7 +67,7 @@ public partial class App : Application
             services.AddSingleton<INavigationService, NavigationService>();
 
             // Core Services
-            services.AddSingleton<IFileService, FileService>();
+            services.AddSingleton<Core.Contracts.Services.IFileService, Core.Services.FileService>();
 
             // Views and ViewModels
             services.AddTransient<SettingsViewModel>();
@@ -75,6 +76,7 @@ public partial class App : Application
             services.AddTransient<MainPage>();
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
+            services.AddTransient<ControlItemTemplate_>();
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));

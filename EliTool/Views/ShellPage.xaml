@@ -49,12 +49,6 @@
                         <ImageIcon Source="/Assets/ETool.png"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                
-                <NavigationViewItem x:Uid="Shell_JsonCSharpConverter" helpers:NavigationHelper.NavigateTo="EliTool.ViewModels.JsonCSharpConverterViewModel">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.HeaderTemplate>
                 <DataTemplate>

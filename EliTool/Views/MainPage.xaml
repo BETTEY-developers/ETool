@@ -49,7 +49,7 @@
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Stretch"/>
             </Grid>
-            <GridView ItemTemplate="{StaticResource ControlItemInfoTemplate}" ItemsSource="{x:Bind ControlInfos}" ItemClick="GridView_ItemClick">
+            <GridView Margin="35" ItemTemplate="{StaticResource ControlItemInfoTemplate}" ItemsSource="{x:Bind ControlInfos}" ItemClick="GridView_ItemClick">
             </GridView>
         </StackPanel>
     </Grid>

@@ -16,7 +16,7 @@ public sealed partial class MainPage : Page
         get;
     }
 
-    public ObservableCollection<ControlInfoDataItem> ControlInfos { get; set; }
+    public ObservableCollection<ControlInfoDataItem> ControlInfos { get; set; } = new ObservableCollection<ControlInfoDataItem>();
 
     public MainPage()
     {
@@ -25,11 +25,11 @@ public sealed partial class MainPage : Page
         InitializeComponent();
     }
 
-    protected override async void OnNavigatedTo(NavigationEventArgs e)
+    protected async override void OnNavigatedTo(NavigationEventArgs e)
     {
         ShellPage.Instance.NavigationViewControl.Header = null;
         List<ControlInfoDataItem> items = new List<ControlInfoDataItem>();
-        foreach (var v in (await ViewModel.GetControlInfosAsync()).ControlInfoGroups)
+        foreach (var v in ViewModel.GetControlInfosAsync().ControlInfoGroups)
             foreach (var s in v.ControlInfos) ControlInfos.Add(s);
         
         base.OnNavigatedTo(e);
