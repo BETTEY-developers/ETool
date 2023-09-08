@@ -9,10 +9,10 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <!--<ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Controls/ControlItemTemplate.xaml"/>
-            </ResourceDictionary.MergedDictionaries>-->
-            <DataTemplate x:Name="ControlItemInfoTemplate" x:DataType="data:ControlInfoDataItem">
+            </ResourceDictionary.MergedDictionaries>
+            <!--<DataTemplate x:Name="ControlItemInfoTemplate" x:DataType="data:ControlInfoDataItem">
                 <UserControl>
                     <Grid
                         x:Name="controlRoot"
@@ -81,7 +81,7 @@
                         </StackPanel>
                     </Grid>
                 </UserControl>
-            </DataTemplate>
+            </DataTemplate>-->
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <Color x:Key="HeaderBackgroundFirstStop">#FFCFD8E4</Color>

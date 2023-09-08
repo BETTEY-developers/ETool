@@ -47,8 +47,8 @@
                     x:Name="gridImage"
                     Width="48"
                     VerticalAlignment="Center"
-                    AutomationProperties.Name="{x:Bind Title}"
-                    Source="{x:Bind ImagePath}"
+                    AutomationProperties.Name="{Binding Title}"
+                    Source="{Binding ImagePath}"
                     Stretch="Uniform" />
                 </Grid>
                 <StackPanel
@@ -61,14 +61,14 @@
                     <TextBlock
                     x:Name="titleText"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{x:Bind Title}"
+                    Text="{Binding Title}"
                     TextLineBounds="TrimToCapHeight"
                     TextWrapping="NoWrap" />
                     <TextBlock
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                     RelativePanel.Below="titleText"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind Subtitle}"
+                    Text="{Binding Subtitle}"
                     TextTrimming="CharacterEllipsis" />
                 </StackPanel>
             </Grid>
