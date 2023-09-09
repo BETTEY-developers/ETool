@@ -156,7 +156,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         {
             string temp = value;
             CSBelowNameChars.ToList().ForEach(x => temp.Replace(x.ToString(), ""));
-            _autoreplace = temp;
+            _autofrontname = temp;
             OnPropertyChanged(nameof(AutoFrontName));
         }
     }
@@ -186,7 +186,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         {
             string temp = value;
             CSBelowNameChars.ToList().ForEach(x => temp.Replace(x.ToString(), ""));
-            _autoreplace =
+            _autoreplace = temp;
         }
     }
     public JsonCSharpConverterPage Page { get; set; }
