@@ -65,7 +65,6 @@ public sealed partial class ShellPage : Page
             NavigationViewControl.MenuItems.Add(item);
         }
     }
-
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
     {
         var resource = args.WindowActivationState == WindowActivationState.Deactivated ? "WindowCaptionForegroundDisabled" : "WindowCaptionForeground";
