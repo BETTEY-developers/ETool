@@ -566,7 +566,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     public async void ToCS()
     {
         _JsonString = InputString;
-        if (_JsonString != "")
+        if ((_JsonString??"") != "")
         {
             _isjson = false;
             JObject jo = JObject.Parse(InputString);

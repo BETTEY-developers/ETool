@@ -29,13 +29,13 @@
                     <DropDownButton.Flyout>
                         <Flyout>
                             <StackPanel>
-                                <HyperlinkButton Content="JSON documentation" NavigateUri=""/>
-                                <HyperlinkButton Content="C# documentation" NavigateUri=""/>
+                                <HyperlinkButton Content="JSON documentation" NavigateUri="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/JSON"/>
+                                <HyperlinkButton Content="C# documentation" NavigateUri="https://learn.microsoft.com/zh-cn/dotnet/csharp/"/>
                             </StackPanel>
                         </Flyout>
                     </DropDownButton.Flyout>
                 </DropDownButton>
-                <DropDownButton AutomationProperties.Name="Github Source">
+                <DropDownButton AutomationProperties.Name="Github Source" Margin="5,0,0,0">
                     <DropDownButton.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/Github.png" Height="14" Width="14"/>
@@ -45,8 +45,8 @@
                     <DropDownButton.Flyout>
                         <Flyout>
                             <StackPanel>
-                                <HyperlinkButton Content="XAML source code" NavigateUri=""/>
-                                <HyperlinkButton Content="C# source code" NavigateUri=""/>
+                                <HyperlinkButton Content="XAML source code" NavigateUri="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.xaml"/>
+                                <HyperlinkButton Content="C# source code" NavigateUri="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.cs"/>
                             </StackPanel>
                         </Flyout>
                     </DropDownButton.Flyout>
