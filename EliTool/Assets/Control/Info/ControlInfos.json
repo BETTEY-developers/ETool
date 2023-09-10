@@ -2,12 +2,12 @@
 	"Version": 1,
 	"ControlInfoGroups": [
 		{
-			"Title": "Developer Tools",
+			"Title": "开发人员工具",
 			"ImagePath": "ms-appx:///Assets/Control/Image/Developer-Tools.png",
 			"ControlInfos": [
 				{
-					"Title": "Json to CSharp Converter",
-					"Subtitle": "Json code to CSharp data model convert helper.",
+					"Title": "JSON到C#实体类转换器",
+					"Subtitle": "自定义选项从JSON转换成C#实体类",
 					"ImagePath": "ms-appx:///Assets/Control/Image/JSON-TO-CS.png",
 					"ClickPath": "EliTool.ViewModels.JsonCSharpConverterViewModel"
 				}

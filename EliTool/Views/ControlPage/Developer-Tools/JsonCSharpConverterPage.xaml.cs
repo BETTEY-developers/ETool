@@ -2,6 +2,7 @@
 using EliTool.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Documents;
 
 namespace EliTool.Views.ControlPage.DeveloperTools;
 
@@ -12,11 +13,14 @@ public sealed partial class JsonCSharpConverterPage : Page
         get;
     }
 
+    private ColorCode.RichTextBlockFormatter formatter = new ColorCode.RichTextBlockFormatter();
+
     public JsonCSharpConverterPage()
     {
         ViewModel = App.GetService<JsonCSharpConverterViewModel>();
         ViewModel.Page = this;
         InitializeComponent();
+        CodeTextBox.DataContext = ViewModel;
     }
 
     private void Segmented_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -24,19 +28,24 @@ public sealed partial class JsonCSharpConverterPage : Page
         if (CodeTextBox == null)
             return;
         if (((e.AddedItems[0] as SegmentedItem).Content as string) == "C#")
+        {
             CodeTextBox.IsReadOnly = true;
+            ViewModel.ToCS();
+        }
         else
+        {
             CodeTextBox.IsReadOnly = false;
+            ViewModel.ToJson();
+        }
+
     }
 
     private void CopyCS_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        TeachingTip tt = new TeachingTip()
-        {
-            Target = (FrameworkElement)sender,
-            Content = "Copied!",
-            IsOpen = true,
-        };
+    }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
     }
 }
 

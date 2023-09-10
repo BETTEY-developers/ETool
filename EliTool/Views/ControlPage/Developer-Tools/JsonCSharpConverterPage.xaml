@@ -5,9 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
-    xmlns:ui="using:CommunityToolkit.WinUI" xmlns:viewmodels="using:EliTool.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:JsonCSharpConverterViewModel}"
-    mc:Ignorable="d">
-
+    xmlns:ui="using:CommunityToolkit.WinUI" 
+    xmlns:viewmodels="using:EliTool.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:JsonCSharpConverterViewModel}"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+    <Page.Resources>
+        <ResourceDictionary Source="/Styles/ButtonStyle.xaml"/>
+    </Page.Resources>
     <Grid x:Name="ContentArea">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -52,7 +56,7 @@
                 <Button ToolTipService.ToolTip="Copy Link" Margin="5">
                     <FontIcon Glyph="&#xE71B;" FontSize="14"/>
                 </Button>
-                <Button ToolTipService.ToolTip="Feed Back" Margin="10,0,0,0">
+                <Button ToolTipService.ToolTip="Feed Back" Margin="0,0,0,0">
                     <FontIcon Glyph="&#xE8BD;" FontSize="14"/>
                 </Button>
             </StackPanel>
@@ -65,17 +69,19 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <TextBlock Margin="0,20,0,20">此工具将帮助您从JSON代码转换成c#实体类，该工具为静态类工具，即不联网工作(参照<Hyperlink x:Name="ToStaticToolDocument">静态类工具</Hyperlink>)</TextBlock>
-            <toolkit:Segmented SelectedIndex="0"
-                               Grid.Row="1"
-                               Margin="0,0,0,20"
-                               SelectionChanged="Segmented_SelectionChanged">
-                <toolkit:SegmentedItem Content="JSON"
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <toolkit:Segmented SelectedIndex="0"
+                                   Margin="0,0,0,20"
+                                   SelectionChanged="Segmented_SelectionChanged">
+                    <toolkit:SegmentedItem Content="JSON"
                                     ToolTipService.ToolTip="JSON view" />
-                <toolkit:SegmentedItem Content="C#"
+                    <toolkit:SegmentedItem Content="C#"
                                     ToolTipService.ToolTip="C# view" />
-            </toolkit:Segmented>
+                </toolkit:Segmented>
+                <TextBox VerticalAlignment="Top" MinWidth="160" Margin="5,0,0,0" x:Name="Namespace" Text="{x:Bind ViewModel.Namespace,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" PlaceholderText="命名空间"/>
+            </StackPanel>
 
-            <TextBox Text="{x:Bind ViewModel.InputString,Mode=TwoWay}" TextWrapping="Wrap" Margin="0,0,0,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="CodeTextBox" Grid.Row="2"/>
+            <TextBox Text="{x:Bind ViewModel.InputString,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DataContext="viewmodel:JsonCSharpConverterViewModel" x:FieldModifier="Public" TextWrapping="Wrap" Margin="0,0,0,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="CodeTextBox" Grid.Row="2"/>
 
             <toolkit:SettingsExpander HeaderIcon="Setting"
                                       Header="选项"
@@ -87,36 +93,47 @@
                     <Button x:Name="SummonTest" Command="{x:Bind ViewModel.SummonTestCommand}">生成测试用例</Button>
                     <Button x:Name="CopyCS" Command="{x:Bind ViewModel.CopyInputCommand}" Click="CopyCS_Click" Margin="5,0,0,0">复制生成内容</Button>
                     <Button x:Name="ClearContent" Command="{x:Bind ViewModel.ClearInputCommand}" Style="{ThemeResource AccentButtonStyle}" Margin="5,0,0,0">清除输入框内容</Button>
+                    <Button x:Name="ResetOption" Margin="5,0,0,0" Command="{x:Bind ViewModel.ResetOptionCommand}" Style="{ThemeResource WarningButtonStyle}">重置选项</Button>
                 </StackPanel>
                 <toolkit:SettingsExpander.Items>
                     <toolkit:SettingsCard>
                         <toolkit:SettingsCard.Header>
-                            <ToggleSwitch OnContent="生成属性注释" OffContent="不生成属性注释" IsOn="{Binding }" x:Name="NeedDoc"/>
+                            <ToggleSwitch OnContent="生成属性注释" OffContent="不生成属性注释" IsOn="{x:Bind ViewModel.NeedDoc,Mode=TwoWay}" x:Name="NeedDoc"/>
                         </toolkit:SettingsCard.Header>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" x:Name="NeedValueDoc">生成值注释</CheckBox>
-                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" x:Name="NeedKeyDoc">生成键注释</CheckBox>
-                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" x:Name="NeedRawString">生成原始键值对字符串</CheckBox>
+                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" IsChecked="{x:Bind ViewModel.NeedValueDoc,Mode=TwoWay}" x:Name="NeedValueDoc">生成值注释</CheckBox>
+                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" IsChecked="{x:Bind ViewModel.NeedKeyDoc,Mode=TwoWay}" x:Name="NeedKeyDoc">生成键注释</CheckBox>
+                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" IsChecked="{x:Bind ViewModel.NeedRawString,Mode=TwoWay}" x:Name="NeedRawString">生成原始键值对字符串</CheckBox>
                         </StackPanel>
                     </toolkit:SettingsCard>
                     <toolkit:SettingsCard>
                         <toolkit:SettingsCard.Header>
-                            <ToggleSwitch HorizontalAlignment="Right" OnContent="生成类后缀  " OffContent="不生成类后缀  " x:Name="NeedExname"/>
+                            <ToggleSwitch HorizontalAlignment="Right" OnContent="自动重命名  " OffContent="不自动重命名  " IsOn="{x:Bind ViewModel.NeedAutoRename,Mode=TwoWay}" x:Name="NeedAutoRename"/>
                         </toolkit:SettingsCard.Header>
-                        <TextBox PlaceholderText="想生成的类后缀" IsEnabled="{Binding ElementName=NeedExname,Path=IsOn}" x:Name="ExName"/>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox IsEnabled="{Binding ElementName=NeedAutoRename,Path=IsOn}" IsChecked="{x:Bind ViewModel.NeedAutoFrontName,Mode=TwoWay}" x:Name="AutoAddToFront">
+                                <TextBox x:Name="FrontContent" IsEnabled="{Binding ElementName=AutoAddToFront,Path=IsChecked}" Text="{x:Bind ViewModel.AutoFrontName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" PlaceholderText="要添加的前缀"/>
+                            </CheckBox>
+                            <CheckBox IsEnabled="{Binding ElementName=NeedAutoRename,Path=IsOn}" IsChecked="{x:Bind ViewModel.NeedAutoReplace,Mode=TwoWay}" x:Name="AutoReplace" Margin="10,0,0,0">
+                                <TextBox x:Name="ReplaceContent" IsEnabled="{Binding ElementName=AutoReplace,Path=IsChecked}" Text="{x:Bind ViewModel.AutoReplace,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" PlaceholderText="要替换掉错误命名的字符"/>
+                            </CheckBox>
+                        </StackPanel>
                     </toolkit:SettingsCard>
                     <toolkit:SettingsCard>
                         <toolkit:SettingsCard.Header>
-                            <ToggleSwitch HorizontalAlignment="Right" OnContent="自动重命名  " OffContent="不自动重命名  " x:Name="NeedAutoRename"/>
+                            <ToggleSwitch HorizontalAlignment="Right" OnContent="生成类后缀  " OffContent="不生成类后缀  " IsOn="{x:Bind ViewModel.NeedClassExname,Mode=TwoWay}" x:Name="NeedExname"/>
                         </toolkit:SettingsCard.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox IsEnabled="{Binding ElementName=NeedAutoRename,Path=IsOn}" x:Name="AutoAddToFront">
-                                <TextBox x:Name="FrontContent" IsEnabled="{Binding ElementName=AutoAddToFront,Path=IsChecked}" PlaceholderText="要添加的前缀"/>
-                            </CheckBox>
-                            <CheckBox IsEnabled="{Binding ElementName=NeedAutoRename,Path=IsOn}" x:Name="AutoReplace" Margin="10,0,0,0">
-                                <TextBox x:Name="ReplaceContent" IsEnabled="{Binding ElementName=AutoReplace,Path=IsChecked}" PlaceholderText="要替换掉错误命名的字符"/>
-                            </CheckBox>
-                        </StackPanel>
+                        <TextBox PlaceholderText="想生成的类后缀" Text="{x:Bind ViewModel.ClassExname,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=NeedExname,Path=IsOn}" x:Name="ExName"/>
+                    </toolkit:SettingsCard>
+                    <toolkit:SettingsCard Header="属性默认访问权限修饰符">
+                        <ComboBox SelectedIndex="{x:Bind ViewModel.Protect,Mode=TwoWay}">
+                            <ComboBoxItem>public</ComboBoxItem>
+                            <ComboBoxItem>private</ComboBoxItem>
+                            <ComboBoxItem>protected</ComboBoxItem>
+                            <ComboBoxItem>internal</ComboBoxItem>
+                            <ComboBoxItem>protected internal</ComboBoxItem>
+                            <ComboBoxItem>private protected</ComboBoxItem>
+                        </ComboBox>
                     </toolkit:SettingsCard>
                 </toolkit:SettingsExpander.Items>
             </toolkit:SettingsExpander>
