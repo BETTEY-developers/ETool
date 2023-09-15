@@ -1,0 +1,60 @@
+﻿<Page
+    x:Class="EliTool.Views.NumberConverterPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:EliTool.Controls"
+    mc:Ignorable="d">
+
+    <Grid x:Name="ContentArea">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <DropDownButton AutomationProperties.Name="Documentation">
+                    <DropDownButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE8A5;" FontSize="14"/>
+                            <TextBlock Margin="10,0,0,0">Documentation</TextBlock>
+                        </StackPanel>
+                    </DropDownButton.Content>
+                    <DropDownButton.Flyout>
+                        <Flyout>
+                            <StackPanel>
+                                <HyperlinkButton Content="JSON documentation" NavigateUri="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/JSON"/>
+                                <HyperlinkButton Content="C# documentation" NavigateUri="https://learn.microsoft.com/zh-cn/dotnet/csharp/"/>
+                            </StackPanel>
+                        </Flyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+                <DropDownButton AutomationProperties.Name="Github Source" Margin="5,0,0,0">
+                    <DropDownButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Github.png" Height="14" Width="14"/>
+                            <TextBlock Margin="10,0,0,0">Source</TextBlock>
+                        </StackPanel>
+                    </DropDownButton.Content>
+                    <DropDownButton.Flyout>
+                        <Flyout>
+                            <StackPanel>
+                                <HyperlinkButton Content="XAML source code" NavigateUri="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/NumberConverterPage.xaml"/>
+                                <HyperlinkButton Content="C# source code" NavigateUri="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/NumberConverterPage.xaml.cs"/>
+                            </StackPanel>
+                        </Flyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button ToolTipService.ToolTip="Copy Link" Margin="5">
+                    <FontIcon Glyph="&#xE71B;" FontSize="14"/>
+                </Button>
+                <Button ToolTipService.ToolTip="Feed Back" Margin="0,0,0,0">
+                    <FontIcon Glyph="&#xE8BD;" FontSize="14"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

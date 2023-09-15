@@ -17,6 +17,7 @@ public class PageService : IPageService
         Configure<MainViewModel, MainPage>();
         Configure<SettingsViewModel, SettingsPage>();
         Configure<JsonCSharpConverterViewModel, Views.ControlPage.DeveloperTools.JsonCSharpConverterPage>();
+        Configure<NumberConverterViewModel, NumberConverterPage>();
     }
 
     public Type GetPageType(string key)
