@@ -97,4 +97,7 @@
   <data name="Shell_JsonCSharpConverter.Content" xml:space="preserve">
     <value>JsonCSharpConverter</value>
   </data>
+  <data name="Shell_NumberConverter.Content" xml:space="preserve">
+    <value>NumberConverter</value>
+  </data>
 </root>

@@ -21,6 +21,7 @@
   <ItemGroup>
     <Content Remove="Assets\Control\Image\Developer-Tools.png" />
     <Content Remove="Assets\Control\Image\JSON-TO-CS.png" />
+    <Content Remove="Assets\Control\Image\NumberConverter.png" />
     <Content Remove="Assets\Control\Info\ControlInfos.json" />
     <Content Remove="Assets\ETool.png" />
     <Content Remove="Assets\Github.png" />
@@ -29,6 +30,7 @@
   <ItemGroup>
     <None Remove="Controls\ControlItemTemplate.xaml" />
     <None Remove="Controls\HeaderTile.xaml" />
+    <None Remove="Controls\OperatorBar.xaml" />
     <None Remove="Controls\TileGallery.xaml" />
     <None Remove="Styles\ButtonStyle.xaml" />
   </ItemGroup>
@@ -61,6 +63,9 @@
     <None Update="Assets\Control\Image\JSON-TO-CS.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Control\Image\NumberConverter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Control\Info\ControlInfos.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -73,6 +78,9 @@
     <None Update="Assets\Header.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Controls\OperatorBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Styles\ButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

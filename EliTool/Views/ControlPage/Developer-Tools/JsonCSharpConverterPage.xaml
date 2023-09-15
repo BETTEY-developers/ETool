@@ -7,6 +7,7 @@
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     xmlns:ui="using:CommunityToolkit.WinUI" 
     xmlns:viewmodels="using:EliTool.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:JsonCSharpConverterViewModel}"
+    xmlns:controls="using:EliTool.Controls"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
     <Page.Resources>
@@ -17,50 +18,17 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <DropDownButton AutomationProperties.Name="Documentation">
-                    <DropDownButton.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <FontIcon Glyph="&#xE8A5;" FontSize="14"/>
-                            <TextBlock Margin="10,0,0,0">Documentation</TextBlock>
-                        </StackPanel>
-                    </DropDownButton.Content>
-                    <DropDownButton.Flyout>
-                        <Flyout>
-                            <StackPanel>
-                                <HyperlinkButton Content="JSON documentation" NavigateUri="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/JSON"/>
-                                <HyperlinkButton Content="C# documentation" NavigateUri="https://learn.microsoft.com/zh-cn/dotnet/csharp/"/>
-                            </StackPanel>
-                        </Flyout>
-                    </DropDownButton.Flyout>
-                </DropDownButton>
-                <DropDownButton AutomationProperties.Name="Github Source" Margin="5,0,0,0">
-                    <DropDownButton.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Github.png" Height="14" Width="14"/>
-                            <TextBlock Margin="10,0,0,0">Source</TextBlock>
-                        </StackPanel>
-                    </DropDownButton.Content>
-                    <DropDownButton.Flyout>
-                        <Flyout>
-                            <StackPanel>
-                                <HyperlinkButton Content="XAML source code" NavigateUri="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.xaml"/>
-                                <HyperlinkButton Content="C# source code" NavigateUri="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.cs"/>
-                            </StackPanel>
-                        </Flyout>
-                    </DropDownButton.Flyout>
-                </DropDownButton>
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button ToolTipService.ToolTip="Copy Link" Margin="5">
-                    <FontIcon Glyph="&#xE71B;" FontSize="14"/>
-                </Button>
-                <Button ToolTipService.ToolTip="Feed Back" Margin="0,0,0,0">
-                    <FontIcon Glyph="&#xE8BD;" FontSize="14"/>
-                </Button>
-            </StackPanel>
-        </Grid>
+        <controls:OperatorBar Grid.Row="0" PageLink="e-gallery://DeveloperTools/JsonCSharpConverterPage.xaml">
+            <controls:OperatorBar.Documentations>
+                <controls:KeyValuePairStringItem Key="C# documentation" Value="https://learn.microsoft.com/zh-cn/dotnet/csharp/"/>
+                <controls:KeyValuePairStringItem Key="JSON documentation" Value="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/JSON"/>
+            </controls:OperatorBar.Documentations>
+            <controls:OperatorBar.GithubSources>
+                <controls:KeyValuePairStringItem Key="C# source behind-code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.xaml"/>
+                <controls:KeyValuePairStringItem Key="C# source viewmodel code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/ViewModels/JsonCSharpConverterViewModel.xaml"/>
+                <controls:KeyValuePairStringItem Key="XAML source code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.xaml.cs"/>
+            </controls:OperatorBar.GithubSources>
+        </controls:OperatorBar>
         <Grid Grid.Row="1" Padding="0,0,0,50">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
