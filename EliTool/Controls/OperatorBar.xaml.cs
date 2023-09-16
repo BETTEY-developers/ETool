@@ -136,7 +136,6 @@ public sealed partial class OperatorBar : UserControl
     public static readonly DependencyProperty PageLinkProperty =
         DependencyProperty.Register("PageLink", typeof(string), typeof(OperatorBar), new PropertyMetadata(null));
 
-
     [RelayCommand]
     public void CopyLink()
     {

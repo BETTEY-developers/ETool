@@ -25,7 +25,7 @@
             </controls:OperatorBar.Documentations>
             <controls:OperatorBar.GithubSources>
                 <controls:KeyValuePairStringItem Key="C# source behind-code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.xaml"/>
-                <controls:KeyValuePairStringItem Key="C# source viewmodel code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/ViewModels/JsonCSharpConverterViewModel.xaml"/>
+                <controls:KeyValuePairStringItem Key="C# source viewmodel code (Recommended)" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/ViewModels/JsonCSharpConverterViewModel.cs"/>
                 <controls:KeyValuePairStringItem Key="XAML source code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.xaml.cs"/>
             </controls:OperatorBar.GithubSources>
         </controls:OperatorBar>
@@ -33,11 +33,21 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Margin="0,20,0,20">此工具将帮助您从JSON代码转换成c#实体类，该工具为静态类工具，即不联网工作(参照<Hyperlink x:Name="ToStaticToolDocument">静态类工具</Hyperlink>)</TextBlock>
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <InfoBar IsOpen="True"
+                     Title="工具类型"
+                     Message="此工具为静态类工具，即不联网工作工具，详见"
+                     Grid.Row="0"
+                     Margin="0,20,0,20">
+                <InfoBar.ActionButton>
+                    <HyperlinkButton Content="静态类工具" />
+                </InfoBar.ActionButton>
+            </InfoBar>
+            <TextBlock Margin="0,0,0,20" Grid.Row="1">此工具将帮助您从JSON代码转换成c#实体类</TextBlock>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <toolkit:Segmented SelectedIndex="0"
                                    Margin="0,0,0,20"
                                    SelectionChanged="Segmented_SelectionChanged">
@@ -49,13 +59,13 @@
                 <TextBox VerticalAlignment="Top" MinWidth="160" Margin="5,0,0,0" x:Name="Namespace" Text="{x:Bind ViewModel.Namespace,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" PlaceholderText="命名空间"/>
             </StackPanel>
 
-            <TextBox Text="{x:Bind ViewModel.InputString,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DataContext="viewmodel:JsonCSharpConverterViewModel" x:FieldModifier="Public" TextWrapping="Wrap" Margin="0,0,0,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="CodeTextBox" Grid.Row="2"/>
+            <TextBox Text="{x:Bind ViewModel.InputString,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DataContext="viewmodel:JsonCSharpConverterViewModel" x:FieldModifier="Public" TextWrapping="Wrap" Margin="0,0,0,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="CodeTextBox" Grid.Row="3"/>
 
             <toolkit:SettingsExpander HeaderIcon="Setting"
                                       Header="选项"
                                       Description="设置选项以生成出心仪的c#代码"
                                       IsExpanded="True"
-                                      Grid.Row="3"
+                                      Grid.Row="4"
                                       VerticalAlignment="Bottom">
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="SummonTest" Command="{x:Bind ViewModel.SummonTestCommand}">生成测试用例</Button>

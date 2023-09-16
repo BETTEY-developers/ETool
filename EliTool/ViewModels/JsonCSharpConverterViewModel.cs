@@ -568,11 +568,15 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         _JsonString = InputString;
         if ((_JsonString??"") != "")
         {
-            _isjson = false;
-            JObject jo = JObject.Parse(InputString);
-            var cscode = await CreateClass(jo, "Root");
-            _CSharpString = (Namespace == ""? "" : $"namespace {Namespace};" + Environment.NewLine) + string.Join("", cscode);
-            InputString = _CSharpString;
+            try
+            {
+                _isjson = false;
+                JObject jo = JObject.Parse(InputString);
+                var cscode = await CreateClass(jo, "Root");
+                _CSharpString = (Namespace == "" ? "" : $"namespace {Namespace};" + Environment.NewLine) + string.Join("", cscode);
+                InputString = _CSharpString;
+            }
+            catch { }
         }
     }
 
