@@ -4,7 +4,6 @@ using EliTool.Contracts.Services;
 using EliTool.DataModels;
 using EliTool.Services;
 using EliTool.ViewModels;
-
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;

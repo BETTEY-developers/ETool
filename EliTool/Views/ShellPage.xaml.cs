@@ -64,6 +64,12 @@ public sealed partial class ShellPage : Page
             }
             NavigationViewControl.MenuItems.Add(item);
         }
+
+        if (Environment.GetCommandLineArgs().Length > 1)
+        {
+            string str = string.Join('.', Environment.GetCommandLineArgs()[1].Split("//")[1].Split("/"));
+            NavigationFrame.Navigate(Type.GetType("EliTool." + str));
+        }
     }
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
     {

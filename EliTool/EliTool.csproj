@@ -14,6 +14,11 @@
 	<UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <DefaultLanguage>zh-hans-CN</DefaultLanguage>
+    <ErrorReport>prompt</ErrorReport>
+    <AnalysisLevel>none</AnalysisLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <IncludeSymbols>False</IncludeSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Helpers\BooleanToEnableStateConverter.cs" />
@@ -26,6 +31,11 @@
     <Content Remove="Assets\ETool.png" />
     <Content Remove="Assets\Github.png" />
     <Content Remove="Assets\Header.png" />
+    <Content Remove="Assets\Navigate\Debug\net6.0\EToolNavigate.deps.json" />
+    <Content Remove="Assets\Navigate\Debug\net6.0\EToolNavigate.dll" />
+    <Content Remove="Assets\Navigate\Debug\net6.0\EToolNavigate.exe" />
+    <Content Remove="Assets\Navigate\Debug\net6.0\EToolNavigate.pdb" />
+    <Content Remove="Assets\Navigate\Debug\net6.0\EToolNavigate.runtimeconfig.json" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controls\ControlItemTemplate.xaml" />
@@ -77,6 +87,21 @@
     </None>
     <None Update="Assets\Header.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Navigate\Debug\net6.0\EToolNavigate.deps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Navigate\Debug\net6.0\EToolNavigate.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Navigate\Debug\net6.0\EToolNavigate.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Navigate\Debug\net6.0\EToolNavigate.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Navigate\Debug\net6.0\EToolNavigate.runtimeconfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Page Update="Controls\OperatorBar.xaml">
       <Generator>MSBuild:Compile</Generator>

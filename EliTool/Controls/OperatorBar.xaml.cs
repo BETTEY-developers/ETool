@@ -39,7 +39,7 @@ public sealed class KeyValuePairConverter : IValueConverter
     public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
 }
 
-public sealed partial class KeyValuePairStringItem : ContentControl
+public sealed partial class KeyValuePairStringItem : DependencyObject
 {
     public KeyValuePairStringItem()
     {

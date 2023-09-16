@@ -57,12 +57,19 @@
                   </com:ExeServer>
               </com:ComServer>
           </com:Extension>
+          <uap:Extension Category="windows.protocol">
+              <uap:Protocol Name="e-gallery">
+                  <uap:Logo>Assets\ETool.png</uap:Logo>
+                  <uap:DisplayName>EliTool Gallery</uap:DisplayName>
+              </uap:Protocol>
+          </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
+    <uap:Capability Name="removableStorage"/>
   </Capabilities>
 
   <genTemplate:Metadata>

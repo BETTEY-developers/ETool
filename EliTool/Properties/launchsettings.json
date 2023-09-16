@@ -1,10 +1,11 @@
-﻿{
-    "profiles": {
-      "EliTool (Package)": {
-        "commandName": "MsixPackage"
-      },
-      "EliTool (Unpackaged)": {
-        "commandName": "Project"
-      }
+{
+  "profiles": {
+    "EliTool (Package)": {
+      "commandName": "MsixPackage",
+      "doNotLaunchApp": true
+    },
+    "EliTool (Unpackaged)": {
+      "commandName": "Project"
     }
+  }
 }

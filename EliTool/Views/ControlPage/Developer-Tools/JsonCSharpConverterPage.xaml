@@ -18,7 +18,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <controls:OperatorBar Grid.Row="0" PageLink="e-gallery://DeveloperTools/JsonCSharpConverterPage.xaml">
+        <controls:OperatorBar Grid.Row="0" PageLink="e-gallery://Views/ControlPage/DeveloperTools/JsonCSharpConverterPage">
             <controls:OperatorBar.Documentations>
                 <controls:KeyValuePairStringItem Key="C# documentation" Value="https://learn.microsoft.com/zh-cn/dotnet/csharp/"/>
                 <controls:KeyValuePairStringItem Key="JSON documentation" Value="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/JSON"/>
