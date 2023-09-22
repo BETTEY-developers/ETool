@@ -1,0 +1,155 @@
+﻿<Page
+    x:Class="EliTool.Views.ControlPage.DeveloperTools.PictureConverterPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:EliTool.Controls"
+    xmlns:options="using:EliTool.ViewModels"
+    xmlns:converter="using:EliTool.Helpers"
+    ProcessKeyboardAccelerators="Page_ProcessKeyboardAccelerators"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+    <Page.KeyboardAccelerators>
+        <KeyboardAccelerator IsEnabled="True"
+                             Modifiers="Control"
+                             Key="V"/>
+    </Page.KeyboardAccelerators>
+    <Page.Resources>
+        <ResourceDictionary Source="/Styles/ButtonStyle.xaml"/>
+    </Page.Resources>
+    <Grid x:Name="ContentArea" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <controls:OperatorBar Grid.Row="0" PageLink="e-gallery://Views/ControlPage/DeveloperTools/JsonCSharpConverterPage">
+            <controls:OperatorBar.Documentations>
+                <controls:KeyValuePairStringItem Key="Picture documentation" Value="https://baike.baidu.com/item/%E5%9B%BE%E7%89%87"/>
+            </controls:OperatorBar.Documentations>
+            <controls:OperatorBar.GithubSources>
+                <controls:KeyValuePairStringItem Key="C# source behind-code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/PictureConverterPage.xaml"/>
+                <controls:KeyValuePairStringItem Key="C# source viewmodel code (Recommended)" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/ViewModels/PictureViewModel.cs"/>
+                <controls:KeyValuePairStringItem Key="XAML source code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/PictureConverterPage.xaml.cs"/>
+            </controls:OperatorBar.GithubSources>
+        </controls:OperatorBar>
+        <Grid Grid.Row="1"
+              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+              BorderThickness="1"
+              CornerRadius="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" 
+                  Padding="16" 
+                  HorizontalAlignment="Stretch"
+                  Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}">
+                <Border BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="250"
+                        Height="250"
+                        CornerRadius="{ThemeResource GridViewItemCornerRadius}">
+                    <Image Source="{x:Bind ViewModel.PicturePath,Mode=OneWay}" 
+                       HorizontalAlignment="Center" 
+                       Stretch="Uniform"
+                       Width="250"
+                       Height="250"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="1"
+                  HorizontalAlignment="Stretch"
+                  Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                  BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                  BorderThickness="0,1,0,0"
+                  Padding="16">
+                <StackPanel Spacing="5" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        Style="{ThemeResource AccentButtonStyle}" 
+                        Command="{x:Bind ViewModel.PickPictureCommand}">
+                        选取图片
+                    </Button>
+                    <Button HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        Style="{ThemeResource AccentButtonStyle}" 
+                        Command="{x:Bind ViewModel.PickPictureCommand}">
+                        重置图片
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <StackPanel Spacing="10" 
+                    Grid.Row="2" 
+                    Padding="16"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+            <Grid HorizontalAlignment="Left" ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Style="{ThemeResource SubtitleTextBlockStyle}" HorizontalAlignment="Left">导出设置</TextBlock>
+                <Border BorderBrush="{ThemeResource ControlStrongStrokeColorDefaultBrush}" 
+                        BorderThickness="1,0,0,0" 
+                        Grid.Column="1" 
+                        Height="32"
+                        VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" Grid.Column="2" Spacing="5">
+                    <Button Command="{x:Bind ViewModel.SelectOptionsCommand}">选取配置文件</Button>
+                    <Button Style="{ThemeResource WarningButtonStyle}" Command="{x:Bind ViewModel.ResetOptionsCommand}">重置配置</Button>
+                </StackPanel>
+            </Grid>
+
+            <TreeView SelectionMode="Multiple" 
+                      ItemsSource="{x:Bind ViewModel.Options.OptionUnits,Mode=TwoWay}"
+                      >
+                <TreeView.ItemTemplate>
+                    <DataTemplate x:DataType="options:OptionUnit">
+                        <TreeViewItem Height="60">
+                            <Grid ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="180"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock VerticalAlignment="Center" Text="{x:Bind Name,Mode=OneWay}" Style="{ThemeResource SubtitleTextBlockStyle}" Grid.Column="0"/>
+                                <TextBlock VerticalAlignment="Center" Text="{x:Bind NameRule,Mode=OneWay}" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Column="1"/>
+                                <ToggleSplitButton Grid.Column="2" HorizontalAlignment="Left" IsChecked="{x:Bind NonTransparent,Mode=TwoWay}">
+                                    <ToggleSplitButton.Content>
+                                        <Border BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+                                                BorderThickness="1"
+                                                CornerRadius="4"
+                                                Height="20" Width="20"
+                                                Background="{x:Bind NonTransparentColorBrush,Mode=OneWay}"/>
+                                    </ToggleSplitButton.Content>
+                                    <ToggleSplitButton.Flyout>
+                                        <Flyout>
+                                            <ColorPicker
+                                                  ColorSpectrumShape="Box"
+                                                  IsMoreButtonVisible="True"
+                                                  IsColorSliderVisible="True"
+                                                  IsColorChannelTextInputVisible="True"
+                                                  IsHexInputVisible="True"
+                                                  IsAlphaEnabled="False"
+                                                  IsAlphaSliderVisible="True"
+                                                  IsAlphaTextInputVisible="False"
+                                                  Color="{x:Bind NonTransparentColor,Mode=TwoWay}"/>
+                                        </Flyout>
+                                    </ToggleSplitButton.Flyout>
+                                </ToggleSplitButton>
+                            </Grid>
+                        </TreeViewItem>
+                        
+                    </DataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </StackPanel>
+    </Grid>
+</Page>

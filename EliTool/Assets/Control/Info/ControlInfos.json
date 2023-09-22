@@ -4,6 +4,7 @@
 		{
 			"Title": "开发人员工具",
 			"ImagePath": "ms-appx:///Assets/Control/Image/Developer-Tools.png",
+			"Id": "DeveloperTools",
 			"ControlInfos": [
 				{
 					"Title": "JSON到C#实体类转换器",
@@ -16,6 +17,12 @@
 					"Subtitle": "从一个进制的数字转换到另一个进制的数字",
 					"ImagePath": "ms-appx:///Assets/Control/Image/NumberConverter.png",
 					"ClickPath": "EliTool.ViewModels.NumberConverterViewModel"
+				},
+				{
+					"Title": "图片格式转换器",
+					"Subtitle": "从一个格式的图片转换到另一个格式的图片",
+					"ImagePath": "ms-appx:///Assets/Control/Image/PictureConverter.png",
+					"ClickPath": "EliTool.ViewModels.PictureConverterViewModel"
 				}
 			]
 		}

@@ -18,6 +18,11 @@ public class PageService : IPageService
         Configure<SettingsViewModel, SettingsPage>();
         Configure<JsonCSharpConverterViewModel, Views.ControlPage.DeveloperTools.JsonCSharpConverterPage>();
         Configure<NumberConverterViewModel, NumberConverterPage>();
+        Configure<DocumentOverviewViewModel, DocumentOverviewPage>();
+        Configure<OfflineToolsDocumentViewModel, Views.Document.OfflineToolsDocumentPage>();
+        Configure<OnlineToolsDocumentViewModel, Views.Document.OnlineToolsDocumentPage>();
+        Configure<OnOffLineToolsDocumentViewModel, Views.Document.OnOffLineToolsDocumentPage>();
+        Configure<PictureConverterViewModel, Views.ControlPage.DeveloperTools.PictureConverterPage>();
     }
 
     public Type GetPageType(string key)

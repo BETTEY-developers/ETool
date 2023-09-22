@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿
+using System.Diagnostics.CodeAnalysis;
 
 using EliTool.Contracts.Services;
 using EliTool.Contracts.ViewModels;
