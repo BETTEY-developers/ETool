@@ -22,6 +22,8 @@ public sealed partial class ShellPage : Page
         get;
     }
 
+    public NavigationView NavigationControlProperty => NavigationViewControl;
+
     public static ShellPage Instance { get; private set; }
 
     public ShellPage(ShellViewModel viewModel)
@@ -54,12 +56,14 @@ public sealed partial class ShellPage : Page
             NavigationViewItem item = new NavigationViewItem();
             item.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ControlGroup.ImagePath)) };
             item.Content = ControlGroup.Title;
+            item.Name = ControlGroup.Id;
             foreach (var ControlInfo in ControlGroup.ControlInfos)
             {
                 NavigationViewItem childitem = new NavigationViewItem();
                 childitem.Content = ControlInfo.Title;
                 childitem.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ControlInfo.ImagePath)) };
                 NavigationHelper.SetNavigateTo(childitem, ControlInfo.ClickPath);
+                childitem.Tag = ControlGroup.Id;
                 item.MenuItems.Add(childitem);
             }
             NavigationViewControl.MenuItems.Add(item);
@@ -111,5 +115,17 @@ public sealed partial class ShellPage : Page
         var result = navigationService.GoBack();
 
         args.Handled = result;
+    }
+
+    private void NavigationViewControl_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    {
+        if ((args.SelectedItem as NavigationViewItem)!.Tag != null)
+        {
+            try
+            {
+                (sender.FindName((string)(args.SelectedItem as NavigationViewItem)!.Tag) as NavigationViewItem).IsExpanded = true;
+            }
+            catch { }
+        }
     }
 }

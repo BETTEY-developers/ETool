@@ -31,11 +31,12 @@
             IsBackButtonVisible="Visible"
             IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
             SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
+            SelectionChanged="NavigationViewControl_SelectionChanged"
             IsSettingsVisible="True"
             ExpandedModeThresholdWidth="1280"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}"
-            x:FieldModifier="Public">
+            x:FieldModifier="public">
             <NavigationView.MenuItems>
                 <!--
                 TODO: Update item titles by updating <x:Uid>.Content entries in Strings/en-us/Resources.resw.
@@ -49,12 +50,27 @@
                         <ImageIcon Source="/Assets/ETool.png"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItemSeparator/>
-                <!--<NavigationViewItem x:Uid="Shell_NumberConverter" helpers:NavigationHelper.NavigateTo="EliTool.ViewModels.NumberConverterViewModel">
+                <NavigationViewItem x:Uid="Shell_DocumentOverview" helpers:NavigationHelper.NavigateTo="EliTool.ViewModels.DocumentOverviewViewModel">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A5;"/>
                     </NavigationViewItem.Icon>
-                </NavigationViewItem>-->
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem x:Uid="Shell_ToolDocumentsGroup">
+                            <NavigationViewItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEC7A;"/>
+                            </NavigationViewItem.Icon>
+                            <NavigationViewItem.MenuItems>
+                                <NavigationViewItem x:Uid="Shell_OfflineToolsDocument" helpers:NavigationHelper.NavigateTo="EliTool.ViewModels.OfflineToolsDocumentViewModel">
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Shell_OnOffLineToolsDocument" helpers:NavigationHelper.NavigateTo="EliTool.ViewModels.OnOffLineToolsDocumentViewModel">
+                                </NavigationViewItem>
+                                <NavigationViewItem x:Uid="Shell_OnlineToolsDocument" helpers:NavigationHelper.NavigateTo="EliTool.ViewModels.OnlineToolsDocumentViewModel">
+                                </NavigationViewItem>
+                            </NavigationViewItem.MenuItems>
+                        </NavigationViewItem>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+                <NavigationViewItemSeparator/>
             </NavigationView.MenuItems>
             <NavigationView.HeaderTemplate>
                 <DataTemplate>
