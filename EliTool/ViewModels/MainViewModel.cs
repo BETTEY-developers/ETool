@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
-using EliTool.DataModels;
+using EliTool.Models;
 using Windows.Storage;
 
 namespace EliTool.ViewModels;

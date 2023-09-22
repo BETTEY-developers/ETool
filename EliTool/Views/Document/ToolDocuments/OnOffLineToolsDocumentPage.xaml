@@ -1,0 +1,106 @@
+﻿<Page
+    x:Class="EliTool.Views.Document.OnOffLineToolsDocumentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="ContentArea" Padding="10">
+        <StackPanel Spacing="10">
+            <StackPanel>
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}">半静态工具文档</TextBlock>
+                <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}">最后修改于2023/9/17</TextBlock>
+            </StackPanel>
+
+            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">概述</TextBlock>
+            <TextBlock>半静态工具可在有信号的情况下使用，提供非在线状态下的部分功能，在线状态下的所有功能</TextBlock>
+
+            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">外观</TextBlock>
+            <TextBlock>在每个半静态工具的标题下面，它们通常会有这样的提示</TextBlock>
+            <InfoBar IsOpen="True"
+                     Severity="Warning"
+                     Title="工具类型"
+                     Message="此工具为半静态类工具，即可联网工作工具，详见"
+                     Grid.Row="0"
+                     Margin="0,20,0,20"
+                     IsClosable="False">
+                <InfoBar.ActionButton>
+                    <HyperlinkButton Content="半静态类工具" />
+                </InfoBar.ActionButton>
+            </InfoBar>
+            <TextBlock>这样的提示用于提示用户这个工具为在线工具，如无此提示，虽有可能是在线工具，但也可能是其他类型工具</TextBlock>
+
+            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">总结</TextBlock>
+            <Grid BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}" 
+                  BorderThickness="1"
+                  CornerRadius="{ThemeResource GridViewItemCornerRadius}"
+                  Background="{ThemeResource LayerFillColorDefaultBrush}"
+                  RowSpacing="20" ColumnSpacing="20" Padding="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Border -->
+                <Border Grid.Row="0" 
+                        Height="1" 
+                        Margin="-8" 
+                        VerticalAlignment="Bottom" 
+                        Grid.ColumnSpan="3" 
+                        BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}" 
+                        BorderThickness="1"/>
+                <Border Grid.Row="1" 
+                        Height="1" 
+                        Margin="-8" 
+                        VerticalAlignment="Bottom" 
+                        Grid.ColumnSpan="3" 
+                        BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}" 
+                        BorderThickness="1"/>
+                <Border Grid.RowSpan="3" 
+                        Grid.Column="0"
+                        Width="1" 
+                        Margin="-8" 
+                        HorizontalAlignment="Right"
+                        BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}" 
+                        BorderThickness="1"/>
+                <Border Grid.RowSpan="3" 
+                        Grid.Column="1"
+                        Width="1" 
+                        Margin="-8" 
+                        HorizontalAlignment="Right"
+                        BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}" 
+                        BorderThickness="1"/>
+                <Border Grid.RowSpan="3" 
+                        Grid.Column="2"
+                        Width="1" 
+                        Margin="-8" 
+                        HorizontalAlignment="Right"
+                        BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}" 
+                        BorderThickness="1"/>
+
+                <!-- Row 0 -->
+
+                <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0">状态</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1">完整功能</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="2">可交互性</TextBlock>
+
+                <!-- Row 1 -->
+                <TextBlock HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0">离线</TextBlock>
+                <FontIcon Grid.Row="1" Grid.Column="1" Glyph="&#xF167;" Foreground="{ThemeResource SystemFillColorCautionBrush}"/>
+                <FontIcon Grid.Row="1" Grid.Column="2" Glyph="&#xF167;" Foreground="{ThemeResource SystemFillColorCautionBrush}"/>
+
+                <!-- Row 2 -->
+                <TextBlock HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0">在线</TextBlock>
+                <FontIcon Grid.Row="2" Grid.Column="1" Glyph="&#xEC61;" Foreground="{ThemeResource SystemFillColorSuccessBrush}"/>
+                <FontIcon Grid.Row="2" Grid.Column="2" Glyph="&#xEC61;" Foreground="{ThemeResource SystemFillColorSuccessBrush}"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>
