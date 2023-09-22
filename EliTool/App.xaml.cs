@@ -1,4 +1,6 @@
-﻿using EliTool.Activation;
+﻿using DocumentViews = EliTool.Views.Document;
+
+using EliTool.Activation;
 using EliTool.Contracts.Services;
 using EliTool.Controls;
 using EliTool.Core.Contracts.Services;
@@ -70,6 +72,16 @@ public partial class App : Application
             services.AddSingleton<Core.Contracts.Services.IFileService, Core.Services.FileService>();
 
             // Views and ViewModels
+            services.AddTransient<PictureConverterViewModel>();
+            services.AddTransient<Views.ControlPage.DeveloperTools.PictureConverterPage>();
+            services.AddTransient<OnOffLineToolsDocumentViewModel>();
+            services.AddTransient<DocumentViews.OnOffLineToolsDocumentPage>();
+            services.AddTransient<OnlineToolsDocumentViewModel>();
+            services.AddTransient<DocumentViews.OnlineToolsDocumentPage>();
+            services.AddTransient<OfflineToolsDocumentViewModel>();
+            services.AddTransient<DocumentViews.OfflineToolsDocumentPage>();
+            services.AddTransient<DocumentOverviewViewModel>();
+            services.AddTransient<DocumentOverviewPage>();
             services.AddTransient<NumberConverterViewModel>();
             services.AddTransient<NumberConverterPage>();
             services.AddTransient<JsonCSharpConverterViewModel>();
