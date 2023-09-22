@@ -27,17 +27,14 @@
     <Content Remove="Assets\Control\Image\Developer-Tools.png" />
     <Content Remove="Assets\Control\Image\JSON-TO-CS.png" />
     <Content Remove="Assets\Control\Image\NumberConverter.png" />
+    <Content Remove="Assets\Control\Image\PictureConverter.png" />
     <Content Remove="Assets\Control\Info\ControlInfos.json" />
     <Content Remove="Assets\ETool.png" />
     <Content Remove="Assets\Github.png" />
     <Content Remove="Assets\Header.png" />
-    <Content Remove="Assets\Navigate\Debug\net6.0\EToolNavigate.deps.json" />
-    <Content Remove="Assets\Navigate\Debug\net6.0\EToolNavigate.dll" />
-    <Content Remove="Assets\Navigate\Debug\net6.0\EToolNavigate.exe" />
-    <Content Remove="Assets\Navigate\Debug\net6.0\EToolNavigate.pdb" />
-    <Content Remove="Assets\Navigate\Debug\net6.0\EToolNavigate.runtimeconfig.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Controls\ActionCard.xaml" />
     <None Remove="Controls\ControlItemTemplate.xaml" />
     <None Remove="Controls\HeaderTile.xaml" />
     <None Remove="Controls\OperatorBar.xaml" />
@@ -74,7 +71,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Control\Image\NumberConverter.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Control\Image\PictureConverter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Control\Info\ControlInfos.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -88,21 +88,9 @@
     <None Update="Assets\Header.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Navigate\Debug\net6.0\EToolNavigate.deps.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Navigate\Debug\net6.0\EToolNavigate.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Navigate\Debug\net6.0\EToolNavigate.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Navigate\Debug\net6.0\EToolNavigate.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Navigate\Debug\net6.0\EToolNavigate.runtimeconfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Page Update="Controls\ActionCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Controls\OperatorBar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -126,6 +114,7 @@
 
   <ItemGroup>
     <Folder Include="Views\ControlPage\Developer-Tools\" />
+    <Folder Include="Views\Document\ToolDocuments\" />
   </ItemGroup>
   
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
