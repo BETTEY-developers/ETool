@@ -153,4 +153,19 @@
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
   </data>
+  <data name="Shell_DocumentOverview.Content" xml:space="preserve">
+    <value>文档</value>
+  </data>
+  <data name="Shell_OfflineToolsDocument.Content" xml:space="preserve">
+    <value>静态工具文档</value>
+  </data>
+  <data name="Shell_OnlineToolsDocument.Content" xml:space="preserve">
+    <value>动态工具文档</value>
+  </data>
+  <data name="Shell_OnOffLineToolsDocument.Content" xml:space="preserve">
+    <value>半静态工具文档</value>
+  </data>
+  <data name="Shell_ToolDocumentsGroup.Content" xml:space="preserve">
+    <value>工具类型文档</value>
+  </data>
 </root>

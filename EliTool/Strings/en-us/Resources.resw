@@ -100,4 +100,19 @@
   <data name="Shell_NumberConverter.Content" xml:space="preserve">
     <value>NumberConverter</value>
   </data>
+  <data name="Shell_DocumentOverview.Content" xml:space="preserve">
+    <value>DocumentOverview</value>
+  </data>
+  <data name="Shell_OfflineToolsDocument.Content" xml:space="preserve">
+    <value>OfflineToolsDocument</value>
+  </data>
+  <data name="Shell_OnlineToolsDocument.Content" xml:space="preserve">
+    <value>OnlineToolsDocument</value>
+  </data>
+  <data name="Shell_OnOffLineToolsDocument.Content" xml:space="preserve">
+    <value>OnOffLineToolsDocument</value>
+  </data>
+  <data name="Shell_PictureConverter.Content" xml:space="preserve">
+    <value>PictureConverter</value>
+  </data>
 </root>
