@@ -1,8 +1,10 @@
-﻿using EliTool.Contracts.Services;
+﻿using System.Collections.ObjectModel;
+
+using EliTool.Contracts.Services;
 using EliTool.Helpers;
+using EliTool.Models;
 using EliTool.Services;
 using EliTool.ViewModels;
-
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -51,7 +53,7 @@ public sealed partial class ShellPage : Page
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
         NavigationViewControl.Header = null;
-        foreach (var ControlGroup in App.GetService<MainViewModel>().GetControlInfosAsync().ControlInfoGroups)
+        foreach (var ControlGroup in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
         {
             NavigationViewItem item = new NavigationViewItem();
             item.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ControlGroup.ImagePath)) };
@@ -127,5 +129,73 @@ public sealed partial class ShellPage : Page
             }
             catch { }
         }
+    }
+
+    private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        if (args.ChosenSuggestion == null)
+        {
+            ObservableCollection<SearchGroup> groups = new();
+
+            foreach (var group in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
+            {
+                if (group.ControlInfos.Any(x => x.Title.ToLower().Contains(args.QueryText.ToLower())))
+                {
+                    SearchGroup controlInfoGroup = new();
+                    controlInfoGroup.Id = group.Id;
+                    controlInfoGroup.Title = group.Title;
+                    ObservableCollection<SearchItem> items = new();
+                    foreach (var item in group.ControlInfos)
+                    {
+                        if (item.Title.ToLower().Contains(args.QueryText.ToLower()))
+                            items.Add(SearchItem.FromInfoData(item));
+                    }
+                    controlInfoGroup.Items = items;
+                    groups.Add(controlInfoGroup);
+                }
+            }
+
+            App.GetService<INavigationService>().NavigateTo("EliTool.ViewModels.SearchResultViewViewModel");
+            SearchResultViewPage.Instance.ViewModel.Groups = groups;
+            SearchResultViewPage.Instance.ReAddAllItem();
+        }
+        else
+        {
+            var item = args.ChosenSuggestion as ControlInfoDataItem;
+            if (item.ClickPath == "NoResult")
+                return;
+
+            App.GetService<INavigationService>().NavigateTo(item.ClickPath);
+        }
+    }
+
+    private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        if(args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
+            return;
+
+        List<ControlInfoDataItem> result = new();
+
+        foreach (var toolgroup in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
+        {
+            foreach (var item in toolgroup.ControlInfos)
+            {
+                if (item.Title.ToLower().Contains(sender.Text.ToLower()))
+                {
+                    result.Add(item);
+                }
+            }
+        }
+        if (result.Count == 0)
+        {
+            result.Add(new ControlInfoDataItem() { ImagePath = this.Resources["NoResult"] as string, Title = "没有结果", ClickPath = "NoResult" });
+        }
+
+        sender.ItemsSource = result;
+    }
+
+    private DataTemplate GetItemTemplate()
+    {
+        return (DataTemplate)CommunityToolkit.WinUI.FrameworkElementExtensions.FindResource(this, ApplicationData.Current.LocalSettings.Values["SearchItemStyle"]);
     }
 }

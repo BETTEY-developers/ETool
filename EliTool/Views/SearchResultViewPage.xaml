@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="EliTool.Views.SearchResultViewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:EliTool.Models"
+    xmlns:local="using:EliTool.Views"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Controls/ControlItemTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid x:Name="ContentArea" Margin="-56,-24,-56,0">
+        <NavigationView MenuItemsSource="{x:Bind ViewModel.Groups,Mode=OneWay}" 
+                        x:Name="NavigationControl" 
+                        IsSettingsVisible="False" 
+                        IsBackButtonVisible="Collapsed" 
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Top" 
+                        SelectionChanged="GridViewControl_SelectionChanged"
+                        PaneDisplayMode="Top">
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="local:SearchGroup">
+                    <NavigationViewItem Tag="{x:Bind Id}">
+                        <TextBlock Text="{x:Bind Title}"/>
+                    </NavigationViewItem>
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
+            <GridView Margin="35" 
+                      x:Name="GridViewControl"
+                      ItemTemplate="{StaticResource ControlItemInfoTemplate}" 
+                      IsItemClickEnabled="True" 
+                      ItemClick="GridView_ItemClick"/>
+        </NavigationView>
+    </Grid>
+</Page>

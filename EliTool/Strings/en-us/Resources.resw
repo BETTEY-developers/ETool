@@ -115,4 +115,7 @@
   <data name="Shell_PictureConverter.Content" xml:space="preserve">
     <value>PictureConverter</value>
   </data>
+  <data name="Shell_SearchResultView.Content" xml:space="preserve">
+    <value>SearchResultView</value>
+  </data>
 </root>

@@ -38,7 +38,7 @@
                 <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource BodyTextBlockStyle}">ETool V1.0</TextBlock>
-                            <TextBlock Style="{StaticResource TitleLargeTextBlockStyle}">Elipese Tool Gallery</TextBlock>
+                            <TextBlock Style="{StaticResource TitleLargeTextBlockStyle}">Elipese Tool <LineBreak/>Gallery</TextBlock>
                         </StackPanel>
                     </Grid>
                 <Image HorizontalAlignment="Right" Height="auto" Width="auto" Source="/Assets/Header.png" Stretch="None"/>

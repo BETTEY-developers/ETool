@@ -13,7 +13,7 @@ public partial class MainViewModel : ObservableRecipient
 
     Root LoadedRoot = null;
 
-    public Root GetControlInfosAsync()
+    public Root GetControlInfos()
     {
         if (LoadedRoot == null)
         {

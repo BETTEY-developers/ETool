@@ -30,7 +30,7 @@ public sealed partial class MainPage : Page
     {
         ShellPage.Instance.NavigationViewControl.Header = null;
         List<ControlInfoDataItem> items = new List<ControlInfoDataItem>();
-        foreach (var v in ViewModel.GetControlInfosAsync().ControlInfoGroups) foreach (var s in v.ControlInfos) ControlInfos.Add(s);
+        foreach (var v in ViewModel.GetControlInfos().ControlInfoGroups) foreach (var s in v.ControlInfos) ControlInfos.Add(s);
         
         base.OnNavigatedTo(e);
     }

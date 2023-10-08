@@ -23,6 +23,7 @@ public class PageService : IPageService
         Configure<OnlineToolsDocumentViewModel, Views.Document.OnlineToolsDocumentPage>();
         Configure<OnOffLineToolsDocumentViewModel, Views.Document.OnOffLineToolsDocumentPage>();
         Configure<PictureConverterViewModel, Views.ControlPage.DeveloperTools.PictureConverterPage>();
+        Configure<SearchResultViewViewModel, SearchResultViewPage>();
     }
 
     public Type GetPageType(string key)

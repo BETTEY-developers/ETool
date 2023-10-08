@@ -1,6 +1,7 @@
 ﻿using EliTool.ViewModels;
 
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace EliTool.Views;
 
@@ -16,5 +17,5 @@ public sealed partial class SettingsPage : Page
     {
         ViewModel = App.GetService<SettingsViewModel>();
         InitializeComponent();
-    }
+    } 
 }

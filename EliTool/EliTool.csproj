@@ -7,7 +7,7 @@
     <ApplicationIcon>Assets/WindowIcon.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;arm64</Platforms>
-    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
     <PublishProfile>Properties\PublishProfiles\win10-$(Platform).pubxml</PublishProfile>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
@@ -32,6 +32,8 @@
     <Content Remove="Assets\ETool.png" />
     <Content Remove="Assets\Github.png" />
     <Content Remove="Assets\Header.png" />
+    <Content Remove="Assets\NoDark.png" />
+    <Content Remove="Assets\NoLight.png" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controls\ActionCard.xaml" />
@@ -87,6 +89,12 @@
     </None>
     <None Update="Assets\Header.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\NoDark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\NoLight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Page Update="Controls\ActionCard.xaml">
       <Generator>MSBuild:Compile</Generator>
