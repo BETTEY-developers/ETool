@@ -1,7 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Text;
+﻿
+
+using System.Collections.ObjectModel;
 using System.Text.Json;
+using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EliTool.Core.Contracts.Services;
@@ -79,7 +80,8 @@ public class OptionUnit : ObservableObject
         set
         {
             _nonTransparentColor = value;
-            OnPropertyChanged("NonTransparentColor");
+            NonTransparentColorBrush = new SolidColorBrush(value);
+            OnPropertyChanged(nameof(NonTransparentColor));
         }
     }
 
@@ -90,7 +92,7 @@ public class OptionUnit : ObservableObject
         set
         {
             _nonTransparentColorBrush = value;
-            OnPropertyChanged("NonTransparentColorBrush");
+            OnPropertyChanged(nameof(NonTransparentColorBrush));
         }
     }
 

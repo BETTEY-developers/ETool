@@ -2,6 +2,7 @@
 
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 
 namespace EliTool.Views.ControlPage.DeveloperTools;
@@ -43,5 +44,6 @@ public sealed partial class PictureConverterPage : Page
 
     private void ColorPicker_ColorChanged(ColorPicker sender, ColorChangedEventArgs args)
     {
+        
     }
 }

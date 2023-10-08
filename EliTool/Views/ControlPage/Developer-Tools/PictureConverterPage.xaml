@@ -123,11 +123,14 @@
                                 <TextBlock VerticalAlignment="Center" Text="{x:Bind NameRule,Mode=OneWay}" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Column="1"/>
                                 <ToggleSplitButton Grid.Column="2" HorizontalAlignment="Left" IsChecked="{x:Bind NonTransparent,Mode=TwoWay}">
                                     <ToggleSplitButton.Content>
-                                        <Border BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
-                                                BorderThickness="1"
-                                                CornerRadius="4"
-                                                Height="20" Width="20"
-                                                Background="{x:Bind NonTransparentColorBrush,Mode=OneWay}"/>
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <TextBlock>Non-transparent</TextBlock>
+                                            <Border BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="4"
+                                                    Height="20" Width="20"
+                                                    Background="{Binding ElementName=ColorPicker,Path=Color,Converter={StaticResource }}"/>
+                                        </StackPanel>
                                     </ToggleSplitButton.Content>
                                     <ToggleSplitButton.Flyout>
                                         <Flyout>
@@ -140,7 +143,8 @@
                                                   IsAlphaEnabled="False"
                                                   IsAlphaSliderVisible="True"
                                                   IsAlphaTextInputVisible="False"
-                                                  Color="{x:Bind NonTransparentColor,Mode=TwoWay}"/>
+                                                  x:Name="ColorPicker"
+                                                  ColorChanged="ColorPicker_ColorChanged"/>
                                         </Flyout>
                                     </ToggleSplitButton.Flyout>
                                 </ToggleSplitButton>
