@@ -116,7 +116,7 @@ public sealed partial class SearchResultViewPage : Page
 
     public void ReAddAllItem()
     {
-        if (ViewModel.Groups[0].Id != "all")
+        if (ViewModel.Groups.Count > 0 && ViewModel.Groups[0].Id != "all")
         {
             ViewModel.Groups.Insert(0, new()
             {
