@@ -224,7 +224,7 @@ public partial class PictureConverterViewModel : ObservableRecipient
 
         var stream = await file.OpenStreamForReadAsync();
         byte[] data = new byte[stream.Length];
-        await stream.ReadAsync(data, 0, data.Length);
+    stream.ReadAsync(data, 0, data.Length);
 
         string json = Encoding.UTF8.GetString(data);
 

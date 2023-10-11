@@ -17,5 +17,13 @@ public sealed partial class SettingsPage : Page
     {
         ViewModel = App.GetService<SettingsViewModel>();
         InitializeComponent();
-    } 
+    }
+
+    private void SearchItemTypeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if(e.RemovedItems.Count > 0)
+        {
+            ChangedTip.IsOpen = true;
+        }
+    }
 }

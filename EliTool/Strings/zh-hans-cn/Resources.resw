@@ -168,4 +168,28 @@
   <data name="Shell_ToolDocumentsGroup.Content" xml:space="preserve">
     <value>工具类型文档</value>
   </data>
+  <data name="Settings_Theme_Selector.Description" xml:space="preserve">
+    <value>设置程序界面的呈现方式</value>
+  </data>
+  <data name="Settings_Theme_Selector.Header" xml:space="preserve">
+    <value>程序主题</value>
+  </data>
+  <data name="SearchItemTypeChangedTip.Subtitle" xml:space="preserve">
+    <value>重启应用后查看更改后的效果</value>
+  </data>
+  <data name="SearchItemTypeChangedTip.Title" xml:space="preserve">
+    <value>设置已更改！</value>
+  </data>
+  <data name="Settings_SearchItemType_All.Content" xml:space="preserve">
+    <value>详细</value>
+  </data>
+  <data name="Settings_SearchItemType_Segmented.Content" xml:space="preserve">
+    <value>简略的</value>
+  </data>
+  <data name="Settings_SearchItem_Type.Description" xml:space="preserve">
+    <value>更改此设置以更改在搜索框里内容的呈现方式</value>
+  </data>
+  <data name="Settings_SearchItem_Type.Header" xml:space="preserve">
+    <value>搜索项</value>
+  </data>
 </root>

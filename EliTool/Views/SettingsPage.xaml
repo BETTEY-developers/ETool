@@ -6,50 +6,45 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:helpers="using:EliTool.Helpers"
     xmlns:xaml="using:Microsoft.UI.Xaml"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <TeachingTip x:Name="ChangedTip" 
+             Target="{Binding ElementName=SearchItemTypeSelector}"
+             x:Uid="SearchItemTypeChangedTip">
+            <TeachingTip.IconSource>
+                <FontIconSource Glyph="&#xE72C;" />
+            </TeachingTip.IconSource>
+        </TeachingTip>
     </Page.Resources>
     <Grid>
         <StackPanel
-            x:Name="ContentArea">
+            x:Name="ContentArea"
+            Spacing="8">
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
-                <TextBlock x:Uid="Settings_Theme" />
 
-                <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                    <RadioButton
-                        x:Uid="Settings_Theme_Light"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Light</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                    <RadioButton
-                        x:Uid="Settings_Theme_Dark"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Dark</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                    <RadioButton
-                        x:Uid="Settings_Theme_Default"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Default</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                </StackPanel>
-            </StackPanel>
+            <toolkit:SettingsCard x:Uid="Settings_Theme_Selector">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE790;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ComboBox SelectionChangedTrigger="Committed" SelectedIndex="{x:Bind ViewModel.ElementTheme,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem x:Uid="Settings_Theme_Default"/>
+                    <ComboBoxItem x:Uid="Settings_Theme_Light"/>
+                    <ComboBoxItem x:Uid="Settings_Theme_Dark"/>
+                </ComboBox>
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard x:Uid="Settings_SearchItem_Type">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xEA37;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ComboBox Name="SearchItemTypeSelector" SelectionChangedTrigger="Committed" SelectionChanged="SearchItemTypeSelector_SelectionChanged"  SelectedIndex="{x:Bind ViewModel.SearchItemType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem x:Uid="Settings_SearchItemType_All"/>
+                    <ComboBoxItem x:Uid="Settings_SearchItemType_Segmented"/>
+                </ComboBox>
+                
+            </toolkit:SettingsCard>
 
             <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
