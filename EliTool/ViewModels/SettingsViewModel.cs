@@ -37,7 +37,7 @@ public partial class SettingsViewModel : ObservableRecipient
     {
         get
         {
-            return int.Parse(ApplicationData.Current.LocalSettings.Values["SearchItem"].ToString());
+            return int.Parse((ApplicationData.Current.LocalSettings.Values["SearchItem"] == null? 0 : ApplicationData.Current.LocalSettings.Values["SearchItem"]).ToString());
         }
         set
         {

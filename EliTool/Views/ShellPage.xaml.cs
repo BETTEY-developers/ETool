@@ -196,6 +196,6 @@ public sealed partial class ShellPage : Page
 
     private DataTemplate GetItemTemplate()
     {
-        return (DataTemplate)CommunityToolkit.WinUI.FrameworkElementExtensions.FindResource(this,Enum.GetName(typeof(Core.Common.SearchItemType),ApplicationData.Current.LocalSettings.Values["SearchItem"]) + "-SearchItem");
+        return (DataTemplate)CommunityToolkit.WinUI.FrameworkElementExtensions.FindResource(this,Enum.GetName(typeof(Core.Common.SearchItemType),ApplicationData.Current.LocalSettings.Values["SearchItem"]??0) + "-SearchItem");
     }
 }

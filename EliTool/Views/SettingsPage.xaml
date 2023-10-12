@@ -48,15 +48,45 @@
 
             <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
-            <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                <TextBlock Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" Style="{ThemeResource BodyTextBlockStyle}" />
-
-                <TextBlock
-                    x:Uid="Settings_AboutDescription"
-                    Margin="{StaticResource XSmallTopMargin}"
-                    Style="{ThemeResource BodyTextBlockStyle}" />
-                <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
-            </StackPanel>
+            <toolkit:SettingsExpander Header="ETool Gallery"
+                                      Description="Copyright 2023 Elipese. All rights reversed">
+                <toolkit:SettingsExpander.HeaderIcon>
+                    <ImageIcon Source="ms-appx:///Assets/ETool.png"/>
+                </toolkit:SettingsExpander.HeaderIcon>
+                <toolkit:SettingsExpander.Content>
+                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}" 
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" 
+                               Text="{x:Bind ViewModel.VersionDescription}"/>
+                </toolkit:SettingsExpander.Content>
+                <toolkit:SettingsExpander.Items>
+                    <toolkit:SettingsCard Header="To clone this repository">
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" 
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   IsTextSelectionEnabled="True">
+                            git clone
+                        </TextBlock>
+                    </toolkit:SettingsCard>
+                    <toolkit:SettingsCard Header="File a bug or proposed your idea"
+                                          ActionIconToolTip="Open a new window"
+                                          IsClickEnabled="True"
+                                          IsActionIconVisible="True">
+                        <toolkit:SettingsCard.ActionIcon>
+                            <FontIcon Glyph="&#xE8A7;"/>
+                        </toolkit:SettingsCard.ActionIcon>
+                    </toolkit:SettingsCard>
+                    <toolkit:SettingsCard>
+                        <toolkit:SettingsCard.Header>
+                            <StackPanel Spacing="3">
+                                <TextBlock>Dependencies and references</TextBlock>
+                                <HyperlinkButton NavigateUri="https://aka.ms/windowsappsdk">Windows App SDK 1.3, Windows App Runtime</HyperlinkButton>
+                                <HyperlinkButton NavigateUri="https://aka.ms/winui">Windows UI Library</HyperlinkButton>
+                                <HyperlinkButton NavigateUri="https://aka.ms/toolkit/windows">Windows Community Toolkit</HyperlinkButton>
+                                <HyperlinkButton NavigateUri="https://www.newtonsoft.com/json">Newtonsoft JSON Library</HyperlinkButton>
+                            </StackPanel>
+                        </toolkit:SettingsCard.Header>
+                    </toolkit:SettingsCard>
+                </toolkit:SettingsExpander.Items>
+            </toolkit:SettingsExpander>
         </StackPanel>
     </Grid>
 </Page>
