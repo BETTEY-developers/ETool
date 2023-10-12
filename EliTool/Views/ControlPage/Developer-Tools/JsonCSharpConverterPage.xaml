@@ -56,8 +56,8 @@
                                     ToolTipService.ToolTip="C# view" />
                 </toolkit:Segmented>
                 <TextBox VerticalAlignment="Top" MinWidth="160" x:Name="Namespace" Text="{x:Bind ViewModel.Namespace,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" PlaceholderText="命名空间"/>
-                <Button Style="{ThemeResource AccentButtonStyle}">从文件读取</Button>
-                <Button Style="{ThemeResource AccentButtonStyle}">保存到文件</Button>
+                <Button Style="{ThemeResource AccentButtonStyle}" Command="{x:Bind ViewModel.OpenWithFileCommand}">从文件读取</Button>
+                <Button Style="{ThemeResource AccentButtonStyle}" Command="{x:Bind ViewModel.SaveWithFileCommand}">保存到文件</Button>
             </StackPanel>
 
             <TextBox Text="{x:Bind ViewModel.InputString,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 

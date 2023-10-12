@@ -12,6 +12,9 @@ using System.Text;
 using System.Collections.Specialized;
 using Windows.ApplicationModel.Appointments.DataProvider;
 using CommunityToolkit.Mvvm.ComponentModel.__Internals;
+using Windows.Storage.Pickers;
+using Windows.Storage;
+using EliTool.Helpers;
 
 namespace EliTool.ViewModels;
 
@@ -463,7 +466,6 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
                 [JTokenType.Object] = name,
                 [JTokenType.String] = "string",
                 [JTokenType.Boolean] = "bool",
-                [JTokenType.Date] = "System.DateTime",
                 [JTokenType.Array] = $"{name}[]",
                 [JTokenType.Null] = "object",
                 [JTokenType.Uri] = "System.Uri",
@@ -584,5 +586,69 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     {
         InputString = _JsonString;
         _isjson = true;
+    }
+
+    [RelayCommand]
+    public async void OpenWithFile()
+    {
+        var openPicker = new FileOpenPicker();
+
+        // Initialize the file picker with the window handle (HWND).
+        WinRT.Interop.InitializeWithWindow.Initialize(openPicker, App.MainWindow.GetWindowHandle());
+
+        // Set options for your file picker
+        openPicker.ViewMode = PickerViewMode.Thumbnail;
+        openPicker.FileTypeFilter.Add("*");
+
+        // Open the picker for the user to pick a file
+        var file = await openPicker.PickSingleFileAsync();
+
+        if (file == null)
+        {
+            ContentDialog dialog = new ContentDialog();
+
+            // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
+            dialog.XamlRoot = Page.XamlRoot;
+            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+            dialog.Title = "操作取消";
+            dialog.PrimaryButtonText = "确定";
+            dialog.DefaultButton = ContentDialogButton.Primary;
+            dialog.Content = "操作已取消";
+
+            await dialog.ShowAsync();
+            return;
+        }
+
+        string json = await FileIO.ReadTextAsync(file);
+
+        _JsonString = json;
+
+        if (IsJson)
+            InputString = _JsonString;
+    }
+
+    [RelayCommand]
+    public async void SaveWithFile()
+    {
+        if (_CSharpString == "")
+        {
+            await SimpleContentDialogHelper.InitContentDialog("提示", "未生成C#代码", Primary: "确定")
+                  .ShowAsync();
+            return;
+        }
+
+        var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+
+        // Initialize the file picker with the window handle (HWND).
+        WinRT.Interop.InitializeWithWindow.Initialize(savePicker, App.MainWindow.GetWindowHandle());
+
+        // Set options for your file picker
+        savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+
+        var file = await savePicker.PickSaveFileAsync();
+
+        FileIO.AppendTextAsync(file, _CSharpString);
+
+        await SimpleContentDialogHelper.InitContentDialog("成功", "已生成JSON代码", Primary: "确定").ShowAsync();
     }
 }
