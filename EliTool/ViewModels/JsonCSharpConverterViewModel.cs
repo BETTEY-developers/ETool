@@ -263,22 +263,16 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     [RelayCommand]
     public async void SummonTest()
     {
-       if(InputString != "")
+       if(InputString != "" && InputString != null)
        {
-            ContentDialog dialog = new ContentDialog();
-
-            // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
-            dialog.XamlRoot = Page.XamlRoot;
-            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            dialog.Title = "输入框已有内容";
-            dialog.PrimaryButtonText = "生成";
-            dialog.SecondaryButtonText = "不生成";
-            dialog.CloseButtonText = "取消";
-            dialog.DefaultButton = ContentDialogButton.Secondary;
-            dialog.Content = "输入框已有内容，生成示例后将会覆盖\n是否生成？";
-
-            var result = await dialog.ShowAsync();
-            if(result == ContentDialogResult.Secondary)
+            var result = await SimpleContentDialogHelper.InitContentDialog(
+                    "JCC_InputIsNotNul".GetLocalized("JsonCSharpConverterPage"),
+                    "JCC_Summon_Example_Choose".GetLocalized("JsonCSharpConverterPage"),
+                    Primary: "System_Operator_Summon".GetLocalized(),
+                    Secondary: "System_Operator_NoSummon".GetLocalized(),
+                    Close: "System_Cancel".GetLocalized()
+                    ).ShowAsync();
+            if (result is ContentDialogResult.Secondary or ContentDialogResult.None)
             {
                 return;
             }
@@ -312,20 +306,14 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     {
         if (InputString != "")
         {
-            ContentDialog dialog = new ContentDialog();
-
-            // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
-            dialog.XamlRoot = Page.XamlRoot;
-            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            dialog.Title = "输入框已有内容";
-            dialog.PrimaryButtonText = "清除";
-            dialog.SecondaryButtonText = "不清除";
-            dialog.CloseButtonText = "取消";
-            dialog.DefaultButton = ContentDialogButton.Secondary;
-            dialog.Content = "输入框已有内容，清楚后所有内容将会被清除\n是否清除？";
-
-            var result = await dialog.ShowAsync();
-            if (result == ContentDialogResult.Secondary)
+            var result = await SimpleContentDialogHelper.InitContentDialog(
+                    "JCC_InputIsNotNul".GetLocalized("JsonCSharpConverterPage"),
+                    "JCC_InputIsNotNul_Choose".GetLocalized("JsonCSharpConverterPage"),
+                    Primary: "JCC_Clear_Input".GetLocalized("JsonCSharpConverterPage"),
+                    Secondary: "JCC_NoClear_Input".GetLocalized("JsonCSharpConverterPage"),
+                    Close: "System_Cancel".GetLocalized()
+                    ).ShowAsync();
+            if (result is ContentDialogResult.Secondary or ContentDialogResult.None)
             {
                 return;
             }
@@ -344,20 +332,12 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     [RelayCommand]
     public async void ResetOption()
     {
-        ContentDialog dialog = new ContentDialog();
-
-        // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
-        dialog.XamlRoot = Page.XamlRoot;
-        dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-        dialog.Title = "是否重置所有选项";
-        dialog.PrimaryButtonText = "重置";
-        //dialog.PrimaryButtonStyle = Application.Current.Resources["WarningButtonStyle"] as Style;
-        dialog.SecondaryButtonText = "不重置";
-        dialog.CloseButtonText = "取消";
-        dialog.DefaultButton = ContentDialogButton.Secondary;
-        dialog.Content = "是否重置所有选项";
-
-        var result = await dialog.ShowAsync();
+        var result = await SimpleContentDialogHelper.InitContentDialog(
+                "JCC_Choose_Reset_AllOfOptions".GetLocalized("JsonCSharpConverterPage"),
+                "JCC_Choose_Reset_AllOfOptions".GetLocalized("JsonCSharpConverterPage"),
+                Primary: "System_Operator_Reset".GetLocalized(),
+                Secondary: "System_Operator_NoReset".GetLocalized()
+                ).ShowAsync(); ;
         if (result == ContentDialogResult.Secondary)
         {
             return;
@@ -605,17 +585,11 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
 
         if (file == null)
         {
-            ContentDialog dialog = new ContentDialog();
-
-            // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
-            dialog.XamlRoot = Page.XamlRoot;
-            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-            dialog.Title = "操作取消";
-            dialog.PrimaryButtonText = "确定";
-            dialog.DefaultButton = ContentDialogButton.Primary;
-            dialog.Content = "操作已取消";
-
-            await dialog.ShowAsync();
+            await SimpleContentDialogHelper.InitContentDialog(
+                "System_Operator_Cancel".GetLocalized(),
+                "System_Operator_Cancel".GetLocalized(),
+                Primary: "System_OK".GetLocalized()
+                ).ShowAsync();
             return;
         }
 
@@ -632,23 +606,40 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     {
         if (_CSharpString == "")
         {
-            await SimpleContentDialogHelper.InitContentDialog("提示", "未生成C#代码", Primary: "确定")
-                  .ShowAsync();
+            await SimpleContentDialogHelper.InitContentDialog(
+                "System_Caption".GetLocalized(), 
+                "JCC_CSharpCode_IsNul".GetLocalized("JsonCSharpConverterPage"), 
+                Primary: "System_OK".GetLocalized()
+                ).ShowAsync();
             return;
         }
 
         var savePicker = new Windows.Storage.Pickers.FileSavePicker();
 
+        savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+
+        savePicker.FileTypeChoices.Add("JSON", new List<string>() { ".json " });
         // Initialize the file picker with the window handle (HWND).
         WinRT.Interop.InitializeWithWindow.Initialize(savePicker, App.MainWindow.GetWindowHandle());
 
-        // Set options for your file picker
-        savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-
         var file = await savePicker.PickSaveFileAsync();
+
+        if (file == null)
+        {
+            await SimpleContentDialogHelper.InitContentDialog(
+                "System_Operator_Cancel".GetLocalized(),
+                "System_Operator_Cancel".GetLocalized(),
+                Primary: "System_OK".GetLocalized()
+                ).ShowAsync();
+            return;
+        }
 
         FileIO.AppendTextAsync(file, _CSharpString);
 
-        await SimpleContentDialogHelper.InitContentDialog("成功", "已生成JSON代码", Primary: "确定").ShowAsync();
+        await SimpleContentDialogHelper.InitContentDialog(
+            "System_OK".GetLocalized(), 
+            "JCC_Summon_JSON_Complated".GetLocalized("JsonCSharpConverterPage"), 
+            Primary: "System_OK".GetLocalized()
+            ).ShowAsync();
     }
 }
