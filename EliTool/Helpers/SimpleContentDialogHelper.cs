@@ -21,12 +21,12 @@ public class SimpleContentDialogHelper
         ContentDialog dialog = new ContentDialog();
 
         // XamlRoot must be set in the case of a ContentDialog running in a Desktop app
-        dialog.XamlRoot = Window.Current.Content.XamlRoot;
+        dialog.XamlRoot = App.MainWindow.Content.XamlRoot;
         dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
         dialog.Title = title;
         dialog.PrimaryButtonText = Primary;
         dialog.DefaultButton = DefaultButton;
-        dialog.Content = content;
+        dialog.Content = content.Replace("$LineBreak$", "\n");
         dialog.SecondaryButtonText = Secondary;
         dialog.CloseButtonText = Close;
 
