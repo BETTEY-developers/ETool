@@ -8,6 +8,7 @@
     xmlns:ui="using:CommunityToolkit.WinUI" 
     xmlns:viewmodels="using:EliTool.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:JsonCSharpConverterViewModel}"
     xmlns:controls="using:EliTool.Controls"
+    xmlns:markup="using:EliTool.Helpers"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
     <Page.Resources>
@@ -20,13 +21,19 @@
         </Grid.RowDefinitions>
         <controls:OperatorBar Grid.Row="0" PageLink="e-gallery://Views/ControlPage/DeveloperTools/JsonCSharpConverterPage">
             <controls:OperatorBar.Documentations>
-                <controls:KeyValuePairStringItem Key="C# documentation" Value="https://learn.microsoft.com/zh-cn/dotnet/csharp/"/>
-                <controls:KeyValuePairStringItem Key="JSON documentation" Value="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/JSON"/>
+                <controls:KeyValuePairStringItem Key="C# documentation" 
+                                                 Value="https://learn.microsoft.com/zh-cn/dotnet/csharp/"/>
+                <controls:KeyValuePairStringItem Key="JSON documentation" 
+                                                 Value="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/JSON"/>
             </controls:OperatorBar.Documentations>
+            
             <controls:OperatorBar.GithubSources>
-                <controls:KeyValuePairStringItem Key="C# source behind-code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.xaml"/>
-                <controls:KeyValuePairStringItem Key="C# source viewmodel code (Recommended)" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/ViewModels/JsonCSharpConverterViewModel.cs"/>
-                <controls:KeyValuePairStringItem Key="XAML source code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.xaml.cs"/>
+                <controls:KeyValuePairStringItem Key="C# source behind-code" 
+                                                 Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.xaml"/>
+                <controls:KeyValuePairStringItem Key="C# source viewmodel code (Recommended)" 
+                                                 Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/ViewModels/JsonCSharpConverterViewModel.cs"/>
+                <controls:KeyValuePairStringItem Key="XAML source code" 
+                                                 Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/JsonCSharpConverterPage.xaml.cs"/>
             </controls:OperatorBar.GithubSources>
         </controls:OperatorBar>
         <Grid Grid.Row="1" Padding="0,0,0,50" RowSpacing="15">
@@ -38,15 +45,25 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <InfoBar IsOpen="True"
-                     Title="工具类型"
-                     Message="此工具为静态类工具，即不联网工作工具，详见"
+                     Title="{markup:ResourceMarkup ResourceKey=System_ToolType}"
+                     Message="{markup:ResourceMarkup ResourceKey=System_ToolType_Static_Description_Bar}"
                      Grid.Row="0">
                 <InfoBar.ActionButton>
-                    <HyperlinkButton Content="静态类工具" />
+                    <HyperlinkButton Command="{Binding NavigationToDocumentCommand}"
+                                     Content="{markup:ResourceMarkup ResourceKey=System_ToolType_Static}">
+                        <HyperlinkButton.CommandParameter>
+                            <viewmodels:Documents>
+                                OfflineTool
+                            </viewmodels:Documents>
+                        </HyperlinkButton.CommandParameter>
+                        <HyperlinkButton.DataContext>
+                            <viewmodels:DocumentOverviewViewModel/>
+                        </HyperlinkButton.DataContext>
+                    </HyperlinkButton>
                 </InfoBar.ActionButton>
             </InfoBar>
-            <TextBlock Grid.Row="1">此工具将帮助您从JSON代码转换成c#实体类</TextBlock>
-            
+            <TextBlock x:Uid="ms-resource:///JsonCSharpConverterPage/JCC_Description" Grid.Row="1"/>
+
             <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="5">
                 <toolkit:Segmented SelectedIndex="0"
                                    SelectionChanged="Segmented_SelectionChanged">
@@ -55,7 +72,11 @@
                     <toolkit:SegmentedItem Content="C#"
                                     ToolTipService.ToolTip="C# view" />
                 </toolkit:Segmented>
-                <TextBox VerticalAlignment="Top" MinWidth="160" x:Name="Namespace" Text="{x:Bind ViewModel.Namespace,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" PlaceholderText="命名空间"/>
+                <TextBox VerticalAlignment="Top" 
+                         MinWidth="160" 
+                         x:Name="Namespace" 
+                         Text="{x:Bind ViewModel.Namespace,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                         PlaceholderText="命名空间"/>
                 <Button Style="{ThemeResource AccentButtonStyle}" Command="{x:Bind ViewModel.OpenWithFileCommand}">从文件读取</Button>
                 <Button Style="{ThemeResource AccentButtonStyle}" Command="{x:Bind ViewModel.SaveWithFileCommand}">保存到文件</Button>
             </StackPanel>
@@ -70,48 +91,96 @@
                      Grid.Row="3"/>
 
             <toolkit:SettingsExpander HeaderIcon="Setting"
-                                      Header="选项"
-                                      Description="设置选项以生成出心仪的c#代码"
+                                      x:Uid="ms-resource:///JsonCSharpConverterPage/OptionCard"
                                       IsExpanded="True"
                                       Grid.Row="4"
                                       VerticalAlignment="Bottom">
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="SummonTest" Command="{x:Bind ViewModel.SummonTestCommand}">生成测试用例</Button>
-                    <Button x:Name="CopyCS" Command="{x:Bind ViewModel.CopyInputCommand}" Click="CopyCS_Click" Margin="5,0,0,0">复制生成内容</Button>
-                    <Button x:Name="ClearContent" Command="{x:Bind ViewModel.ClearInputCommand}" Style="{ThemeResource AccentButtonStyle}" Margin="5,0,0,0">清除输入框内容</Button>
-                    <Button x:Name="ResetOption" Margin="5,0,0,0" Command="{x:Bind ViewModel.ResetOptionCommand}" Style="{ThemeResource WarningButtonStyle}">重置选项</Button>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <Button x:Uid="ms-resource:///JsonCSharpConverterPage/SummonTest" 
+                            x:Name="SummonTest" 
+                            Command="{x:Bind ViewModel.SummonTestCommand}"/>
+                    <Button x:Uid="ms-resource:///JsonCSharpConverterPage/CopyCS" 
+                            x:Name="CopyCS" 
+                            Command="{x:Bind ViewModel.CopyInputCommand}"/>
+                    <Button x:Uid="ms-resource:///JsonCSharpConverterPage/ClearInput" 
+                            x:Name="ClearContent" 
+                            Command="{x:Bind ViewModel.ClearInputCommand}" 
+                            Style="{ThemeResource AccentButtonStyle}"/>
+                    <Button x:Uid="ms-resource:///JsonCSharpConverterPage/ResetOption" 
+                            x:Name="ResetOption" Command="{x:Bind ViewModel.ResetOptionCommand}" 
+                            Style="{ThemeResource WarningButtonStyle}"/>
                 </StackPanel>
+                
                 <toolkit:SettingsExpander.Items>
                     <toolkit:SettingsCard>
                         <toolkit:SettingsCard.Header>
-                            <ToggleSwitch OnContent="生成属性注释" OffContent="不生成属性注释" IsOn="{x:Bind ViewModel.NeedDoc,Mode=TwoWay}" x:Name="NeedDoc"/>
+                            <ToggleSwitch x:Uid="ms-resource:///JsonCSharpConverterPage/NeedDoc"
+                                          IsOn="{x:Bind ViewModel.NeedDoc,Mode=TwoWay}" 
+                                          x:Name="NeedDoc"/>
                         </toolkit:SettingsCard.Header>
+                        
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" IsChecked="{x:Bind ViewModel.NeedValueDoc,Mode=TwoWay}" x:Name="NeedValueDoc">生成值注释</CheckBox>
-                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" IsChecked="{x:Bind ViewModel.NeedKeyDoc,Mode=TwoWay}" x:Name="NeedKeyDoc">生成键注释</CheckBox>
-                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" IsChecked="{x:Bind ViewModel.NeedRawString,Mode=TwoWay}" x:Name="NeedRawString">生成原始键值对字符串</CheckBox>
+                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" 
+                                      IsChecked="{x:Bind ViewModel.NeedValueDoc,Mode=TwoWay}" 
+                                      x:Uid="ms-resource:///JsonCSharpConverterPage/NeedValueDoc"
+                                      x:Name="NeedValueDoc"/>
+                            
+                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" 
+                                      IsChecked="{x:Bind ViewModel.NeedKeyDoc,Mode=TwoWay}" 
+                                      x:Uid="ms-resource:///JsonCSharpConverterPage/NeedKeyDoc"
+                                      x:Name="NeedKeyDoc"/>
+                            
+                            <CheckBox IsEnabled="{Binding ElementName=NeedDoc,Path=IsOn}" 
+                                      IsChecked="{x:Bind ViewModel.NeedRawString,Mode=TwoWay}" 
+                                      x:Uid="ms-resource:///JsonCSharpConverterPage/NeedRawStringDoc"
+                                      x:Name="NeedRawString"/>
                         </StackPanel>
                     </toolkit:SettingsCard>
+                    
                     <toolkit:SettingsCard>
                         <toolkit:SettingsCard.Header>
-                            <ToggleSwitch HorizontalAlignment="Right" OnContent="自动重命名  " OffContent="不自动重命名  " IsOn="{x:Bind ViewModel.NeedAutoRename,Mode=TwoWay}" x:Name="NeedAutoRename"/>
+                            <ToggleSwitch HorizontalAlignment="Right" 
+                                          IsOn="{x:Bind ViewModel.NeedAutoRename,Mode=TwoWay}" 
+                                          x:Name="NeedAutoRename"
+                                          x:Uid="ms-resource:///JsonCSharpConverterPage/NeedAutoRename"/>
                         </toolkit:SettingsCard.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox IsEnabled="{Binding ElementName=NeedAutoRename,Path=IsOn}" IsChecked="{x:Bind ViewModel.NeedAutoFrontName,Mode=TwoWay}" x:Name="AutoAddToFront">
-                                <TextBox x:Name="FrontContent" IsEnabled="{Binding ElementName=AutoAddToFront,Path=IsChecked}" Text="{x:Bind ViewModel.AutoFrontName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" PlaceholderText="要添加的前缀"/>
+                        
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <CheckBox IsEnabled="{Binding ElementName=NeedAutoRename,Path=IsOn}" 
+                                      IsChecked="{x:Bind ViewModel.NeedAutoFrontName,Mode=TwoWay}" 
+                                      x:Name="AutoAddToFront">
+                                <TextBox x:Name="FrontContent" 
+                                         IsEnabled="{Binding ElementName=AutoAddToFront,Path=IsChecked}" 
+                                         Text="{x:Bind ViewModel.AutoFrontName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                         x:Uid="ms-resource:///JsonCSharpConverterPage/FrontContent"/>
                             </CheckBox>
-                            <CheckBox IsEnabled="{Binding ElementName=NeedAutoRename,Path=IsOn}" IsChecked="{x:Bind ViewModel.NeedAutoReplace,Mode=TwoWay}" x:Name="AutoReplace" Margin="10,0,0,0">
-                                <TextBox x:Name="ReplaceContent" IsEnabled="{Binding ElementName=AutoReplace,Path=IsChecked}" Text="{x:Bind ViewModel.AutoReplace,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" PlaceholderText="要替换掉错误命名的字符"/>
+                            
+                            <CheckBox IsEnabled="{Binding ElementName=NeedAutoRename,Path=IsOn}" 
+                                      IsChecked="{x:Bind ViewModel.NeedAutoReplace,Mode=TwoWay}" 
+                                      x:Name="AutoReplace">
+                                <TextBox x:Name="ReplaceContent" 
+                                         IsEnabled="{Binding ElementName=AutoReplace,Path=IsChecked}" 
+                                         Text="{x:Bind ViewModel.AutoReplace,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                         x:Uid="ms-resource:///JsonCSharpConverterPage/ReplaceContent"/>
                             </CheckBox>
                         </StackPanel>
                     </toolkit:SettingsCard>
+                    
                     <toolkit:SettingsCard>
                         <toolkit:SettingsCard.Header>
-                            <ToggleSwitch HorizontalAlignment="Right" OnContent="生成类后缀  " OffContent="不生成类后缀  " IsOn="{x:Bind ViewModel.NeedClassExname,Mode=TwoWay}" x:Name="NeedExname"/>
+                            <ToggleSwitch HorizontalAlignment="Right" 
+                                          IsOn="{x:Bind ViewModel.NeedClassExname,Mode=TwoWay}" 
+                                          x:Uid="ms-resource:///JsonCSharpConverterPage/NeedExName"
+                                          x:Name="NeedExname"/>
                         </toolkit:SettingsCard.Header>
-                        <TextBox PlaceholderText="想生成的类后缀" Text="{x:Bind ViewModel.ClassExname,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=NeedExname,Path=IsOn}" x:Name="ExName"/>
+                        
+                        <TextBox Text="{x:Bind ViewModel.ClassExname,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                 IsEnabled="{Binding ElementName=NeedExname,Path=IsOn}" 
+                                 x:Uid="ms-resource:///JsonCSharpConverterPage/ExName"
+                                 x:Name="ExName"/>
                     </toolkit:SettingsCard>
-                    <toolkit:SettingsCard Header="属性默认访问权限修饰符">
+
+                    <toolkit:SettingsCard x:Uid="ms-resource:///JsonCSharpConverterPage/Modifer">
                         <ComboBox SelectedIndex="{x:Bind ViewModel.Protect,Mode=TwoWay}">
                             <ComboBoxItem>public</ComboBoxItem>
                             <ComboBoxItem>private</ComboBoxItem>
