@@ -53,7 +53,7 @@ public sealed partial class ShellPage : Page
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
         NavigationViewControl.Header = null;
-        foreach (var ControlGroup in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
+        foreach (var ControlGroup in App.GetService<MainViewModel>().GetControlInfos().Result.ControlInfoGroups)
         {
             NavigationViewItem item = new NavigationViewItem();
             item.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ControlGroup.ImagePath)) };
@@ -137,7 +137,7 @@ public sealed partial class ShellPage : Page
         {
             ObservableCollection<SearchGroup> groups = new();
 
-            foreach (var group in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
+            foreach (var group in App.GetService<MainViewModel>().GetControlInfos().Result.ControlInfoGroups)
             {
                 if (group.ControlInfos.Any(x => x.Title.ToLower().Contains(args.QueryText.ToLower())))
                 {
@@ -176,7 +176,7 @@ public sealed partial class ShellPage : Page
 
         List<ControlInfoDataItem> result = new();
 
-        foreach (var toolgroup in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
+        foreach (var toolgroup in App.GetService<MainViewModel>().GetControlInfos().Result.ControlInfoGroups)
         {
             foreach (var item in toolgroup.ControlInfos)
             {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
 using EliTool.Contracts.Services;
+using EliTool.Helpers;
 using EliTool.Models;
 using EliTool.Services;
 using EliTool.ViewModels;
@@ -30,7 +31,7 @@ public sealed partial class MainPage : Page
     {
         ShellPage.Instance.NavigationViewControl.Header = null;
         List<ControlInfoDataItem> items = new List<ControlInfoDataItem>();
-        foreach (var v in ViewModel.GetControlInfos().ControlInfoGroups) foreach (var s in v.ControlInfos) ControlInfos.Add(s);
+        foreach (var v in ViewModel.GetControlInfos().Result.ControlInfoGroups) foreach (var s in v.ControlInfos) ControlInfos.Add(s);
         
         base.OnNavigatedTo(e);
     }
