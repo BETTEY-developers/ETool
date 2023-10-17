@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:EliTool.ViewModels"
     xmlns:controls="using:EliTool.Controls"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea">
@@ -24,9 +25,14 @@
                     </controls:ActionCard.ActiveCardContent>
                     <controls:ActionCard.Action>
                         <HyperlinkButton x:Name="NavToOfflineToolDoc" 
-                                         Command="{x:Bind ViewModel.NavigationToCommand}" 
-                                         CommandParameter="EliTool.ViewModels.OfflineToolsDocumentViewModel"
-                                         Content="查看详细"/>
+                                         Command="{x:Bind ViewModel.NavigationToDocumentCommand}" 
+                                         Content="查看详细">
+                            <HyperlinkButton.CommandParameter>
+                                <viewmodels:Documents>
+                                    OfflineTool
+                                </viewmodels:Documents>
+                            </HyperlinkButton.CommandParameter>
+                        </HyperlinkButton>
                     </controls:ActionCard.Action>
                 </controls:ActionCard>
 
@@ -36,9 +42,14 @@
                     </controls:ActionCard.ActiveCardContent>
                     <controls:ActionCard.Action>
                         <HyperlinkButton x:Name="NavToOnAndOffLineToolDoc" 
-                                         Command="{x:Bind ViewModel.NavigationToCommand}" 
-                                         CommandParameter="EliTool.ViewModels.OnOffLineToolsDocumentViewModel"
-                                         Content="查看详细"/>
+                                         Command="{x:Bind ViewModel.NavigationToDocumentCommand}" 
+                                         Content="查看详细">
+                            <HyperlinkButton.CommandParameter>
+                                <viewmodels:Documents>
+                                    PartialOfflineTool
+                                </viewmodels:Documents>
+                            </HyperlinkButton.CommandParameter>
+                        </HyperlinkButton>
                     </controls:ActionCard.Action>
                 </controls:ActionCard>
 
@@ -48,9 +59,14 @@
                     </controls:ActionCard.ActiveCardContent>
                     <controls:ActionCard.Action>
                         <HyperlinkButton x:Name="NavToOnlineToolDoc" 
-                                         Command="{x:Bind ViewModel.NavigationToCommand}" 
-                                         CommandParameter="EliTool.ViewModels.OnlineToolsDocumentViewModel"
-                                         Content="查看详细"/>
+                                         Command="{x:Bind ViewModel.NavigationToDocumentCommand}" 
+                                         Content="查看详细">
+                            <HyperlinkButton.CommandParameter>
+                                <viewmodels:Documents>
+                                    OnlineTool
+                                </viewmodels:Documents>
+                            </HyperlinkButton.CommandParameter>
+                        </HyperlinkButton>
                     </controls:ActionCard.Action>
                 </controls:ActionCard>
             </StackPanel>
