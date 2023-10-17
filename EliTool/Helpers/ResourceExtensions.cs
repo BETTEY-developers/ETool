@@ -22,4 +22,6 @@ public static class ResourceExtensions
     }
 
     public static string GetLocalized(this string resourceKey,string culture = "Resources") => /*_resourceLoader.GetString(resourceKey)*/ _resources[culture + "/" + resourceKey].ValueAsString;
+
+    public static ResourceCandidate GetLocalizedRaw(this string resourceKey, string culture = "Resources") => _resources[culture + "/" + resourceKey];
 }

@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ClearInput.Content" xml:space="preserve">
+    <value>清除输入框内容</value>
+  </data>
+  <data name="CopyCS.Content" xml:space="preserve">
+    <value>复制生成内容</value>
+  </data>
+  <data name="ExName.PlaceholderText" xml:space="preserve">
+    <value>想生成的类后缀</value>
+  </data>
+  <data name="FrontContent.PlaceholderText" xml:space="preserve">
+    <value>要添加的前缀</value>
+  </data>
   <data name="JCC_Choose_Reset_AllOfOptions" xml:space="preserve">
     <value>是否重置所有选项</value>
   </data>
@@ -125,6 +137,9 @@
   </data>
   <data name="JCC_CSharpCode_IsNul" xml:space="preserve">
     <value>C#代码未生成！</value>
+  </data>
+  <data name="JCC_Description.Text" xml:space="preserve">
+    <value>此工具将帮助您从JSON代码转换成c#实体类</value>
   </data>
   <data name="JCC_InputIsNotNul" xml:space="preserve">
     <value>输入框已有内容</value>
@@ -140,5 +155,53 @@
   </data>
   <data name="JCC_Summon_JSON_Complated" xml:space="preserve">
     <value>已生成JSON代码！</value>
+  </data>
+  <data name="JCC_Summon_Option" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="Modifer.Header" xml:space="preserve">
+    <value>属性默认访问权限修饰符</value>
+  </data>
+  <data name="NeedAutoRename.OffContent" xml:space="preserve">
+    <value>不自动重命名</value>
+  </data>
+  <data name="NeedAutoRename.OnContent" xml:space="preserve">
+    <value>自动重命名</value>
+  </data>
+  <data name="NeedDoc.OffContent" xml:space="preserve">
+    <value>不生成属性注释</value>
+  </data>
+  <data name="NeedDoc.OnContent" xml:space="preserve">
+    <value>生成属性注释</value>
+  </data>
+  <data name="NeedExName.OffContent" xml:space="preserve">
+    <value>不生成类后缀</value>
+  </data>
+  <data name="NeedExName.OnContent" xml:space="preserve">
+    <value>生成类后缀</value>
+  </data>
+  <data name="NeedKeyDoc.Content" xml:space="preserve">
+    <value>生成键注释</value>
+  </data>
+  <data name="NeedRawStringDoc.Content" xml:space="preserve">
+    <value>生成原始键值对字符串</value>
+  </data>
+  <data name="NeedValueDoc.Content" xml:space="preserve">
+    <value>生成值注释</value>
+  </data>
+  <data name="OptionCard.Description" xml:space="preserve">
+    <value>设置选项以生成出心仪的c#代码</value>
+  </data>
+  <data name="OptionCard.Header" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="ReplaceContent.PlaceholderText" xml:space="preserve">
+    <value>要替换掉错误命名的字符</value>
+  </data>
+  <data name="ResetOption.Content" xml:space="preserve">
+    <value>重置选项</value>
+  </data>
+  <data name="SummonTest.Content" xml:space="preserve">
+    <value>生成测试用例</value>
   </data>
 </root>

@@ -15,6 +15,7 @@ using CommunityToolkit.Mvvm.ComponentModel.__Internals;
 using Windows.Storage.Pickers;
 using Windows.Storage;
 using EliTool.Helpers;
+using EliTool.Contracts.Services;
 
 namespace EliTool.ViewModels;
 
@@ -258,6 +259,12 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
 
     public JsonCSharpConverterViewModel()
     {
+    }
+
+    [RelayCommand]
+    public void NavigationTo(string type)
+    {
+        App.GetService<INavigationService>().NavigateTo(type);
     }
 
     [RelayCommand]

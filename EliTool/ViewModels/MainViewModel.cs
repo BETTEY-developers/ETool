@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
+using EliTool.Helpers;
 using EliTool.Models;
 using Windows.Storage;
 
@@ -11,15 +12,17 @@ public partial class MainViewModel : ObservableRecipient
     {
     }
 
-    Root LoadedRoot = null;
+    private static Root LoadedRoot = null;
 
-    public Root GetControlInfos()
+    public async Task<Root> GetControlInfos()
     {
         if (LoadedRoot == null)
         {
-            var fservice = App.GetService<Core.Contracts.Services.IFileService>();
+            var resource = "ControlInfos.json".GetLocalizedRaw("Files/Assets/Control/Info");
 
-            LoadedRoot = fservice.Read<Root>(string.Join('\\', Process.GetCurrentProcess().MainModule.FileName.Split('\\')[..^1]) + "\\Assets\\Control\\Info", "ControlInfos.json");
+            StorageFile storageFile = await StorageFile.GetFileFromPathAsync(resource.ValueAsString);
+
+            LoadedRoot = Newtonsoft.Json.JsonConvert.DeserializeObject<Root>(await FileIO.ReadTextAsync(storageFile)) ;
         }
         return LoadedRoot;
     }

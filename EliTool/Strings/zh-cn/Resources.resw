@@ -219,4 +219,13 @@
   <data name="System_Operator_Summon" xml:space="preserve">
     <value>生成</value>
   </data>
+  <data name="System_ToolType" xml:space="preserve">
+    <value>工具类型</value>
+  </data>
+  <data name="System_ToolType_Static" xml:space="preserve">
+    <value>静态类工具</value>
+  </data>
+  <data name="System_ToolType_Static_Description_Bar" xml:space="preserve">
+    <value>此工具为静态类工具，即不联网工作工具，详见</value>
+  </data>
 </root>
