@@ -15,25 +15,46 @@
                              Modifiers="Control"
                              Key="V"/>
     </Page.KeyboardAccelerators>
+    
     <Page.Resources>
-        <ResourceDictionary Source="/Styles/ButtonStyle.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/ButtonStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <CommandBarFlyout x:Name="ItemFlyoutCommandBar" Placement="Left">
+                <AppBarButton Icon="Edit" Label="编辑"/>
+                <AppBarButton Icon="Delete" Label="删除"/>
+            </CommandBarFlyout>
+            
+            <converter:BrushConverter x:Key="BrushConverter"/>
+        </ResourceDictionary>
     </Page.Resources>
+    
     <Grid x:Name="ContentArea" RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        
         <controls:OperatorBar Grid.Row="0" PageLink="e-gallery://Views/ControlPage/DeveloperTools/JsonCSharpConverterPage">
             <controls:OperatorBar.Documentations>
-                <controls:KeyValuePairStringItem Key="Picture documentation" Value="https://baike.baidu.com/item/%E5%9B%BE%E7%89%87"/>
+                <controls:KeyValuePairStringItem Key="Picture documentation" 
+                                                 Value="https://baike.baidu.com/item/%E5%9B%BE%E7%89%87"/>
             </controls:OperatorBar.Documentations>
             <controls:OperatorBar.GithubSources>
-                <controls:KeyValuePairStringItem Key="C# source behind-code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/PictureConverterPage.xaml"/>
-                <controls:KeyValuePairStringItem Key="C# source viewmodel code (Recommended)" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/ViewModels/PictureViewModel.cs"/>
-                <controls:KeyValuePairStringItem Key="XAML source code" Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/PictureConverterPage.xaml.cs"/>
+                <controls:KeyValuePairStringItem Key="C# source behind-code" 
+                                                 Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/PictureConverterPage.xaml"/>
+                
+                <controls:KeyValuePairStringItem Key="C# source viewmodel code (Recommended)" 
+                                                 Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/ViewModels/PictureViewModel.cs"/>
+                
+                <controls:KeyValuePairStringItem Key="XAML source code" 
+                                                 Value="https://github.com/BETTEY-developers/ETool/blob/master/EliTool/Views/ControlPage/Developer-Tools/PictureConverterPage.xaml.cs"/>
             </controls:OperatorBar.GithubSources>
         </controls:OperatorBar>
+        
         <Grid Grid.Row="1"
               BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
               BorderThickness="1"
@@ -42,6 +63,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+            
             <Grid Grid.Row="0" 
                   Padding="16" 
                   HorizontalAlignment="Stretch"
@@ -60,6 +82,7 @@
                        Height="250"/>
                 </Border>
             </Grid>
+            
             <Grid Grid.Row="1"
                   HorizontalAlignment="Stretch"
                   Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -73,6 +96,7 @@
                         Command="{x:Bind ViewModel.PickPictureCommand}">
                         选取图片
                     </Button>
+                    
                     <Button HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
                         Style="{ThemeResource AccentButtonStyle}" 
@@ -82,6 +106,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
+        
         <StackPanel Spacing="10" 
                     Grid.Row="2" 
                     Padding="16"
@@ -95,65 +120,64 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                
                 <TextBlock Grid.Column="0" Style="{ThemeResource SubtitleTextBlockStyle}" HorizontalAlignment="Left">导出设置</TextBlock>
+                
                 <Border BorderBrush="{ThemeResource ControlStrongStrokeColorDefaultBrush}" 
                         BorderThickness="1,0,0,0" 
                         Grid.Column="1" 
                         Height="32"
                         VerticalAlignment="Center" />
+                
                 <StackPanel Orientation="Horizontal" Grid.Column="2" Spacing="5">
                     <Button Command="{x:Bind ViewModel.SelectOptionsCommand}">选取配置文件</Button>
+                    
                     <Button Style="{ThemeResource WarningButtonStyle}" Command="{x:Bind ViewModel.ResetOptionsCommand}">重置配置</Button>
+                    
+                    <Button Command="{x:Bind ViewModel.AddItemCommand}">添加项</Button>
                 </StackPanel>
             </Grid>
-
-            <TreeView SelectionMode="Multiple" 
-                      ItemsSource="{x:Bind ViewModel.Options.OptionUnits,Mode=TwoWay}"
-                      >
-                <TreeView.ItemTemplate>
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+            </Grid>
+            <ListView ItemsSource="{x:Bind ViewModel.Options.OptionUnits,Mode=TwoWay}" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+                <ListView.ItemTemplate>
                     <DataTemplate x:DataType="options:OptionUnit">
-                        <TreeViewItem Height="60">
+                        <ListViewItem Name="ItemPreseter" Height="60" >
                             <Grid ColumnSpacing="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="180"/>
                                     <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="180"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+                                
                                 <TextBlock VerticalAlignment="Center" Text="{x:Bind Name,Mode=OneWay}" Style="{ThemeResource SubtitleTextBlockStyle}" Grid.Column="0"/>
+                                
                                 <TextBlock VerticalAlignment="Center" Text="{x:Bind NameRule,Mode=OneWay}" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Column="1"/>
-                                <ToggleSplitButton Grid.Column="2" HorizontalAlignment="Left" IsChecked="{x:Bind NonTransparent,Mode=TwoWay}">
-                                    <ToggleSplitButton.Content>
-                                        <StackPanel Orientation="Horizontal" Spacing="5">
-                                            <TextBlock>Non-transparent</TextBlock>
-                                            <Border BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
-                                                    BorderThickness="1"
-                                                    CornerRadius="4"
-                                                    Height="20" Width="20"
-                                                    Background="{Binding ElementName=ColorPicker,Path=Color,Converter={StaticResource }}"/>
-                                        </StackPanel>
-                                    </ToggleSplitButton.Content>
-                                    <ToggleSplitButton.Flyout>
-                                        <Flyout>
-                                            <ColorPicker
-                                                  ColorSpectrumShape="Box"
-                                                  IsMoreButtonVisible="True"
-                                                  IsColorSliderVisible="True"
-                                                  IsColorChannelTextInputVisible="True"
-                                                  IsHexInputVisible="True"
-                                                  IsAlphaEnabled="False"
-                                                  IsAlphaSliderVisible="True"
-                                                  IsAlphaTextInputVisible="False"
-                                                  x:Name="ColorPicker"
-                                                  ColorChanged="ColorPicker_ColorChanged"/>
-                                        </Flyout>
-                                    </ToggleSplitButton.Flyout>
-                                </ToggleSplitButton>
+                                
+                                <FontIcon VerticalAlignment="Center" Glyph="&#xEC61;" FontSize="16" Foreground="{ThemeResource SystemFillColorSuccessBrush}" Grid.Column="2"/>
+                                
+                                <Border BorderBrush="{ThemeResource CardStrokeColorDefaultSolidBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="{ThemeResource GridViewItemCornerRadius}"
+                                        Height="20" Width="20"
+                                        VerticalAlignment="Center"
+                                        Grid.Column="3"
+                                        Background="{x:Bind NonTransparentColor, Mode=OneWay, Converter={StaticResource BrushConverter}}"/>
                             </Grid>
-                        </TreeViewItem>
-                        
+                        </ListViewItem>
                     </DataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
     </Grid>
 </Page>

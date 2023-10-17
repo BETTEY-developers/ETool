@@ -80,25 +80,8 @@ public class OptionUnit : ObservableObject
         set
         {
             _nonTransparentColor = value;
-            NonTransparentColorBrush = new SolidColorBrush(value);
             OnPropertyChanged(nameof(NonTransparentColor));
         }
-    }
-
-    public SolidColorBrush _nonTransparentColorBrush;
-    public SolidColorBrush NonTransparentColorBrush
-    {
-        get => _nonTransparentColorBrush;
-        set
-        {
-            _nonTransparentColorBrush = value;
-            OnPropertyChanged(nameof(NonTransparentColorBrush));
-        }
-    }
-
-    public void SetColor(ColorPicker sender, ColorChangedEventArgs args)
-    {
-        
     }
 }
 
@@ -158,6 +141,11 @@ public partial class PictureConverterViewModel : ObservableRecipient
 
     [ObservableProperty]
     PictureConverterOptions options = new();
+
+    public OptionUnit ClickedItem
+    {
+        set; get;
+    } = new OptionUnit();
 
     public KeyboardAcceleratorActions AcceleratorActions { get; set; }
     
@@ -263,4 +251,18 @@ public partial class PictureConverterViewModel : ObservableRecipient
     {
     
     }
+
+#if DEBUG
+    [RelayCommand]
+    public void AddItem()
+    {
+        Options.OptionUnits.Add(new OptionUnit()
+        {
+            Name = "Test1",
+            NameRule = "$t$-$rn$ $s$",
+            NonTransparent = true,
+            NonTransparentColor = Microsoft.UI.Colors.Salmon
+        });
+    }
+#endif
 }

@@ -1,6 +1,7 @@
 ﻿using EliTool.ViewModels;
-
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
@@ -45,5 +46,11 @@ public sealed partial class PictureConverterPage : Page
     private void ColorPicker_ColorChanged(ColorPicker sender, ColorChangedEventArgs args)
     {
         
+    }
+
+    private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+    {
+        ViewModel.ClickedItem = (OptionUnit)e.ClickedItem;
+        ItemFlyoutCommandBar.ShowAt((FrameworkElement)sender);
     }
 }
