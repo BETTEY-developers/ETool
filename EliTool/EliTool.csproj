@@ -28,6 +28,7 @@
     <Content Remove="Assets\Control\Image\JSON-TO-CS.png" />
     <Content Remove="Assets\Control\Image\NumberConverter.png" />
     <Content Remove="Assets\Control\Image\PictureConverter.png" />
+    <Content Remove="Assets\Control\Info\ControlInfos - 复制.json" />
     <Content Remove="Assets\Control\Info\ControlInfos.json" />
     <Content Remove="Assets\ETool.png" />
     <Content Remove="Assets\Github.png" />
@@ -78,7 +79,10 @@
     <None Update="Assets\Control\Image\PictureConverter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Control\Info\ControlInfos.json">
+    <None Update="Assets\Control\Info\en-US\ControlInfos.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Control\Info\zh-CN\ControlInfos.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\ETool.png">
