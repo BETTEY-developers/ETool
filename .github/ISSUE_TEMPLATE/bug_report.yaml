@@ -1,0 +1,28 @@
+name: Bug report
+description: File a bug report
+title: "Bug: "
+body:
+  - type: dropdown
+    validations:
+      required: true
+    attributes:
+      label: Bug type
+      description: Which type of bug
+      options:
+        - "GUI (Graphics User Interface)"
+        - "Info"
+        - "Localized"
+        - "Code bug"
+        - "Other"
+  - type: textarea
+    attributes:
+      label: Description
+      description: Please provide a description of the bug and how to reproduce it
+  - type: textarea
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots here to help explain your problem
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: Enter any other applicable info here
