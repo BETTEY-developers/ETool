@@ -7,18 +7,19 @@
     xmlns:helpers="using:EliTool.Helpers"
     xmlns:xaml="using:Microsoft.UI.Xaml"
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    xmlns:media="using:Microsoft.UI.Xaml.Media"
     mc:Ignorable="d">
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
         <TeachingTip x:Name="ChangedTip" 
-             Target="{Binding ElementName=SearchItemTypeSelector}"
-             x:Uid="SearchItemTypeChangedTip">
+                     x:Uid="SearchItemTypeChangedTip">
             <TeachingTip.IconSource>
                 <FontIconSource Glyph="&#xE72C;" />
             </TeachingTip.IconSource>
         </TeachingTip>
     </Page.Resources>
     <Grid>
+
         <StackPanel
             x:Name="ContentArea"
             Spacing="8">
@@ -28,7 +29,9 @@
                 <toolkit:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE790;" />
                 </toolkit:SettingsCard.HeaderIcon>
-                <ComboBox SelectionChangedTrigger="Committed" SelectedIndex="{x:Bind ViewModel.ElementTheme,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                
+                <ComboBox SelectionChangedTrigger="Committed" 
+                          SelectedIndex="{x:Bind ViewModel.ElementTheme,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                     <ComboBoxItem x:Uid="Settings_Theme_Default"/>
                     <ComboBoxItem x:Uid="Settings_Theme_Light"/>
                     <ComboBoxItem x:Uid="Settings_Theme_Dark"/>
@@ -39,11 +42,27 @@
                 <toolkit:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xEA37;" />
                 </toolkit:SettingsCard.HeaderIcon>
-                <ComboBox Name="SearchItemTypeSelector" SelectionChangedTrigger="Committed" SelectionChanged="SearchItemTypeSelector_SelectionChanged"  SelectedIndex="{x:Bind ViewModel.SearchItemType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+
+                <ComboBox Name="SearchItemTypeSelector" 
+                          SelectionChangedTrigger="Committed" 
+                          SelectionChanged="SearchItemTypeSelector_SelectionChanged"  
+                          SelectedIndex="{x:Bind ViewModel.SearchItemType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                     <ComboBoxItem x:Uid="Settings_SearchItemType_All"/>
                     <ComboBoxItem x:Uid="Settings_SearchItemType_Segmented"/>
                 </ComboBox>
-                
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard x:Uid="Settings_Language_Choose">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xF2B7;" />
+                </toolkit:SettingsCard.HeaderIcon>
+
+                <ComboBox SelectionChangedTrigger="Committed" 
+                          SelectionChanged="ComboBox_SelectionChanged"
+                          SelectedIndex="{x:Bind ViewModel.ChooseLanguage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem>中国（简体）</ComboBoxItem>
+                    <ComboBoxItem>English (United States)</ComboBoxItem>
+                </ComboBox>
             </toolkit:SettingsCard>
 
             <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
@@ -63,11 +82,12 @@
                         <TextBlock Style="{ThemeResource BodyTextBlockStyle}" 
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    IsTextSelectionEnabled="True">
-                            git clone
+                            git clone https://github.com/BETTEY-developers/ETool
                         </TextBlock>
                     </toolkit:SettingsCard>
                     <toolkit:SettingsCard Header="File a bug or proposed your idea"
                                           ActionIconToolTip="Open a new window"
+                                          Click="SettingsCard_Click"
                                           IsClickEnabled="True"
                                           IsActionIconVisible="True">
                         <toolkit:SettingsCard.ActionIcon>

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Globalization;
+using System.Reflection;
 using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,6 +11,8 @@ using EliTool.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Resources.Core;
+using Windows.Globalization;
 using Windows.Storage;
 
 namespace EliTool.ViewModels;
@@ -43,6 +46,26 @@ public partial class SettingsViewModel : ObservableRecipient
         {
             ApplicationData.Current.LocalSettings.Values["SearchItem"] = value;
             OnPropertyChanged(nameof(SearchItemType));
+        }
+    }
+
+    public int ChooseLanguage
+    {
+        get => ApplicationLanguages.PrimaryLanguageOverride.ToLower() switch
+        {
+            "zh-hans-cn" => 0,
+            "zh-zn" => 0,
+            "en-us" => 1,
+            _ => 0
+        };
+        set
+        {
+            ApplicationLanguages.PrimaryLanguageOverride = value switch
+            {
+                0 => "zh-CN",
+                1 => "en-US"
+            };
+            OnPropertyChanged(nameof(ChooseLanguage));
         }
     }
 
