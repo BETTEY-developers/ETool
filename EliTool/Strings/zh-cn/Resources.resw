@@ -228,4 +228,16 @@
   <data name="System_ToolType_Static_Description_Bar" xml:space="preserve">
     <value>此工具为静态类工具，即不联网工作工具，详见</value>
   </data>
+  <data name="Settings_Language_Choose.Description" xml:space="preserve">
+    <value>选择语言以使您更易于使用</value>
+  </data>
+  <data name="Settings_Language_Choose.Header" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Setting_Loading_Subtitle.Text" xml:space="preserve">
+    <value>正在处理更改，请坐和放宽</value>
+  </data>
+  <data name="Setting_Loading_Title.Text" xml:space="preserve">
+    <value>正在处理...</value>
+  </data>
 </root>
