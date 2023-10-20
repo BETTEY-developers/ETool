@@ -24,6 +24,7 @@ public class PageService : IPageService
         Configure<OnOffLineToolsDocumentViewModel, Views.Document.OnOffLineToolsDocumentPage>();
         Configure<PictureConverterViewModel, Views.ControlPage.DeveloperTools.PictureConverterPage>();
         Configure<SearchResultViewViewModel, SearchResultViewPage>();
+        Configure<LoadingViewModel, LoadingPage>();
     }
 
     public Type GetPageType(string key)
