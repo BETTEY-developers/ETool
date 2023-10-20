@@ -1,5 +1,6 @@
 ﻿using EliTool.Activation;
 using EliTool.Contracts.Services;
+using EliTool.ViewModels;
 using EliTool.Views;
 
 using Microsoft.UI.Xaml;
@@ -29,8 +30,10 @@ public class ActivationService : IActivationService
         // Set the MainWindow Content.
         if (App.MainWindow.Content == null)
         {
-            _shell = App.GetService<ShellPage>();
-            App.MainWindow.Content = _shell ?? new Frame();
+            var frame = new Frame();
+            frame.Navigate(typeof(ShellPage));
+            App.MainWindow.Content = frame;
+            _shell = ShellPage.Instance;
         }
 
         // Handle activation via ActivationHandlers.
