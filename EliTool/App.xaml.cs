@@ -72,6 +72,8 @@ public partial class App : Application
             services.AddSingleton<Core.Contracts.Services.IFileService, Core.Services.FileService>();
 
             // Views and ViewModels
+            services.AddTransient<LoadingViewModel>();
+            services.AddTransient<LoadingPage>();
             services.AddTransient<SearchResultViewViewModel>();
             services.AddTransient<SearchResultViewPage>();
             services.AddTransient<PictureConverterViewModel>();
