@@ -141,7 +141,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         }
         set
         {
-            _classexname = value;
+            _classexname = FilterNameBelowChars(value);
             OnPropertyChanged(nameof(ClassExname));
         }
     }
@@ -183,9 +183,8 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         }
         set
         {
-            string temp = value;
-            CSBelowNameChars.ToList().ForEach(x => temp.Replace(x.ToString(), ""));
-            _autofrontname = temp;
+            _autofrontname =  FilterNameBelowChars(value);
+            _autofrontname = FilterBelowChars(_autofrontname, CSBelowNameStartWith.ToList());
             OnPropertyChanged(nameof(AutoFrontName));
         }
     }
@@ -213,7 +212,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         }
         set
         {
-            _autoreplace = FilterBelowChars(value);
+            _autoreplace = FilterNameBelowChars(value);
             OnPropertyChanged(nameof(AutoReplace));
         }
     }
@@ -227,7 +226,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         }
         set
         {
-            _namespace = FilterBelowChars(value);
+            _namespace = FilterNamespaceBelowChars(value);
             OnPropertyChanged(nameof(Namespace));
         }
     }
@@ -249,12 +248,22 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     private bool _isjson = true;
 
     public bool IsJson => _isjson;
-    public string FilterBelowChars(string orgstring)
+    public string FilterNamespaceBelowChars(string orgstring)
     {
         string temp = orgstring;
-        CSBelowNameChars.ToList().ForEach(x => temp.Replace(x.ToString(), ""));
+        var namespaceBelow = CSBelowNameChars.ToList();
+        namespaceBelow.Remove('.');
+        return FilterBelowChars(temp, namespaceBelow);
+    }
+    public string FilterNameBelowChars(string orgstring) => FilterBelowChars(orgstring, CSBelowNameChars.ToList());
+
+    public string FilterBelowChars(string orgstring, List<char> below)
+    {
+        string temp = orgstring;
+        below.ForEach(x => temp = temp.Replace(x.ToString(), ""));
         return temp;
     }
+
     public JsonCSharpConverterPage Page { get; set; }
 
     public JsonCSharpConverterViewModel()
