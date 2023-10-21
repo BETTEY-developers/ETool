@@ -124,7 +124,7 @@
     <value>复制生成内容</value>
   </data>
   <data name="ExName.PlaceholderText" xml:space="preserve">
-    <value>想生成的类后缀</value>
+    <value>想生成的类前缀</value>
   </data>
   <data name="FrontContent.PlaceholderText" xml:space="preserve">
     <value>要添加的前缀</value>
@@ -175,7 +175,7 @@
     <value>生成属性注释</value>
   </data>
   <data name="NeedExName.OffContent" xml:space="preserve">
-    <value>不生成类后缀</value>
+    <value>不生成类前缀</value>
   </data>
   <data name="NeedExName.OnContent" xml:space="preserve">
     <value>生成类后缀</value>
