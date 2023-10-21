@@ -5,11 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="using:EliTool.ViewModels"
-    xmlns:controls="using:EliTool.Controls"
+    xmlns:controls="using:EliTool.Controls" xmlns:markup="using:EliTool.Helpers"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea">
 		<StackPanel Spacing="8">
-			<TextBlock>此页面描述所有文档的概要信息以及提供对文档的访问</TextBlock>
+            <TextBlock x:Uid="ms-resource:///DocumentOverviewPage/DOP_Description"/>
             <Border Height="1" BorderBrush="{ThemeResource AccentControlElevationBorderBrush}" BorderThickness="1" Margin="0,10" HorizontalAlignment="Stretch"/>
             <StackPanel BorderBrush="{ThemeResource ControlElevationBorderBrush}" 
                         Padding="16" 
@@ -17,16 +17,16 @@
                         BorderThickness="1" 
                         Background="{ThemeResource CardBackgroundFillColorDefault}"
                         Spacing="8">
-                <TextBlock Style="{StaticResource TitleTextBlockStyle}">工具类型</TextBlock>
-                
-                <controls:ActionCard Title="静态工具">
+                <TextBlock x:Uid="ms-resource:///DocumentOverviewPage/DOP_ToolType_Description" Style="{StaticResource TitleTextBlockStyle}"/>
+
+                <controls:ActionCard x:Uid="ms-resource:///DocumentOverviewPage/DOP_StaticTool_Card">
                     <controls:ActionCard.ActiveCardContent>
-                        <TextBlock>静态工具皆在提供离线就能用的方便工具，无需网络即可使用完整功能</TextBlock>
+                        <TextBlock Text="{markup:ResourceMarkup ResourceKey=DOP_StaticTool_Card_Description,Sub=DocumentOverviewPage}"/>
                     </controls:ActionCard.ActiveCardContent>
                     <controls:ActionCard.Action>
                         <HyperlinkButton x:Name="NavToOfflineToolDoc" 
                                          Command="{x:Bind ViewModel.NavigationToDocumentCommand}" 
-                                         Content="查看详细">
+                                         Content="{markup:ResourceMarkup ResourceKey=DOP_GotoInfo,Sub=DocumentOverviewPage}">
                             <HyperlinkButton.CommandParameter>
                                 <viewmodels:Documents>
                                     OfflineTool
@@ -36,14 +36,14 @@
                     </controls:ActionCard.Action>
                 </controls:ActionCard>
 
-                <controls:ActionCard Title="半静态工具">
+                <controls:ActionCard x:Uid="ms-resource:///DocumentOverviewPage/DOP_HalfStaticTool_Card">
                     <controls:ActionCard.ActiveCardContent>
-                        <TextBlock>半静态工具皆在提供离线能用部分功能，联网可用全部功能的工具，连接网络即可使用完整功能</TextBlock>
+                        <TextBlock Text="{markup:ResourceMarkup ResourceKey=DOP_HalfStaticTool_Card_Description,Sub=DocumentOverviewPage}"/>
                     </controls:ActionCard.ActiveCardContent>
                     <controls:ActionCard.Action>
                         <HyperlinkButton x:Name="NavToOnAndOffLineToolDoc" 
                                          Command="{x:Bind ViewModel.NavigationToDocumentCommand}" 
-                                         Content="查看详细">
+                                         Content="{markup:ResourceMarkup ResourceKey=DOP_GotoInfo,Sub=DocumentOverviewPage}">
                             <HyperlinkButton.CommandParameter>
                                 <viewmodels:Documents>
                                     PartialOfflineTool
@@ -53,14 +53,14 @@
                     </controls:ActionCard.Action>
                 </controls:ActionCard>
 
-                <controls:ActionCard Title="动态工具">
+                <controls:ActionCard x:Uid="ms-resource:///DocumentOverviewPage/DOP_DynamicTool_Card">
                     <controls:ActionCard.ActiveCardContent>
-                        <TextBlock>动态工具皆在连接互联网提供丰富功能，连接网络可使用完整功能</TextBlock>
+                        <TextBlock Text="{markup:ResourceMarkup ResourceKey=DOP_DynamicTool_Card_Description,Sub=DocumentOverviewPage}"/>
                     </controls:ActionCard.ActiveCardContent>
                     <controls:ActionCard.Action>
                         <HyperlinkButton x:Name="NavToOnlineToolDoc" 
                                          Command="{x:Bind ViewModel.NavigationToDocumentCommand}" 
-                                         Content="查看详细">
+                                         Content="{markup:ResourceMarkup ResourceKey=DOP_GotoInfo,Sub=DocumentOverviewPage}">
                             <HyperlinkButton.CommandParameter>
                                 <viewmodels:Documents>
                                     OnlineTool
@@ -70,7 +70,6 @@
                     </controls:ActionCard.Action>
                 </controls:ActionCard>
             </StackPanel>
-			
 		</StackPanel>
     </Grid>
 </Page>

@@ -61,12 +61,11 @@
             Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}"
             x:FieldModifier="public">
             <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox PlaceholderText="输入工具名称"
+                <AutoSuggestBox PlaceholderText="{helpers:ResourceMarkup ResourceKey=Shell_SearchBox_PlaceholderText}"
                                 QueryIcon="Find"
                                 QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                                 TextChanged="AutoSuggestBox_TextChanged"
-                                ItemTemplate="{x:Bind GetItemTemplate()}"
-                                >
+                                ItemTemplate="{x:Bind GetItemTemplate()}">
                 </AutoSuggestBox>
             </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
