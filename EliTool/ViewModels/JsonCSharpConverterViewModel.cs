@@ -1,21 +1,16 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Text;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using EliTool.Contracts.Services;
+using EliTool.Helpers;
 using EliTool.Views.ControlPage.DeveloperTools;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml;
-using Windows.UI.Popups;
-using System.ComponentModel;
-using Windows.ApplicationModel.DataTransfer;
 using Newtonsoft.Json.Linq;
-using Windows.Perception.People;
-using System.Text;
-using System.Collections.Specialized;
-using Windows.ApplicationModel.Appointments.DataProvider;
-using CommunityToolkit.Mvvm.ComponentModel.__Internals;
-using Windows.Storage.Pickers;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
-using EliTool.Helpers;
-using EliTool.Contracts.Services;
+using Windows.Storage.Pickers;
 
 namespace EliTool.ViewModels;
 
@@ -27,7 +22,8 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         '#','!','@','$','%','^','&','*','(',')','+','=',
         '{','[',']','}',':',';','"','\'',',','<','.','>',
         '`','~','！','·','。','，','‘','’','“','”','：','；',
-        '？','（','）'
+        '？','（','）', '0','1','2','3','4','5','6','7','8',
+        '9','-'
     };
 
     private char[] CSBelowNameStartWith = new char[]
@@ -81,7 +77,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     {
         get
         {
-            return _needvaluedoc; 
+            return _needvaluedoc;
         }
         set
         {
@@ -109,7 +105,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     {
         get
         {
-            return _needrawstring; 
+            return _needrawstring;
         }
         set
         {
@@ -183,7 +179,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         }
         set
         {
-            _autofrontname =  FilterNameBelowChars(value);
+            _autofrontname = FilterNameBelowChars(value);
             _autofrontname = FilterBelowChars(_autofrontname, CSBelowNameStartWith.ToList());
             OnPropertyChanged(nameof(AutoFrontName));
         }
@@ -250,7 +246,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     public bool IsJson => _isjson;
     public string FilterNamespaceBelowChars(string orgstring)
     {
-        string temp = orgstring;
+        var temp = orgstring;
         var namespaceBelow = CSBelowNameChars.ToList();
         namespaceBelow.Remove('.');
         return FilterBelowChars(temp, namespaceBelow);
@@ -259,12 +255,15 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
 
     public string FilterBelowChars(string orgstring, List<char> below)
     {
-        string temp = orgstring;
+        var temp = orgstring;
         below.ForEach(x => temp = temp.Replace(x.ToString(), ""));
         return temp;
     }
 
-    public JsonCSharpConverterPage Page { get; set; }
+    public JsonCSharpConverterPage Page
+    {
+        get; set;
+    }
 
     public JsonCSharpConverterViewModel()
     {
@@ -279,8 +278,8 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     [RelayCommand]
     public async void SummonTest()
     {
-       if(InputString != "" && InputString != null)
-       {
+        if (InputString != "" && InputString != null)
+        {
             var result = await SimpleContentDialogHelper.InitContentDialog(
                     "JCC_InputIsNotNul".GetLocalized("JsonCSharpConverterPage"),
                     "JCC_Summon_Example_Choose".GetLocalized("JsonCSharpConverterPage"),
@@ -312,7 +311,9 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         ""a"":3,
         ""b"":4
     }
-  ]
+  ],
+  ""!Wrong_Name_st"":1,
+  ""Wrong_Name2_nd"":1
 }";
         return;
     }
@@ -366,21 +367,22 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         NeedAutoRename = false;
         NeedAutoReplace = false;
         NeedClassExname = false;
-        NeedDoc = false; 
+        NeedDoc = false;
         NeedKeyDoc = false;
         NeedRawString = false;
         NeedValueDoc = false;
     }
 
-    public async Task<string> CreateDoc(string name, JToken jtoken)
+    public string CreateDoc(string name, JToken jtoken)
     {
-        StringBuilder result = new StringBuilder();
+        var result = new StringBuilder();
         result.AppendLine("    /// <summary>");
-        if(NeedKeyDoc)
+        if (NeedKeyDoc)
         {
             result.AppendLine("    /// Json Raw Key: " + name);
         }
-        if(NeedValueDoc && jtoken.Type != JTokenType.Object && jtoken.Type != JTokenType.Array && jtoken.Type != JTokenType.Bytes)
+
+        if (NeedValueDoc && jtoken.Type != JTokenType.Object && jtoken.Type != JTokenType.Array && jtoken.Type != JTokenType.Bytes)
         {
             try
             {
@@ -388,7 +390,8 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
             }
             catch { }
         }
-        if(NeedRawString && jtoken.Type !=  JTokenType.Object && jtoken.Type != JTokenType.Array && jtoken.Type != JTokenType.Bytes)
+
+        if (NeedRawString && jtoken.Type != JTokenType.Object && jtoken.Type != JTokenType.Array && jtoken.Type != JTokenType.Bytes)
         {
             result.AppendLine("    /// Json Raw String: " + jtoken.ToString());
         }
@@ -396,20 +399,24 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         return result.ToString();
     }
 
-    public async Task<(string aftername,bool needattribute)> RenameToAllow(string name)
+    public (string aftername, bool needattribute) RenameToAllow(string name)
     {
-        bool replaced = false;
-        string result = name;
+        var replaced = false;
+        var result = name;
+        
         if (CSBelowNameChars.Contains(name[0]) || CSBelowNameStartWith.Contains(name[0]))
         {
             replaced = true;
-            result = result.Insert(0, AutoFrontName);
+            var t = result.Insert(0, AutoFrontName??"").ToList();
+            t.RemoveAt(AutoFrontName is null or ""? 0 : 1);
+            result = "";
+            t.ForEach(x => result += x);
         }
 
         if (name[1..].ToList().Exists(x => CSBelowNameChars.Contains(x)))
         {
             replaced = true;
-            CSBelowNameChars.ToList().ForEach(x=>result = result.Replace(x.ToString(),AutoReplace));
+            CSBelowNameChars.ToList().ForEach(x => result = result.Replace(x.ToString(), AutoReplace??""));
         }
 
         return (result, replaced);
@@ -417,7 +424,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
 
     public string GetIntegerTypeName(JToken jtoken)
     {
-        long l = (long)jtoken;
+        var l = (long)jtoken;
         if (int.MinValue <= l && l <= int.MaxValue)
             return "int";
         else
@@ -426,7 +433,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
 
     public StringBuilder CreateSimplePropertyString(string name, string type)
     {
-        StringBuilder result = new StringBuilder();
+        var result = new StringBuilder();
         result.Append("    ");
         result.Append(CSProtect[Protect]);
         result.Append(" ");
@@ -437,27 +444,27 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         return result;
     }
 
-    public async Task<string> CreateSimpleTypeProperty(string name,JToken jtoken,string typename = "")
+    public string CreateSimpleTypeProperty(string name, JToken jtoken, string typename = "")
     {
-        StringBuilder result = new StringBuilder();
-        string propname = name;
+        var result = new StringBuilder();
+        var propname = name;
         if (NeedDoc)
         {
-            result.Append(await CreateDoc(name, jtoken));
+            result.Append(CreateDoc(name, jtoken));
         }
 
         if (NeedAutoRename)
         {
-            var t = await RenameToAllow(propname);
-            if (t.needattribute)
+            var (aftername, needattribute) = RenameToAllow(propname);
+            if (needattribute)
             {
-                result.AppendLine($"[JsonPropertyName(\"{propname}\")]");
-                propname = t.aftername;
+                result.AppendLine($"    [JsonPropertyName(\"{propname}\")]");
+                propname = aftername;
             }
         }
-        string GetType(string name,JTokenType type)
+        string GetType(string name, JTokenType type)
         {
-            Dictionary<JTokenType, string> keytype = new Dictionary<JTokenType, string>
+            var keytype = new Dictionary<JTokenType, string>
             {
                 [JTokenType.Object] = name,
                 [JTokenType.String] = "string",
@@ -473,57 +480,24 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
             };
             return keytype[type];
         }
-        
 
-        switch (jtoken.Type)
+        if (jtoken.Type == JTokenType.Integer)
         {
-            case JTokenType.Integer:
-                result.Append(CreateSimplePropertyString(propname, GetIntegerTypeName(jtoken)));
-                break;
-            case JTokenType.Float:
-                result.Append(CreateSimplePropertyString(propname, "float"));
-                break;
-            case JTokenType.String:
-                result.Append(CreateSimplePropertyString(propname, "float"));
-                break;
-            case JTokenType.Boolean:
-                result.Append(CreateSimplePropertyString(propname, "bool"));
-                break;
-            case JTokenType.Null:
-                result.Append(CreateSimplePropertyString(propname, "object"));
-                break;
-            case JTokenType.Guid:
-                result.Append(CreateSimplePropertyString(propname, "System.Guid"));
-                break;
-            case JTokenType.TimeSpan:
-                result.Append(CreateSimplePropertyString(propname, "System.TimeSpan"));
-                break;
-            case JTokenType.Uri:
-                result.Append(CreateSimplePropertyString(propname, "System.Uri"));
-                break;
-            case JTokenType.Date:
-                result.Append(CreateSimplePropertyString(propname, "System.DateTime"));
-                break;
-            case JTokenType.Array:
-                result.Append(CreateSimplePropertyString(propname, $"{GetType(ClassExname + propname, jtoken.ToArray()[0].Type)}[]"));
-                break;
-            case JTokenType.Object:
-                result.Append(CreateSimplePropertyString(propname, typename));
-                break;
-            case JTokenType.Bytes:
-                result.Append(CreateSimplePropertyString(propname, "byte[]"));
-                break;
+            result.Append(CreateSimplePropertyString(propname, GetIntegerTypeName(jtoken)));
+        }
+        else
+        {
+            result.Append(CreateSimplePropertyString(propname, GetType(propname, jtoken.Type)));
         }
         return result.ToString();
     }
 
 
-
     public async Task<List<string>> CreateClass(JObject jObject, string name)
     {
-        List<List<string>> Classes = new List<List<string>>();
-        List<string> Current = new List<string>();
-        JObject jobj = jObject;
+        var Classes = new List<List<string>>();
+        var Current = new List<string>();
+        var jobj = jObject;
         Current.Add("class " + (NeedClassExname ? ClassExname : "") + name + Environment.NewLine);
         Current.Add("{" + Environment.NewLine);
         foreach (var kv in jobj)
@@ -533,14 +507,10 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
                              JTokenType.Null or
                              JTokenType.Array)
             {
-                switch(token.Type)
+                switch (token.Type)
                 {
                     case JTokenType.Object:
-                        Classes.Add(await CreateClass(JObject.FromObject(token),kv.Key));
-                        break;
                     case JTokenType.Constructor:
-                        Classes.Add(await CreateClass(JObject.FromObject(token), kv.Key));
-                        break;
                     case JTokenType.Property:
                         Classes.Add(await CreateClass(JObject.FromObject(token), kv.Key));
                         break;
@@ -549,7 +519,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
                         break;
                 }
             }
-            Current.Add(await CreateSimpleTypeProperty(kv.Key, token,kv.Key));
+            Current.Add(CreateSimpleTypeProperty(kv.Key, token, kv.Key));
             Current.Add(Environment.NewLine);
         }
         Current.RemoveAt(Current.Count - 1);
@@ -564,12 +534,12 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     public async void ToCS()
     {
         _JsonString = InputString;
-        if ((_JsonString??"") != "")
+        if ((_JsonString ?? "") != "")
         {
             try
             {
                 _isjson = false;
-                JObject jo = JObject.Parse(InputString);
+                var jo = JObject.Parse(InputString);
                 var cscode = await CreateClass(jo, "Root");
                 _CSharpString = (Namespace == "" ? "" : $"namespace {Namespace};" + Environment.NewLine) + string.Join("", cscode);
                 InputString = _CSharpString;
@@ -578,7 +548,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         }
     }
 
-    public async void ToJson()
+    public void ToJson()
     {
         InputString = _JsonString;
         _isjson = true;
@@ -609,7 +579,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
             return;
         }
 
-        string json = await FileIO.ReadTextAsync(file);
+        var json = await FileIO.ReadTextAsync(file);
 
         _JsonString = json;
 
@@ -623,8 +593,8 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         if (_CSharpString == "")
         {
             await SimpleContentDialogHelper.InitContentDialog(
-                "System_Caption".GetLocalized(), 
-                "JCC_CSharpCode_IsNul".GetLocalized("JsonCSharpConverterPage"), 
+                "System_Caption".GetLocalized(),
+                "JCC_CSharpCode_IsNul".GetLocalized("JsonCSharpConverterPage"),
                 Primary: "System_OK".GetLocalized()
                 ).ShowAsync();
             return;
@@ -653,8 +623,8 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         FileIO.AppendTextAsync(file, _CSharpString);
 
         await SimpleContentDialogHelper.InitContentDialog(
-            "System_OK".GetLocalized(), 
-            "JCC_Summon_JSON_Complated".GetLocalized("JsonCSharpConverterPage"), 
+            "System_OK".GetLocalized(),
+            "JCC_Summon_JSON_Complated".GetLocalized("JsonCSharpConverterPage"),
             Primary: "System_OK".GetLocalized()
             ).ShowAsync();
     }
