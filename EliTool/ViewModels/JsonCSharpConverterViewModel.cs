@@ -17,6 +17,8 @@ namespace EliTool.ViewModels;
 public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotifyPropertyChanged
 {
 
+    private bool opt_ischanged = true;
+
     private char[] CSBelowNameChars = new char[]
     {
         '#','!','@','$','%','^','&','*','(',')','+','=',
@@ -54,6 +56,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _inputstring = value;
+            opt_ischanged = true;
             OnPropertyChanged(nameof(InputString));
         }
     }
@@ -68,6 +71,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _needdoc = value;
+            opt_ischanged = true;
             OnPropertyChanged(nameof(NeedDoc));
         }
     }
@@ -82,6 +86,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _needvaluedoc = value;
+            opt_ischanged = true;
             OnPropertyChanged(nameof(NeedValueDoc));
         }
     }
@@ -96,6 +101,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _needkeydoc = value;
+            opt_ischanged = true;
             OnPropertyChanged(nameof(NeedKeyDoc));
         }
     }
@@ -110,6 +116,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _needrawstring = value;
+            opt_ischanged = true;
             OnPropertyChanged(nameof(NeedRawString));
         }
     }
@@ -124,6 +131,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _needclassexname = value;
+            opt_ischanged = true;
             OnPropertyChanged(nameof(NeedClassExname));
         }
     }
@@ -138,6 +146,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _classexname = FilterNameBelowChars(value);
+            opt_ischanged = true;
             OnPropertyChanged(nameof(ClassExname));
         }
     }
@@ -152,6 +161,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _needautorename = value;
+            opt_ischanged = true;
             OnPropertyChanged(nameof(NeedAutoRename));
         }
     }
@@ -166,6 +176,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _needautofrontname = value;
+            opt_ischanged = true;
             OnPropertyChanged(nameof(NeedAutoFrontName));
         }
     }
@@ -181,6 +192,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         {
             _autofrontname = FilterNameBelowChars(value);
             _autofrontname = FilterBelowChars(_autofrontname, CSBelowNameStartWith.ToList());
+            opt_ischanged = true;
             OnPropertyChanged(nameof(AutoFrontName));
         }
     }
@@ -195,6 +207,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _needautoreplace = value;
+            opt_ischanged = true;
             OnPropertyChanged(nameof(NeedAutoReplace));
         }
     }
@@ -209,6 +222,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _autoreplace = FilterNameBelowChars(value);
+            opt_ischanged = true;
             OnPropertyChanged(nameof(AutoReplace));
         }
     }
@@ -223,6 +237,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _namespace = FilterNamespaceBelowChars(value);
+            opt_ischanged = true;
             OnPropertyChanged(nameof(Namespace));
         }
     }
@@ -237,6 +252,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         set
         {
             _protect = value;
+            opt_ischanged = true;
             OnPropertyChanged(nameof(Protect));
         }
     }
@@ -534,14 +550,14 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     public async void ToCS()
     {
         _JsonString = InputString;
-        if ((_JsonString ?? "") != "")
+        if ((_JsonString ?? "") != "" && opt_ischanged)
         {
             try
             {
                 _isjson = false;
                 var jo = JObject.Parse(InputString);
                 var cscode = await CreateClass(jo, "Root");
-                _CSharpString = (Namespace == "" ? "" : $"namespace {Namespace};" + Environment.NewLine) + string.Join("", cscode);
+                _CSharpString = (Namespace is "" or null ? "" : $"namespace {Namespace};" + Environment.NewLine) + string.Join("", cscode);
                 InputString = _CSharpString;
             }
             catch { }
