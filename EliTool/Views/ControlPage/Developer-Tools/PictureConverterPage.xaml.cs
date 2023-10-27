@@ -53,4 +53,14 @@ public sealed partial class PictureConverterPage : Page
         ViewModel.ClickedItem = (OptionUnit)e.ClickedItem;
         ItemFlyoutCommandBar.ShowAt((FrameworkElement)sender);
     }
+
+    private void ItemPreseter_PointerEntered(object sender, PointerRoutedEventArgs e)
+    {
+        VisualStateManager.GoToState(sender as Control, "DeleteButtonShown", true);
+    }
+
+    private void ItemPreseter_PointerExited(object sender, PointerRoutedEventArgs e)
+    {
+        VisualStateManager.GoToState(sender as Control, "DeleteButtonHidden", true);
+    }
 }

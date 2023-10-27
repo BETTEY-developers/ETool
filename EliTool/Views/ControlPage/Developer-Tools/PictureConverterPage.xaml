@@ -139,10 +139,10 @@
             </Grid>
             <Grid ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="180"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="160"/>
-                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
@@ -150,22 +150,46 @@
             <ListView ItemsSource="{x:Bind ViewModel.Options.OptionUnits,Mode=TwoWay}" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="options:OptionUnit">
-                        <ListViewItem Name="ItemPreseter" Height="60" >
-                            <Grid ColumnSpacing="10">
+                        <UserControl Padding="0" Height="80" Name="ItemPreseter" PointerEntered="ItemPreseter_PointerEntered" PointerExited="ItemPreseter_PointerExited">
+                            <Grid Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"> <!-- Magic! -->
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="HoveringStates">
+                                        <VisualState x:Name="DeleteButtonHidden">
+                                            <VisualState.Setters>
+                                                <Setter Target="DeleteButton.Visibility" Value="Collapsed" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="DeleteButtonShown">
+                                            <VisualState.Setters>
+                                                <Setter Target="DeleteButton.Visibility" Value="Visible" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="180"/>
-                                    <ColumnDefinition Width="150"/>
-                                    <ColumnDefinition Width="160"/>
-                                    <ColumnDefinition Width="180"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                
-                                <TextBlock VerticalAlignment="Center" Text="{x:Bind Name,Mode=OneWay}" Style="{ThemeResource SubtitleTextBlockStyle}" Grid.Column="0"/>
-                                
-                                <TextBlock VerticalAlignment="Center" Text="{x:Bind NameRule,Mode=OneWay}" Style="{ThemeResource BodyStrongTextBlockStyle}" Grid.Column="1"/>
-                                
-                                <FontIcon VerticalAlignment="Center" Glyph="&#xEC61;" FontSize="16" Foreground="{ThemeResource SystemFillColorSuccessBrush}" Grid.Column="2"/>
-                                
+
+                                <TextBlock VerticalAlignment="Center" 
+                                           Text="{x:Bind Name,Mode=OneWay}" 
+                                           Style="{ThemeResource SubtitleTextBlockStyle}" 
+                                           Grid.Column="0"/>
+
+                                <TextBlock VerticalAlignment="Center" 
+                                           Text="{x:Bind NameRule,Mode=OneWay}" 
+                                           Style="{ThemeResource BodyStrongTextBlockStyle}" 
+                                           Grid.Column="1"/>
+
+                                <FontIcon VerticalAlignment="Center" 
+                                          Glyph="&#xEC61;" 
+                                          FontSize="16" 
+                                          Foreground="{ThemeResource SystemFillColorSuccessBrush}" 
+                                          Grid.Column="2"/>
+
                                 <Border BorderBrush="{ThemeResource CardStrokeColorDefaultSolidBrush}"
                                         BorderThickness="1"
                                         CornerRadius="{ThemeResource GridViewItemCornerRadius}"
@@ -173,8 +197,16 @@
                                         VerticalAlignment="Center"
                                         Grid.Column="3"
                                         Background="{x:Bind NonTransparentColor, Mode=OneWay, Converter={StaticResource BrushConverter}}"/>
+
+                                <AppBarButton HorizontalAlignment="Right" 
+                                              Icon="Delete" 
+                                              Label="Delete" 
+                                              x:Name="DeleteButton"
+                                              Visibility="Collapsed" 
+                                              VerticalAlignment="Center" 
+                                              Grid.Column="4"/>
                             </Grid>
-                        </ListViewItem>
+                        </UserControl>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
