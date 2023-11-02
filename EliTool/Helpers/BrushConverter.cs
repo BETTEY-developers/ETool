@@ -11,6 +11,6 @@ namespace EliTool.Helpers;
 
 class BrushConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, string language) => new SolidColorBrush((Color)value);
-    public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
+    public object Convert(object value, Type targetType, object parameter, string language) => (Brush)(new SolidColorBrush((Color)value));
+    public object ConvertBack(object value, Type targetType, object parameter, string language) => (value as SolidColorBrush).Color;
 }
