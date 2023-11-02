@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="EliTool.Views.Dialogs.DeveloperTools.PictureConverterOptionEditer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EliTool.Views.Dialogs.DeveloperTools"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:EliTool.Helpers"
+    mc:Ignorable="d"
+    Background="Transparent">
+    <Page.Resources>
+        <converter:BrushConverter x:Key="BrushConverter"/>
+    </Page.Resources>
+    <Grid>
+        <StackPanel Spacing="10">
+            <StackPanel Spacing="5">
+                <TextBlock>名称</TextBlock>
+                <TextBox Text="{x:Bind ViewModel.Option.Name,Mode=TwoWay}"/>
+            </StackPanel>
+
+            <StackPanel Spacing="5">
+                <TextBlock>导出命名规则</TextBlock>
+                <TextBox Text="{x:Bind ViewModel.Option.NameRule,Mode=TwoWay}"/>
+            </StackPanel>
+
+            <CheckBox Name="Nontransparent" IsChecked="{x:Bind ViewModel.Option.NonTransparent,Mode=TwoWay}">不透明</CheckBox>
+
+            <SplitButton x:Name="ColorButton" IsEnabled="{Binding ElementName=Nontransparent,Path=IsChecked}">
+                <Border x:Name="CurrentColor" Width="32" Height="32" CornerRadius="4"/>
+                <SplitButton.Flyout>
+                    <Flyout Placement="Bottom">
+                        <ColorPicker ColorSpectrumShape="Box"
+                                     IsMoreButtonVisible="False"
+                                     IsColorSliderVisible="True"
+                                     IsColorChannelTextInputVisible="True"
+                                     IsHexInputVisible="True"
+                                     IsAlphaEnabled="False"
+                                     IsAlphaSliderVisible="True"
+                                     IsAlphaTextInputVisible="True"
+                                     Name="Colorpicker"
+                                     ColorChanged="Colorpicker_ColorChanged"
+                                     Color="{x:Bind ViewModel.Option.NonTransparentColor}"/>
+                    </Flyout>
+                </SplitButton.Flyout>
+            </SplitButton>
+        </StackPanel>
+    </Grid>
+</Page>
