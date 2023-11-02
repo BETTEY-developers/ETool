@@ -16,10 +16,12 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.UI;
 
 using KeyboardAcceleratorActions = System.Collections.Generic.Dictionary<(Windows.System.VirtualKeyModifiers, Windows.System.VirtualKey), System.Action>;
+using EliTool.Helpers;
+using EliTool.Views.Dialogs.DeveloperTools;
 
 namespace EliTool.ViewModels;
 
-public class OptionUnit : ObservableObject
+public partial class OptionUnit : ObservableObject
 {
     public enum SaveMultiplicativeType
     {
@@ -83,12 +85,47 @@ public class OptionUnit : ObservableObject
             OnPropertyChanged(nameof(NonTransparentColor));
         }
     }
+
+    [RelayCommand]
+    public async void EditOption()
+    {
+        var editer = new PictureConverterOptionEditer(this);
+
+        var dresult = await ContentDialogHelper.PageContentDialog(
+            "编辑选项",
+           editer,
+           Primary: "确定",
+           Close: "取消"
+            ).ShowAsync();
+
+        if (dresult != ContentDialogResult.Primary)
+            return;
+
+        var result = editer.Result;
+
+        Name = result.Name;
+        NameRule = result.NameRule;
+        SaveMultiplicative = result.SaveMultiplicative;
+        NonTransparent = result.NonTransparent;
+        NonTransparentColor = result.NonTransparentColor;
+    }
+
+    public OptionUnit(OptionUnit obj)
+    {
+        Name = obj.Name;
+        NameRule = obj.NameRule;
+        SaveMultiplicative = obj.SaveMultiplicative;
+        NonTransparent = obj.NonTransparent;
+        NonTransparentColor = obj.NonTransparentColor;
+    }
+
+    public OptionUnit()
+    {
+    }
 }
 
 public class PictureConverterOptions : ObservableObject
 {
-    
-
     public string _optionCollectionName;
     public string OptionCollectionName
     {
@@ -191,7 +228,7 @@ public partial class PictureConverterViewModel : ObservableRecipient
     [RelayCommand]
     public void ResetPicture()
     {
-
+        PicturePath = new BitmapImage();
     }
 
     [RelayCommand]
@@ -212,7 +249,7 @@ public partial class PictureConverterViewModel : ObservableRecipient
 
         var stream = await file.OpenStreamForReadAsync();
         byte[] data = new byte[stream.Length];
-    stream.ReadAsync(data, 0, data.Length);
+        await stream.ReadAsync(data, 0, data.Length);
 
         string json = Encoding.UTF8.GetString(data);
 

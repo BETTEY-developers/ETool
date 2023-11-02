@@ -296,7 +296,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     {
         if (InputString != "" && InputString != null)
         {
-            var result = await SimpleContentDialogHelper.InitContentDialog(
+            var result = await ContentDialogHelper.StringContentDialog(
                     "JCC_InputIsNotNul".GetLocalized("JsonCSharpConverterPage"),
                     "JCC_Summon_Example_Choose".GetLocalized("JsonCSharpConverterPage"),
                     Primary: "System_Operator_Summon".GetLocalized(),
@@ -339,7 +339,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     {
         if (InputString != "")
         {
-            var result = await SimpleContentDialogHelper.InitContentDialog(
+            var result = await ContentDialogHelper.StringContentDialog(
                     "JCC_InputIsNotNul".GetLocalized("JsonCSharpConverterPage"),
                     "JCC_InputIsNotNul_Choose".GetLocalized("JsonCSharpConverterPage"),
                     Primary: "JCC_Clear_Input".GetLocalized("JsonCSharpConverterPage"),
@@ -365,7 +365,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     [RelayCommand]
     public async void ResetOption()
     {
-        var result = await SimpleContentDialogHelper.InitContentDialog(
+        var result = await ContentDialogHelper.StringContentDialog(
                 "JCC_Choose_Reset_AllOfOptions".GetLocalized("JsonCSharpConverterPage"),
                 "JCC_Choose_Reset_AllOfOptions".GetLocalized("JsonCSharpConverterPage"),
                 Primary: "System_Operator_Reset".GetLocalized(),
@@ -587,7 +587,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
 
         if (file == null)
         {
-            await SimpleContentDialogHelper.InitContentDialog(
+            await ContentDialogHelper.StringContentDialog(
                 "System_Operator_Cancel".GetLocalized(),
                 "System_Operator_Cancel".GetLocalized(),
                 Primary: "System_OK".GetLocalized()
@@ -608,7 +608,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     {
         if (_CSharpString == "")
         {
-            await SimpleContentDialogHelper.InitContentDialog(
+            await ContentDialogHelper.StringContentDialog(
                 "System_Caption".GetLocalized(),
                 "JCC_CSharpCode_IsNul".GetLocalized("JsonCSharpConverterPage"),
                 Primary: "System_OK".GetLocalized()
@@ -628,7 +628,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
 
         if (file == null)
         {
-            await SimpleContentDialogHelper.InitContentDialog(
+            await ContentDialogHelper.StringContentDialog(
                 "System_Operator_Cancel".GetLocalized(),
                 "System_Operator_Cancel".GetLocalized(),
                 Primary: "System_OK".GetLocalized()
@@ -638,7 +638,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
 
         FileIO.AppendTextAsync(file, _CSharpString);
 
-        await SimpleContentDialogHelper.InitContentDialog(
+        await ContentDialogHelper.StringContentDialog(
             "System_OK".GetLocalized(),
             "JCC_Summon_JSON_Complated".GetLocalized("JsonCSharpConverterPage"),
             Primary: "System_OK".GetLocalized()
