@@ -94,6 +94,11 @@
                             <FontIcon Glyph="&#xE8A7;"/>
                         </toolkit:SettingsCard.ActionIcon>
                     </toolkit:SettingsCard>
+
+                    <toolkit:SettingsCard Header="Chat Group">
+                        <HyperlinkButton NavigateUri="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&amp;k=5KmzRh9Sl7kH-1vvLQvPOvgdNZblm416&amp;authKey=YG%2F4R16tqilq4dDMDKbfSWqeZ21ixfld1tx9D%2BzOfPYVkXVUQOupYm8JJvux0UB%2B&amp;noverify=0&amp;group_code=924896485">QQ 924896485</HyperlinkButton>
+                    </toolkit:SettingsCard>
+                    
                     <toolkit:SettingsCard>
                         <toolkit:SettingsCard.Header>
                             <StackPanel Spacing="3">
