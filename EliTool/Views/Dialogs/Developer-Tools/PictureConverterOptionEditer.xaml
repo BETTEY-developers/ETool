@@ -7,10 +7,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:EliTool.Helpers"
+    xmlns:enumconverter="using:EliTool.Helpers.EnumConverters"
     mc:Ignorable="d"
     Background="Transparent">
     <Page.Resources>
         <converter:BrushConverter x:Key="BrushConverter"/>
+        <enumconverter:EnumToIntConverter x:Key="EnumToIntConverter"/>
     </Page.Resources>
     <Grid>
         <StackPanel Spacing="10">
@@ -22,6 +24,21 @@
             <StackPanel Spacing="5">
                 <TextBlock>导出命名规则</TextBlock>
                 <TextBox Text="{x:Bind ViewModel.Option.NameRule,Mode=TwoWay}"/>
+            </StackPanel>
+
+            <StackPanel Spacing="5">
+                <TextBlock>保存倍数</TextBlock>
+                <ComboBox xmlns:ui="using:CommunityToolkit.WinUI"
+                          SelectedIndex="{x:Bind ViewModel.Option.SaveMultiplicative, 
+                                                 Mode=TwoWay,
+                                                 UpdateSourceTrigger=PropertyChanged,
+                                                 Converter={StaticResource EnumToIntConverter},
+                                                 ConverterParameter=EliTool.ViewModels.OptionUnit+SaveMultiplicativeType}">
+                    <ComboBoxItem>1x</ComboBoxItem>
+                    <ComboBoxItem>2x</ComboBoxItem>
+                    <ComboBoxItem>4x</ComboBoxItem>
+                    <ComboBoxItem>8x</ComboBoxItem>
+                </ComboBox>
             </StackPanel>
 
             <CheckBox Name="Nontransparent" IsChecked="{x:Bind ViewModel.Option.NonTransparent,Mode=TwoWay}">不透明</CheckBox>

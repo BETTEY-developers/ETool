@@ -43,6 +43,7 @@
     <None Remove="Controls\OperatorBar.xaml" />
     <None Remove="Controls\TileGallery.xaml" />
     <None Remove="Styles\ButtonStyle.xaml" />
+    <None Remove="Views\Dialogs\Developer-Tools\PictureConverterOptionEditer.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -100,6 +101,9 @@
     <None Update="Assets\NoLight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\Dialogs\Developer-Tools\PictureConverterOptionEditer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Controls\ActionCard.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

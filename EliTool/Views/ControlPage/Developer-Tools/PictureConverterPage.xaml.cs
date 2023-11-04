@@ -63,4 +63,6 @@ public sealed partial class PictureConverterPage : Page
     {
         VisualStateManager.GoToState(sender as Control, "DeleteButtonHidden", true);
     }
+
+
 }

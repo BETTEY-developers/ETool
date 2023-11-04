@@ -54,7 +54,7 @@ public partial class SettingsViewModel : ObservableRecipient
         get => ApplicationLanguages.PrimaryLanguageOverride.ToLower() switch
         {
             "zh-hans-cn" => 0,
-            "zh-zn" => 0,
+            "zh-cn" => 0,
             "en-us" => 1,
             _ => 0
         };

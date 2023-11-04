@@ -7,6 +7,7 @@
     xmlns:controls="using:EliTool.Controls"
     xmlns:options="using:EliTool.ViewModels"
     xmlns:converter="using:EliTool.Helpers"
+    xmlns:enumconverter="using:EliTool.Helpers.EnumConverters"
     ProcessKeyboardAccelerators="Page_ProcessKeyboardAccelerators"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
@@ -21,13 +22,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/ButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
             <CommandBarFlyout x:Name="ItemFlyoutCommandBar" Placement="Left">
                 <AppBarButton Icon="Edit" Label="编辑"/>
                 <AppBarButton Icon="Delete" Label="删除"/>
             </CommandBarFlyout>
-            
+
             <converter:BrushConverter x:Key="BrushConverter"/>
+            <enumconverter:EnumTextConverter x:Key="EnumTextConverter"/>
         </ResourceDictionary>
     </Page.Resources>
     
@@ -157,16 +159,19 @@
                                         <VisualState x:Name="DeleteButtonHidden">
                                             <VisualState.Setters>
                                                 <Setter Target="DeleteButton.Visibility" Value="Collapsed" />
+                                                <Setter Target="EditButton.Visibility" Value="Collapsed" />
                                             </VisualState.Setters>
                                         </VisualState>
                                         <VisualState x:Name="DeleteButtonShown">
                                             <VisualState.Setters>
                                                 <Setter Target="DeleteButton.Visibility" Value="Visible" />
+                                                <Setter Target="EditButton.Visibility" Value="Visible" />
                                             </VisualState.Setters>
                                         </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -185,9 +190,10 @@
                                            Grid.Column="1"/>
 
                                 <FontIcon VerticalAlignment="Center" 
-                                          Glyph="&#xEC61;" 
+                                          xmlns:ui="using:CommunityToolkit.WinUI"
+                                          Glyph="{x:Bind NontransparentStatusToUIGlyph(NonTransparent),Mode=OneWay}" 
                                           FontSize="16" 
-                                          Foreground="{ThemeResource SystemFillColorSuccessBrush}" 
+                                          Foreground="{x:Bind NontransparentStatusToUIColor(NonTransparent),Mode=OneWay}" 
                                           Grid.Column="2"/>
 
                                 <Border BorderBrush="{ThemeResource CardStrokeColorDefaultSolidBrush}"
@@ -198,13 +204,24 @@
                                         Grid.Column="3"
                                         Background="{x:Bind NonTransparentColor, Mode=OneWay, Converter={StaticResource BrushConverter}}"/>
 
-                                <AppBarButton HorizontalAlignment="Right" 
-                                              Icon="Delete" 
-                                              Label="Delete" 
-                                              x:Name="DeleteButton"
-                                              Visibility="Collapsed" 
-                                              VerticalAlignment="Center" 
-                                              Grid.Column="4"/>
+                                <TextBlock Grid.Column="4" Text="{x:Bind SaveMultiplicative,Mode=OneWay,Converter={StaticResource EnumTextConverter},ConverterParameter=EliTool.ViewModels.OptionUnit+SaveMultiplicativeType}" VerticalAlignment="Center"/>
+
+
+                                <StackPanel Spacing="5" Orientation="Horizontal" Grid.Column="5">
+                                    <AppBarButton HorizontalAlignment="Right" 
+                                                  Icon="Delete" 
+                                                  Label="Delete" 
+                                                  x:Name="DeleteButton"
+                                                  Visibility="Collapsed" 
+                                                  VerticalAlignment="Center" />
+                                    <AppBarButton HorizontalAlignment="Right" 
+                                                  Icon="Edit" 
+                                                  Label="Edit"
+                                                  Command="{x:Bind EditOptionCommand}"
+                                                  x:Name="EditButton"
+                                                  Visibility="Collapsed" 
+                                                  VerticalAlignment="Center"/>
+                                </StackPanel>
                             </Grid>
                         </UserControl>
                     </DataTemplate>

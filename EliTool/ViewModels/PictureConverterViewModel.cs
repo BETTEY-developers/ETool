@@ -25,9 +25,21 @@ public partial class OptionUnit : ObservableObject
 {
     public enum SaveMultiplicativeType
     {
+        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "1x")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "1x")]
+        [EliTool.Core.Common.EnumText(CultureString = "en-us", TextString = "Original")]
         Once,
+        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "2x")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "2x")]
+        [EliTool.Core.Common.EnumText(CultureString = "en-us", TextString = "Double")]
         Twice,
+        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "4x")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "4x")]
+        [EliTool.Core.Common.EnumText(CultureString = "en-us", TextString = "Fourfold")]
         Fourth,
+        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "8x")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "8x")]
+        [EliTool.Core.Common.EnumText(CultureString = "en-us", TextString = "Octuple")]
         Eighth
     }
 
@@ -53,18 +65,18 @@ public partial class OptionUnit : ObservableObject
         }
     }
 
-    public SaveMultiplicativeType _saveMultiplicative;
+    SaveMultiplicativeType _saveMultiplicative = SaveMultiplicativeType.Once;
     public SaveMultiplicativeType SaveMultiplicative
     {
         get => _saveMultiplicative;
         set
         {
-            SetProperty(ref _saveMultiplicative, value);
+            _saveMultiplicative = value;
             OnPropertyChanged(nameof(SaveMultiplicative));
         }
     }
 
-    public bool _nonTransparent = false;
+    bool _nonTransparent = false;
     public bool NonTransparent
     {
         get => _nonTransparent;
@@ -75,7 +87,7 @@ public partial class OptionUnit : ObservableObject
         }
     }
 
-    public Color _nonTransparentColor;
+    Color _nonTransparentColor;
     public Color NonTransparentColor
     {
         get => _nonTransparentColor;
@@ -108,6 +120,16 @@ public partial class OptionUnit : ObservableObject
         SaveMultiplicative = result.SaveMultiplicative;
         NonTransparent = result.NonTransparent;
         NonTransparentColor = result.NonTransparentColor;
+    }
+
+    public string NontransparentStatusToUIGlyph(bool NonTransparent)
+    {
+        return NonTransparent ? "\uEC61" : "\uEB90";
+    }
+
+    public Brush NontransparentStatusToUIColor(bool NonTransparent)
+    {
+        return NonTransparent ? (Brush)App.Current.Resources["SystemFillColorSuccessBrush"] : (Brush)App.Current.Resources["SystemFillColorCriticalBrush"];
     }
 
     public OptionUnit(OptionUnit obj)
