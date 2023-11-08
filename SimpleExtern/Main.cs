@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using EliTool.ExternSDK;
+using Windows.Storage;
+using Windows.UI.Popups;
 
 namespace SimpleExtern;
 
@@ -21,6 +23,6 @@ public class Main : IMain
     public List<string> GetExternPageList() => new List<string>() { "SimpleExtern.TestPage" };
     public List<string> GetExternSettingsList() => new List<string> { "" };
     public IInfo GetInfo() => this;
-    public void Install() => Debug.Print("Install");
-    public void Uninstall() => Debug.Print("Uninstall");
+    public void Install() => ApplicationData.Current.LocalFolder.CreateFileAsync("OK.txt");
+    public void Uninstall() { }
 }
