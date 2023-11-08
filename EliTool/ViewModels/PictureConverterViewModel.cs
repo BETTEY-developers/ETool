@@ -18,6 +18,7 @@ using Windows.UI;
 using KeyboardAcceleratorActions = System.Collections.Generic.Dictionary<(Windows.System.VirtualKeyModifiers, Windows.System.VirtualKey), System.Action>;
 using EliTool.Helpers;
 using EliTool.Views.Dialogs.DeveloperTools;
+using Windows.Media.Streaming.Adaptive;
 
 namespace EliTool.ViewModels;
 
@@ -25,20 +26,20 @@ public partial class OptionUnit : ObservableObject
 {
     public enum SaveMultiplicativeType
     {
-        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "1x")]
-        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "1x")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "一倍")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "一倍")]
         [EliTool.Core.Common.EnumText(CultureString = "en-us", TextString = "Original")]
         Once,
-        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "2x")]
-        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "2x")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "二倍")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "二倍")]
         [EliTool.Core.Common.EnumText(CultureString = "en-us", TextString = "Double")]
         Twice,
-        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "4x")]
-        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "4x")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "四倍")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "四倍")]
         [EliTool.Core.Common.EnumText(CultureString = "en-us", TextString = "Fourfold")]
         Fourth,
-        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "8x")]
-        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "8x")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-hans-cn", TextString = "八倍")]
+        [EliTool.Core.Common.EnumText(CultureString = "zh-cn", TextString = "八倍")]
         [EliTool.Core.Common.EnumText(CultureString = "en-us", TextString = "Octuple")]
         Eighth
     }
@@ -98,10 +99,19 @@ public partial class OptionUnit : ObservableObject
         }
     }
 
+    static int _currentUID = 0;
+
+    int _uid;
+    public int UID
+    {
+        get => _uid;
+    }
+
     [RelayCommand]
     public async void EditOption()
     {
-        var editer = new PictureConverterOptionEditer(this);
+        var editer = new PictureConverterOptionEditer();
+        editer.SetIn(this);
 
         var dresult = await ContentDialogHelper.PageContentDialog(
             "编辑选项",
@@ -113,7 +123,7 @@ public partial class OptionUnit : ObservableObject
         if (dresult != ContentDialogResult.Primary)
             return;
 
-        var result = editer.Result;
+        var result = editer.Result as OptionUnit;
 
         Name = result.Name;
         NameRule = result.NameRule;
@@ -132,7 +142,7 @@ public partial class OptionUnit : ObservableObject
         return NonTransparent ? (Brush)App.Current.Resources["SystemFillColorSuccessBrush"] : (Brush)App.Current.Resources["SystemFillColorCriticalBrush"];
     }
 
-    public OptionUnit(OptionUnit obj)
+    public OptionUnit(OptionUnit obj) : this()
     {
         Name = obj.Name;
         NameRule = obj.NameRule;
@@ -143,12 +153,14 @@ public partial class OptionUnit : ObservableObject
 
     public OptionUnit()
     {
+        _currentUID++;
+        _uid = _currentUID;
     }
 }
 
 public class PictureConverterOptions : ObservableObject
 {
-    public string _optionCollectionName;
+    public string _optionCollectionName = "Name";
     public string OptionCollectionName
     {
         get
@@ -199,7 +211,7 @@ public partial class PictureConverterViewModel : ObservableRecipient
     BitmapImage picturePath = new ();
 
     [ObservableProperty]
-    PictureConverterOptions options = new();
+    static PictureConverterOptions options = new();
 
     public OptionUnit ClickedItem
     {
@@ -309,6 +321,36 @@ public partial class PictureConverterViewModel : ObservableRecipient
     public void ResetOptions()
     {
     
+    }
+
+    [RelayCommand]
+    public void RemoveOption(int UID)
+    {
+        OptionUnit remove = new();
+        foreach (var removeOption in Options.OptionUnits)
+        {
+            if (removeOption.UID == UID)
+                remove = removeOption;
+        }
+        options.OptionUnits.Remove(remove);
+    }
+
+    [RelayCommand]
+    public async void ChangeTitle()
+    {
+        PictureConverterTitleEditer editer = new();
+        editer.SetIn(Options.OptionCollectionName);
+        var dresult = await ContentDialogHelper.PageContentDialog(
+            "更改名称",
+           editer,
+           Primary: "确定",
+           Close: "取消"
+            ).ShowAsync();
+
+        if (dresult != ContentDialogResult.Primary)
+            return;
+
+        Options.OptionCollectionName = editer.Result;
     }
 
 #if DEBUG

@@ -50,8 +50,6 @@ public sealed partial class PictureConverterPage : Page
 
     private void ListView_ItemClick(object sender, ItemClickEventArgs e)
     {
-        ViewModel.ClickedItem = (OptionUnit)e.ClickedItem;
-        ItemFlyoutCommandBar.ShowAt((FrameworkElement)sender);
     }
 
     private void ItemPreseter_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -64,5 +62,8 @@ public sealed partial class PictureConverterPage : Page
         VisualStateManager.GoToState(sender as Control, "DeleteButtonHidden", true);
     }
 
-
+    private void TextBlock_PointerPressed(object sender, PointerRoutedEventArgs e)
+    {
+        TitleFlyoutCommandBar.ShowAt((FrameworkElement)sender);
+    }
 }

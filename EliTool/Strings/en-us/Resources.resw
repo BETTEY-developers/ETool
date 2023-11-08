@@ -180,4 +180,7 @@
   <data name="Shell_Loading.Content" xml:space="preserve">
     <value>Loading</value>
   </data>
+  <data name="Shell_ExternView.Content" xml:space="preserve">
+    <value>ExternView</value>
+  </data>
 </root>

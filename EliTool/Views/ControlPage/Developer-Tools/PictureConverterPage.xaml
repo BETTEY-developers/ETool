@@ -23,9 +23,8 @@
                 <ResourceDictionary Source="/Styles/ButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <CommandBarFlyout x:Name="ItemFlyoutCommandBar" Placement="Left">
-                <AppBarButton Icon="Edit" Label="编辑"/>
-                <AppBarButton Icon="Delete" Label="删除"/>
+            <CommandBarFlyout x:Name="TitleFlyoutCommandBar" Placement="Left">
+                <AppBarButton Icon="Edit" Label="编辑" Command="{x:Bind ViewModel.ChangeTitleCommand}"/>
             </CommandBarFlyout>
 
             <converter:BrushConverter x:Key="BrushConverter"/>
@@ -115,7 +114,8 @@
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="8"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    VerticalAlignment="Stretch">
             <Grid HorizontalAlignment="Left" ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -139,6 +139,7 @@
                     <Button Command="{x:Bind ViewModel.AddItemCommand}">添加项</Button>
                 </StackPanel>
             </Grid>
+            <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.Options.OptionCollectionName}" PointerPressed="TextBlock_PointerPressed"/>
             <Grid ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -149,7 +150,7 @@
                 </Grid.ColumnDefinitions>
                 
             </Grid>
-            <ListView ItemsSource="{x:Bind ViewModel.Options.OptionUnits,Mode=TwoWay}" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+            <ListView ItemsSource="{x:Bind ViewModel.Options.OptionUnits,Mode=TwoWay}" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" HorizontalAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="options:OptionUnit">
                         <UserControl Padding="0" Height="80" Name="ItemPreseter" PointerEntered="ItemPreseter_PointerEntered" PointerExited="ItemPreseter_PointerExited">
@@ -212,8 +213,14 @@
                                                   Icon="Delete" 
                                                   Label="Delete" 
                                                   x:Name="DeleteButton"
+                                                  Command="{Binding RemoveOptionCommand}"
+                                                  CommandParameter="{x:Bind UID}"
                                                   Visibility="Collapsed" 
-                                                  VerticalAlignment="Center" />
+                                                  VerticalAlignment="Center" >
+                                        <AppBarButton.DataContext>
+                                            <options:PictureConverterViewModel/>
+                                        </AppBarButton.DataContext>
+                                    </AppBarButton>
                                     <AppBarButton HorizontalAlignment="Right" 
                                                   Icon="Edit" 
                                                   Label="Edit"

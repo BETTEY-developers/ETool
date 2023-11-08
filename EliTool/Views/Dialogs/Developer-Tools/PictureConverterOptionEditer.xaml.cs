@@ -29,16 +29,16 @@ public partial class PictureConverterOptionEditerViewModel : ObservableRecipient
     private OptionUnit option = new OptionUnit();
 }
 
-public sealed partial class PictureConverterOptionEditer : Page
+public sealed partial class PictureConverterOptionEditer : Page, IResultDialog<OptionUnit>
 {
     public PictureConverterOptionEditerViewModel ViewModel { get; set; } = new PictureConverterOptionEditerViewModel();
 
     public OptionUnit Result => ViewModel.Option;
 
-    public PictureConverterOptionEditer(OptionUnit option)
-    {
+    public void SetIn(OptionUnit option) => ViewModel.Option = new OptionUnit(option);
 
-        ViewModel.Option = new OptionUnit(option);
+    public PictureConverterOptionEditer()
+    {
         this.InitializeComponent();
     }
 
