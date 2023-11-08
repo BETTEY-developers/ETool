@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 using Windows.UI.WindowManagement;
+using Windows.UI.Core.Preview;
 
 namespace EliTool;
 
@@ -57,7 +58,7 @@ public partial class App : Application
         {
             // Default Activation Handler
             services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
-            services.AddTransient<ActivationHandler<AppWindowClosedEventArgs>, CloseActivationHandler>();
+            services.AddTransient<ActivationHandler<WindowEventArgs>, CloseActivationHandler>();
 
             // Other Activation Handlers
 
