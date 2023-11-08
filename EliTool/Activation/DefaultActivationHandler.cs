@@ -1,4 +1,5 @@
 ﻿using EliTool.Contracts.Services;
+using EliTool.Services;
 using EliTool.ViewModels;
 
 using Microsoft.UI.Xaml;
@@ -12,6 +13,7 @@ public class DefaultActivationHandler : ActivationHandler<LaunchActivatedEventAr
     public DefaultActivationHandler(INavigationService navigationService)
     {
         _navigationService = navigationService;
+
     }
 
     protected override bool CanHandleInternal(LaunchActivatedEventArgs args)
@@ -23,6 +25,9 @@ public class DefaultActivationHandler : ActivationHandler<LaunchActivatedEventAr
     protected async override Task HandleInternalAsync(LaunchActivatedEventArgs args)
     {
         _navigationService.NavigateTo(typeof(MainViewModel).FullName!, args.Arguments);
+
+        var ser = (ExternService)App.GetService<IExternService>();
+        await ser.Load();
 
         await Task.CompletedTask;
     }

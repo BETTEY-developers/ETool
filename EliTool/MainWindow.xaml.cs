@@ -1,5 +1,7 @@
 ﻿using AppUIBasics.Controls;
+using EliTool.Activation;
 using EliTool.Helpers;
+using Microsoft.UI.Xaml;
 using Microsoft.Win32;
 using Windows.UI.ViewManagement;
 

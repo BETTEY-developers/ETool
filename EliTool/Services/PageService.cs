@@ -25,6 +25,7 @@ public class PageService : IPageService
         Configure<PictureConverterViewModel, Views.ControlPage.DeveloperTools.PictureConverterPage>();
         Configure<SearchResultViewViewModel, SearchResultViewPage>();
         Configure<LoadingViewModel, LoadingPage>();
+        Configure<ExternViewViewModel, ExternViewPage>();
     }
 
     public Type GetPageType(string key)

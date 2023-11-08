@@ -14,6 +14,7 @@ using EliTool.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
+using Windows.UI.WindowManagement;
 
 namespace EliTool;
 
@@ -56,6 +57,7 @@ public partial class App : Application
         {
             // Default Activation Handler
             services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
+            services.AddTransient<ActivationHandler<AppWindowClosedEventArgs>, CloseActivationHandler>();
 
             // Other Activation Handlers
 
@@ -67,11 +69,15 @@ public partial class App : Application
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IExternService, ExternService>();
+
 
             // Core Services
             services.AddSingleton<Core.Contracts.Services.IFileService, Core.Services.FileService>();
 
             // Views and ViewModels
+            services.AddTransient<ExternViewViewModel>();
+            services.AddTransient<ExternViewPage>();
             services.AddTransient<LoadingViewModel>();
             services.AddTransient<LoadingPage>();
             services.AddTransient<SearchResultViewViewModel>();
@@ -118,4 +124,5 @@ public partial class App : Application
 
         await App.GetService<IActivationService>().ActivateAsync(args);
     }
+
 }

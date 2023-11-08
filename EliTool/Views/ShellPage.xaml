@@ -103,6 +103,13 @@
                 </NavigationViewItem>
                 <NavigationViewItemSeparator/>
             </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem helpers:NavigationHelper.NavigateTo="EliTool.ViewModels.ExternViewViewModel" Content="插件视图">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE71D;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
             <NavigationView.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
