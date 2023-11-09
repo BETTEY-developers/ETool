@@ -6,7 +6,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Controls/ControlItemTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid x:Name="ContentArea">
-        
+        <GridView Margin="35" ItemTemplate="{StaticResource ExternInfoTemplate}" ItemsSource="{x:Bind ViewModel.ExternInfos}" IsItemClickEnabled="True">
+        </GridView>
     </Grid>
 </Page>

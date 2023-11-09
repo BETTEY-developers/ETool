@@ -15,9 +15,9 @@ namespace EliTool.Services;
 
 internal class ExternService : IExternService
 {
-    StorageFolder _ApplicationExternFolder = null;
-    StorageFolder _ApplicationExternUnpackageFolder = null;
-    StorageFile _ExternManifest = null;
+    public StorageFolder ApplicationExternFolder { set; get; } = null;
+    public StorageFolder ApplicationExternUnpackageFolder { set; get; } = null;
+    public StorageFile ExternManifest { set; get; } = null;
 
     public List<ExternInfo> Externs
     {
@@ -38,7 +38,8 @@ internal class ExternService : IExternService
 
         (Externs??new List<ExternInfo>()).ForEach(x =>
         {
-            x.EntryInstance = (IMain)Assembly.LoadFrom(_ApplicationExternUnpackageFolder.Path + "\\" + x.Name + "\\" + x.Name + ".dll").CreateInstance(x.Name + ".Main");
+            x.EntryAssembly = Assembly.LoadFrom(ApplicationExternUnpackageFolder.Path + "\\" + x.Name + "\\" + x.Name + ".dll");
+            x.EntryInstance = (IMain)x.EntryAssembly.CreateInstance(x.Name + ".Main");
             x.Manifest = new(x.EntryInstance);
             x.EntryInstance.Install();
         });
@@ -56,11 +57,11 @@ internal class ExternService : IExternService
     {
         try
         {
-            _ApplicationExternFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Externs");
+            ApplicationExternFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Externs");
         }
         catch
         {
-            _ApplicationExternFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("Externs");
+            ApplicationExternFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("Externs");
         }
     }
 
@@ -68,11 +69,11 @@ internal class ExternService : IExternService
     {
         try
         {
-            _ExternManifest = await _ApplicationExternFolder.CreateFileAsync("ExternManifest.json");
+            ExternManifest = await ApplicationExternFolder.CreateFileAsync("ExternManifest.json");
         }
         catch
         {
-            _ExternManifest = await _ApplicationExternFolder.GetFileAsync("ExternManifest.json");
+            ExternManifest = await ApplicationExternFolder.GetFileAsync("ExternManifest.json");
         }
     }
 
@@ -80,18 +81,18 @@ internal class ExternService : IExternService
     {
         try
         {
-            _ApplicationExternUnpackageFolder = await _ApplicationExternFolder.CreateFolderAsync("Unpackage");
+            ApplicationExternUnpackageFolder = await ApplicationExternFolder.CreateFolderAsync("Unpackage");
         }
         catch
         {
-            _ApplicationExternUnpackageFolder = await _ApplicationExternFolder.GetFolderAsync("Unpackage");
+            ApplicationExternUnpackageFolder = await ApplicationExternFolder.GetFolderAsync("Unpackage");
         }
 
         foreach (var externitem in Externs??new())
         {
             try
             {
-                System.IO.Compression.ZipFile.ExtractToDirectory(_ApplicationExternFolder.Path + "\\" + externitem.Name + ".ete", _ApplicationExternFolder.Path + "\\" + "Unpackage\\" + externitem.Name + "\\");
+                System.IO.Compression.ZipFile.ExtractToDirectory(ApplicationExternFolder.Path + "\\" + externitem.Name + ".ete", ApplicationExternFolder.Path + "\\" + "Unpackage\\" + externitem.Name + "\\");
             }
             catch { }
         }
@@ -101,12 +102,16 @@ internal class ExternService : IExternService
     {
         try
         {
-            Externs = JsonSerializer.Deserialize<List<ExternInfo>>(await FileIO.ReadTextAsync(_ExternManifest));
+            Externs = JsonSerializer.Deserialize<List<ExternInfo>>(await FileIO.ReadTextAsync(ExternManifest));
         }
         catch { }
     }
 
-    public List<Page> GetExternPages() => throw new NotImplementedException();
-    public List<SettingCollection> GetSettingItems() => throw new NotImplementedException();
-    public Dictionary<string, string> GetInfoManifest() => throw new NotImplementedException();
+    public ExternInfo GetExtern(string name)
+    {
+        return Externs.FirstOrDefault(x =>
+        {
+            return x.Name == name;
+        }, new ExternInfo());
+    }
 }

@@ -1,4 +1,5 @@
-﻿using EliTool.ExternSDK;
+﻿using System.Reflection;
+using EliTool.ExternSDK;
 using Newtonsoft.Json;
 
 namespace EliTool.Models;
@@ -32,7 +33,6 @@ public class ExternManifestInfo : IInfo
 
 public class ExternInfo
 {
-
     public string Name
     {
         get; set;
@@ -41,6 +41,11 @@ public class ExternInfo
     public IMain EntryInstance
     {
         get; set;
+    }
+
+    public Assembly EntryAssembly
+    {
+        get; set; 
     }
 
     public ExternManifestInfo Manifest
