@@ -8,7 +8,9 @@ namespace SimpleExtern;
 
 public class Main : IMain
 {
-    public string Name => "A Simple Extern";
+    public string Name => "SimpleExtern";
+
+    public string DisplayName => "A Simple Extern";
 
     public string Description => "For a test";
 

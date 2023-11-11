@@ -7,6 +7,11 @@ public interface IInfo
         get;
     }
 
+    public string DisplayName
+    {
+        get;
+    }
+
     public string Description
     {
         get;

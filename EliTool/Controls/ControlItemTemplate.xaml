@@ -2,7 +2,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:data="using:EliTool.Models"
+    xmlns:converters="using:EliTool.Helpers"
     x:Class="EliTool.Controls.ControlItemTemplate_">
+    <converters:ExternIconConverter x:Key="IconConverter"/>
     <DataTemplate x:Key="ControlItemInfoTemplate" x:DataType="data:ControlInfoDataItem">
         <UserControl>
             <Grid
@@ -111,16 +113,18 @@
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
 
-                <Grid Width="72" HorizontalAlignment="Stretch" CornerRadius="{ThemeResource ControlCornerRadius}">
+                <Grid Width="72" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="{ThemeResource ControlCornerRadius}">
                     <StackPanel Spacing="5">
                         <Image
-                        x:Name="gridImage"
-                        Width="48"
-                        VerticalAlignment="Center"
-                        AutomationProperties.Name="{Binding Name}"
-                        Source="{Binding ImagePath}"
-                        Stretch="Uniform" />
-                        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                            x:Name="gridImage"
+                            Width="48"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            AutomationProperties.Name="{Binding Name}"
+                            Source="{Binding Self, Converter={StaticResource IconConverter}}"
+                            Stretch="Uniform" />
+                        <TextBlock 
+                               Style="{ThemeResource CaptionTextBlockStyle}"
                                Foreground="{ThemeResource TextFillColorTertiaryBrush}"
                                Text="{Binding Author}"
                                HorizontalAlignment="Center"/>
@@ -136,7 +140,7 @@
                     <TextBlock
             x:Name="titleText"
             Style="{StaticResource BodyStrongTextBlockStyle}"
-            Text="{Binding Name}"
+            Text="{Binding DisplayName}"
             TextLineBounds="TrimToCapHeight"
             TextWrapping="NoWrap" />
                     <TextBlock

@@ -38,16 +38,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controls\ActionCard.xaml" />
+    <None Remove="Controls\ControlItemTemplate.xaml" />
     <None Remove="Controls\HeaderTile.xaml" />
     <None Remove="Controls\OperatorBar.xaml" />
     <None Remove="Controls\TileGallery.xaml" />
     <None Remove="Styles\ButtonStyle.xaml" />
     <None Remove="Views\Dialogs\Developer-Tools\PictureConverterOptionEditer.xaml" />
     <None Remove="Views\Dialogs\Developer-Tools\PictureConverterTitleEditer.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Remove="Controls\ControlItemTemplate.xaml" />
-    <Page Remove="Views\ExternViewPage.xaml" />
+    <None Remove="Views\ExternViewPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -107,12 +105,18 @@
     <None Update="Assets\NoLight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Controls\ControlItemTemplate.xaml">
+    <Page Update="Controls\ControlItemTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Views\ExternViewPage.xaml">
+    </Page>
+    <Page Update="Views\ExternViewPage.xaml">
+      <Generator>MSBuild:Complie</Generator>
+    </Page>
+    <Page Update="Controls\ControlItemTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </None>
+    </Page>
+    <Page Update="Views\ExternViewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\Dialogs\Developer-Tools\PictureConverterTitleEditer.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

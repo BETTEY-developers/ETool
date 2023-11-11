@@ -13,6 +13,6 @@
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="ContentArea">
-        <GridView Margin="35" ItemTemplate="{StaticResource ExternInfoTemplate}" ItemsSource="{x:Bind ViewModel.ExternInfos}" IsItemClickEnabled="True"></GridView>
+        <GridView ItemTemplate="{StaticResource ExternInfoTemplate}" ItemsSource="{x:Bind ViewModel.ExternInfos}" IsItemClickEnabled="True"></GridView>
     </Grid>
 </Page>

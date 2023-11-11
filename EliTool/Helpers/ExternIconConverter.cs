@@ -17,8 +17,8 @@ public class ExternIconConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         var ser = App.GetService<IExternService>();
-        var name = (string)parameter;
-        BitmapImage img = new BitmapImage(new Uri(ser.ApplicationExternUnpackageFolder.Path + "\\" + name + "\\" + name + "\\" + (string)value));
+        var obj = value as ExternManifestInfo;
+        BitmapImage img = new BitmapImage(new Uri(ser.ApplicationExternUnpackageFolder.Path + "\\" + obj.Name + "\\" + obj.Name + "\\" + obj.IconPath));
         return (ImageSource)img;
     }
     public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();

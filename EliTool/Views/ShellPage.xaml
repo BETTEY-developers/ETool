@@ -104,7 +104,7 @@
                 <NavigationViewItemSeparator/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem helpers:NavigationHelper.NavigateTo="EliTool.ViewModels.ExternViewViewModel" Content="插件视图">
+                <NavigationViewItem helpers:NavigationHelper.NavigateTo="EliTool.ViewModels.ExternViewViewModel" Content="扩展视图">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE71D;"/>
                     </NavigationViewItem.Icon>
