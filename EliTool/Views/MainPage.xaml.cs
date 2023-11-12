@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
+using EliTool.BasePackage.Contacts.Services;
 using EliTool.Contracts.Services;
 using EliTool.Helpers;
 using EliTool.Models;

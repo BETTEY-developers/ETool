@@ -21,7 +21,7 @@
                         IsSettingsVisible="False" 
                         IsBackButtonVisible="Collapsed" 
                         HorizontalAlignment="Stretch" 
-                        VerticalAlignment="Top" 
+                        VerticalAlignment="Stretch" 
                         SelectionChanged="GridViewControl_SelectionChanged"
                         PaneDisplayMode="Top">
             <NavigationView.MenuItemTemplate>

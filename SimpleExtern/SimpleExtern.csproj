@@ -22,10 +22,19 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="View\**" />
+    <Content Remove="View\**" />
+    <EmbeddedResource Remove="View\**" />
+    <None Remove="View\**" />
+    <Page Remove="View\**" />
+    <PRIResource Remove="View\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="TestPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
       <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230602002" />
       <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
   </ItemGroup>

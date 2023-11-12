@@ -78,6 +78,7 @@ public sealed partial class SearchResultViewPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         ShellPage.Instance.NavigationViewControl.Header = null;
+        ViewModel.Groups = (ObservableCollection<SearchGroup>)e.Parameter;
         base.OnNavigatedTo(e);
     }
 
@@ -121,7 +122,7 @@ public sealed partial class SearchResultViewPage : Page
             ViewModel.Groups.Insert(0, new()
             {
                 Id = "all",
-                Title = "All".GetLocalized()
+                Title = "All".GetLocalized("SearchResultViewPage")
             });
         }
     }

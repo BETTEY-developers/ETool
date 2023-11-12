@@ -155,9 +155,7 @@ public sealed partial class ShellPage : Page
                 }
             }
 
-            App.GetService<INavigationService>().NavigateTo("EliTool.ViewModels.SearchResultViewViewModel");
-            SearchResultViewPage.Instance.ViewModel.Groups = groups;
-            SearchResultViewPage.Instance.ReAddAllItem();
+            App.GetService<INavigationService>().NavigateTo("EliTool.ViewModels.SearchResultViewViewModel", groups);
         }
         else
         {

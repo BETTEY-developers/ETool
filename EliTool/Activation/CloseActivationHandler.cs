@@ -10,9 +10,9 @@ using Windows.UI.Core.Preview;
 using Windows.UI.WindowManagement;
 
 namespace EliTool.Activation;
-internal class CloseActivationHandler : ActivationHandler<WindowEventArgs>
+internal class CloseActivationHandler : ActivationHandler<EventArgs>
 {
-    protected async override Task HandleInternalAsync(WindowEventArgs args)
+    protected async override Task HandleInternalAsync(EventArgs args)
     {
         var externservice = App.GetService<IExternService>();
         

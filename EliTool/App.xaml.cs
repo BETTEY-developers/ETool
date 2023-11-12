@@ -16,6 +16,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 using Windows.UI.WindowManagement;
 using Windows.UI.Core.Preview;
+using EliTool.BasePackage.Contacts.Services;
+using EliTool.BasePackage.Services;
 
 namespace EliTool;
 
@@ -58,7 +60,7 @@ public partial class App : Application
         {
             // Default Activation Handler
             services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
-            services.AddTransient<ActivationHandler<WindowEventArgs>, CloseActivationHandler>();
+            services.AddTransient<ActivationHandler<EventArgs>, CloseActivationHandler>();
 
             // Other Activation Handlers
 
@@ -110,7 +112,26 @@ public partial class App : Application
         }).
         Build();
 
+        RegisteryPages();
+
         UnhandledException += App_UnhandledException;
+    }
+
+    private void RegisteryPages()
+    {
+        var ser = (PageService)App.GetService<IPageService>();
+        ser.AddDependence<MainViewModel, MainPage>();
+        ser.AddDependence<SettingsViewModel, SettingsPage>();
+        ser.AddDependence<JsonCSharpConverterViewModel, Views.ControlPage.DeveloperTools.JsonCSharpConverterPage>();
+        ser.AddDependence<NumberConverterViewModel, NumberConverterPage>();
+        ser.AddDependence<DocumentOverviewViewModel, DocumentOverviewPage>();
+        ser.AddDependence<OfflineToolsDocumentViewModel, Views.Document.OfflineToolsDocumentPage>();
+        ser.AddDependence<OnlineToolsDocumentViewModel, Views.Document.OnlineToolsDocumentPage>();
+        ser.AddDependence<OnOffLineToolsDocumentViewModel, Views.Document.OnOffLineToolsDocumentPage>();
+        ser.AddDependence<PictureConverterViewModel, Views.ControlPage.DeveloperTools.PictureConverterPage>();
+        ser.AddDependence<SearchResultViewViewModel, SearchResultViewPage>();
+        ser.AddDependence<LoadingViewModel, LoadingPage>();
+        ser.AddDependence<ExternViewViewModel, ExternViewPage>();
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -123,7 +144,13 @@ public partial class App : Application
     {
         base.OnLaunched(args);
 
+        AppDomain.CurrentDomain.DomainUnload += Exit;
+
         await App.GetService<IActivationService>().ActivateAsync(args);
     }
 
+    private async void Exit(object? sender, EventArgs e)
+    {
+        await App.GetService<ActivationHandler<EventArgs>>().HandleAsync(e);
+    }
 }

@@ -22,7 +22,9 @@
     <TargetFramework>net6.0-windows</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Contracts\Services\IPageService.cs" />
     <Compile Remove="Helpers\BooleanToEnableStateConverter.cs" />
+    <Compile Remove="Services\PageService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Assets\Control\Image\Developer-Tools.png" />
@@ -54,12 +56,13 @@
 
   <ItemGroup>
     <PackageReference Include="ColorCode.WinUI" Version="2.0.15" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.230907" />
+    <PackageReference Include="EliTool.BasePackage" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230502000" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230602002" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
     <PackageReference Include="WinUIEx" Version="2.2" />
   </ItemGroup>
@@ -147,6 +150,7 @@
   <ItemGroup>
     <Folder Include="Views\ControlPage\Developer-Tools\" />
     <Folder Include="Views\Document\ToolDocuments\" />
+    <Folder Include="Views\Extern\" />
   </ItemGroup>
   
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">

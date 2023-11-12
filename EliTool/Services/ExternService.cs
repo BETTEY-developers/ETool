@@ -15,9 +15,16 @@ namespace EliTool.Services;
 
 internal class ExternService : IExternService
 {
+    public const string ExternDomainName = "ExternDomain";
+
     public StorageFolder ApplicationExternFolder { set; get; } = null;
     public StorageFolder ApplicationExternUnpackageFolder { set; get; } = null;
     public StorageFile ExternManifest { set; get; } = null;
+    
+    public AppDomain ExternDomain
+    {
+        get; set;
+    }
 
     public List<ExternInfo> Externs
     {
