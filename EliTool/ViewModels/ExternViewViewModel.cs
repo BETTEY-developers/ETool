@@ -7,9 +7,9 @@ namespace EliTool.ViewModels;
 
 public partial class ExternViewViewModel : ObservableRecipient
 {
-    private ObservableCollection<ExternManifestInfo> externInfos = new ObservableCollection<ExternManifestInfo>();
+    private ObservableCollection<ExternInfo> externInfos = new ObservableCollection<ExternInfo>();
 
-    public ObservableCollection<ExternManifestInfo> ExternInfos
+    public ObservableCollection<ExternInfo> ExternInfos
     {
         get => externInfos;
         set
@@ -21,9 +21,6 @@ public partial class ExternViewViewModel : ObservableRecipient
 
     public ExternViewViewModel()
     {
-        App.GetService<IExternService>().Externs.ForEach(e =>
-        {
-            externInfos.Add(e.Manifest);
-        });
+        App.GetService<IExternService>().Externs.ForEach(ExternInfos.Add);
     }
 }

@@ -4,13 +4,40 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:EliTool.Helpers"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converter:ExternIconConverter x:Key="IconConverter"/>
+        <converter:UriConverter x:Key="UriConverter"/>
+    </Page.Resources>
+    <StackPanel x:Name="ContentArea" HorizontalAlignment="Stretch">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="32" Padding="16">
+            <Image Source="{x:Bind ViewModel.DisplayExtern.Manifest.Self, Converter={StaticResource IconConverter}}"
+                   Height="256"
+                   Width="256"
+                   Stretch="Uniform"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"/>
+            <StackPanel Spacing="10" HorizontalAlignment="Right">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.DisplayName}" 
+                               Style="{ThemeResource TitleLargeTextBlockStyle}"/>
+                    <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.Version}"
+                               Style="{ThemeResource TitleTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                </StackPanel>
+                
+                <HyperlinkButton NavigateUri="{x:Bind ViewModel.DisplayExtern.Manifest.AuthorUrl, Converter={StaticResource UriConverter}}" Padding="3">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.Author}" VerticalAlignment="Center"/>
+                        <Border Height="30" Width="1" BorderThickness="1" BorderBrush="{ThemeResource ControlStrokeColorSecondaryBrush}"/>
+                        <TextBlock VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorTertiaryBrush}">点击进入</TextBlock>
+                    </StackPanel>
+                </HyperlinkButton>
 
-    <Page.Transitions>
-        <NavigationThemeTransition/>
-    </Page.Transitions>
-    
-    <Grid x:Name="ContentArea">
-        
-    </Grid>
+                <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.Description}"/>
+                    
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Page>

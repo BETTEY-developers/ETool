@@ -75,7 +75,7 @@
             </Grid>
         </UserControl>
     </DataTemplate>
-    <DataTemplate x:Key="ExternInfoTemplate" x:DataType="data:ExternManifestInfo">
+    <DataTemplate x:Key="ExternInfoTemplate" x:DataType="data:ExternInfo">
         <UserControl>
             <Grid
             x:Name="controlRoot"
@@ -120,13 +120,13 @@
                             Width="48"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
-                            AutomationProperties.Name="{Binding Name}"
-                            Source="{Binding Self, Converter={StaticResource IconConverter}}"
+                            AutomationProperties.Name="{Binding Manifest.Name}"
+                            Source="{Binding Manifest.Self, Converter={StaticResource IconConverter}}"
                             Stretch="Uniform" />
                         <TextBlock 
                                Style="{ThemeResource CaptionTextBlockStyle}"
                                Foreground="{ThemeResource TextFillColorTertiaryBrush}"
-                               Text="{Binding Author}"
+                               Text="{Binding Manifest.Author}"
                                HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
@@ -140,14 +140,14 @@
                     <TextBlock
             x:Name="titleText"
             Style="{StaticResource BodyStrongTextBlockStyle}"
-            Text="{Binding DisplayName}"
+            Text="{Binding Manifest.DisplayName}"
             TextLineBounds="TrimToCapHeight"
             TextWrapping="NoWrap" />
                     <TextBlock
             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
             RelativePanel.Below="titleText"
             Style="{StaticResource CaptionTextBlockStyle}"
-            Text="{Binding Description}"
+            Text="{Binding Manifest.Description}"
             TextTrimming="CharacterEllipsis" />
                 </StackPanel>
             </Grid>
