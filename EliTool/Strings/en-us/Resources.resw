@@ -183,4 +183,7 @@
   <data name="Shell_ExternView.Content" xml:space="preserve">
     <value>ExternView</value>
   </data>
+  <data name="Shell_ExternDetail.Content" xml:space="preserve">
+    <value>ExternDetail</value>
+  </data>
 </root>

@@ -16,4 +16,9 @@ public sealed partial class ExternViewPage : Page
         ViewModel = App.GetService<ExternViewViewModel>();
         InitializeComponent();
     }
+
+    private void GridView_ItemClick(object sender, ItemClickEventArgs e)
+    {
+
+    }
 }

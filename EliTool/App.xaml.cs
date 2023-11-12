@@ -1,6 +1,8 @@
 ﻿using DocumentViews = EliTool.Views.Document;
 
 using EliTool.Activation;
+using EliTool.BasePackage.Contacts.Services;
+using EliTool.BasePackage.Services;
 using EliTool.Contracts.Services;
 using EliTool.Controls;
 using EliTool.Core.Contracts.Services;
@@ -14,10 +16,9 @@ using EliTool.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
-using Windows.UI.WindowManagement;
+
 using Windows.UI.Core.Preview;
-using EliTool.BasePackage.Contacts.Services;
-using EliTool.BasePackage.Services;
+using Windows.UI.WindowManagement;
 
 namespace EliTool;
 
@@ -79,6 +80,8 @@ public partial class App : Application
             services.AddSingleton<Core.Contracts.Services.IFileService, Core.Services.FileService>();
 
             // Views and ViewModels
+            services.AddTransient<ExternDetailViewModel>();
+            services.AddTransient<Views.Extern.ExternDetailPage > ();
             services.AddTransient<ExternViewViewModel>();
             services.AddTransient<ExternViewPage>();
             services.AddTransient<LoadingViewModel>();
@@ -132,6 +135,7 @@ public partial class App : Application
         ser.AddDependence<SearchResultViewViewModel, SearchResultViewPage>();
         ser.AddDependence<LoadingViewModel, LoadingPage>();
         ser.AddDependence<ExternViewViewModel, ExternViewPage>();
+        ser.AddDependence<ExternDetailViewModel, Views.Extern.ExternDetailPage>();
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
