@@ -1,13 +1,18 @@
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using EliTool.BasePackage.Contacts.Services;
+using EliTool.BasePackage.Services;
 using EliTool.ExternSDK;
-using Windows.Storage;
-using Windows.UI.Popups;
+using SimpleExtern.Common;
+using SimpleExtern.ViewModels;
+using SimpleExtern.Views;
 
 namespace SimpleExtern;
 
 public class Main : IMain
 {
+    private static ServiceRegister _services = new();
+
     public string Name => "SimpleExtern";
 
     public string DisplayName => "A Simple Extern";
@@ -22,9 +27,33 @@ public class Main : IMain
 
     public string IconPath => "Assets\\SimpleExtern.png";
 
-    public List<string> GetExternPageList() => new List<string>() { "SimpleExtern.TestPage" };
+    public List<string> GetExternPageList() => new List<string>() { "SimpleExtern.View.TestPage" };
+
     public List<string> GetExternSettingsList() => new List<string> { "" };
+
     public IInfo GetInfo() => this;
-    public void Install() => ApplicationData.Current.LocalFolder.CreateFileAsync("OK.txt");
+
+    public void Install()
+    {
+        // Initialize in it
+
+        // Register Services
+        _services.Configure<IPageService, PageService>();
+
+        // Register Pages
+        PageService ser = (PageService)Main.GetService<IPageService>();
+        ser.AddDependence<TestPageViewModel, TestPage>();
+    }
     public void Uninstall() { }
+
+    public static T GetService<T>()
+        where T : class
+    {
+        if (_services.GetServiceToObject<T>() is not T service)
+        {
+            throw new ArgumentException($"{typeof(T)} needs to be registered in ConfigureServices within IMain.Install");
+        }
+
+        return service;
+    }
 }
