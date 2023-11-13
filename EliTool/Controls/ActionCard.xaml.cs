@@ -45,7 +45,7 @@ public sealed partial class ActionCard : UserControl
     {
         get
         {
-            return (Button)GetValue(ActionProperty);
+            return (ButtonBase)GetValue(ActionProperty);
         }
         set
         {
