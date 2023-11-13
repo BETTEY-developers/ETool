@@ -26,7 +26,7 @@ internal class ExternService : IExternService
         get; set;
     }
 
-    public List<ExternInfo> Externs
+    public List<Extern> Externs
     {
         get; set;
     }
@@ -43,7 +43,7 @@ internal class ExternService : IExternService
         await GetExterns();
         await Unpackages();
 
-        (Externs??new List<ExternInfo>()).ForEach(x =>
+        (Externs??new List<Extern>()).ForEach(x =>
         {
             x.EntryAssembly = Assembly.LoadFrom(ApplicationExternUnpackageFolder.Path + "\\" + x.Name + "\\" + x.Name + ".dll");
             x.EntryInstance = (IMain)x.EntryAssembly.CreateInstance(x.Name + ".Main");
@@ -109,16 +109,16 @@ internal class ExternService : IExternService
     {
         try
         {
-            Externs = JsonSerializer.Deserialize<List<ExternInfo>>(await FileIO.ReadTextAsync(ExternManifest));
+            Externs = JsonSerializer.Deserialize<List<Extern>>(await FileIO.ReadTextAsync(ExternManifest));
         }
         catch { }
     }
 
-    public ExternInfo GetExtern(string name)
+    public Extern GetExtern(string name)
     {
         return Externs.FirstOrDefault(x =>
         {
             return x.Name == name;
-        }, new ExternInfo());
+        }, new Extern());
     }
 }

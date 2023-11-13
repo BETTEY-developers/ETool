@@ -7,9 +7,9 @@ namespace EliTool.ViewModels;
 
 public partial class ExternViewViewModel : ObservableRecipient
 {
-    private ObservableCollection<ExternInfo> externInfos = new ObservableCollection<ExternInfo>();
+    private ObservableCollection<Extern> externInfos = new ObservableCollection<Extern>();
 
-    public ObservableCollection<ExternInfo> ExternInfos
+    public ObservableCollection<Extern> ExternInfos
     {
         get => externInfos;
         set

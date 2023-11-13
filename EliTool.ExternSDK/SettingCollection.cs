@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ETool.ExternSDK.Model;
 
 namespace EliTool.ExternSDK;
 

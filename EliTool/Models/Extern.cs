@@ -1,7 +1,10 @@
 ﻿using System.Reflection;
 using System.Xml.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 using EliTool.Contracts.Services;
 using EliTool.ExternSDK;
+using ETool.ExternSDK.Model;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Newtonsoft.Json;
@@ -45,7 +48,7 @@ public class ExternManifestInfo : IInfo
         get; set;
     }
 }
-public class ExternInfo
+public class Extern
 {
     public string Name
     {
@@ -64,5 +67,23 @@ public class ExternInfo
     public ExternManifestInfo Manifest
     {
         get; set;
+    }
+
+    public Dictionary<ObservableRecipient, Page> GetPages()
+    {
+        var result = new Dictionary<ObservableRecipient, Page>();
+        var org = EntryInstance.GetExternPageList();
+
+        foreach (var page in org)
+        {
+            result.Add((ObservableRecipient)Activator.CreateInstance(page.Key)!, (Page)Activator.CreateInstance(page.Value)!);
+        }
+
+        return result;
+    }
+
+    public SettingCollection GetSettingCollection()
+    {
+        return EntryInstance.GetExternSettingsCollection();
     }
 }

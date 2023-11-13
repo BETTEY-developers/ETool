@@ -16,9 +16,9 @@ public interface IExternService
 
     public Task Load();
 
-    public ExternInfo GetExtern(string name);
+    public Extern GetExtern(string name);
 
-    public List<ExternInfo> Externs
+    public List<Extern> Externs
     {
         get; set;
     }

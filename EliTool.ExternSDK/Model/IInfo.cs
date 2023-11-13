@@ -1,4 +1,4 @@
-﻿namespace EliTool.ExternSDK;
+﻿namespace ETool.ExternSDK.Model;
 
 public interface IInfo
 {

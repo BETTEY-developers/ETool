@@ -4,7 +4,7 @@ using EliTool.ViewModels;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace EliTool.Views.Extern;
+namespace EliTool.Views.ExternViews;
 
 public sealed partial class ExternDetailPage : Page
 {
@@ -23,6 +23,6 @@ public sealed partial class ExternDetailPage : Page
     {
         base.OnNavigatedTo(e);
 
-        ViewModel.DisplayExtern = (ExternInfo)e.Parameter;
+        ViewModel.DisplayExtern = (Extern)e.Parameter;
     }
 }

@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using EliTool.Models;
+using Microsoft.UI.Xaml.Controls;
 
 namespace EliTool.ViewModels;
 
@@ -9,6 +11,14 @@ public partial class ExternDetailViewModel : ObservableRecipient
     {
     }
 
+    public void Load()
+    {
+        displayExtern.GetPages().Values.ToList().ForEach(pages.Add);
+    }
+
     [ObservableProperty]
-    ExternInfo displayExtern = new ExternInfo();
+    Extern displayExtern = new Extern();
+
+    [ObservableProperty]
+    ObservableCollection<Page> pages = new ObservableCollection<Page>();
 }

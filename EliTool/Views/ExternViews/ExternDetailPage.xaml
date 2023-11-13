@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="EliTool.Views.Extern.ExternDetailPage"
+    x:Class="EliTool.Views.ExternViews.ExternDetailPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -61,7 +61,7 @@
             <controls:ActionCard Title="页面列表">
                 <controls:ActionCard.ActiveCardContent>
                     <StackPanel Orientation="Horizontal">
-
+                        
                     </StackPanel>
                 </controls:ActionCard.ActiveCardContent>
                 <controls:ActionCard.Action>

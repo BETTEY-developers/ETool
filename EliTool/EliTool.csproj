@@ -22,6 +22,12 @@
     <TargetFramework>net6.0-windows</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Views\Extern\**" />
+    <EmbeddedResource Remove="Views\Extern\**" />
+    <None Remove="Views\Extern\**" />
+    <Page Remove="Views\Extern\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Remove="Contracts\Services\IPageService.cs" />
     <Compile Remove="Helpers\BooleanToEnableStateConverter.cs" />
     <Compile Remove="Services\PageService.cs" />
@@ -150,10 +156,13 @@
   <ItemGroup>
     <Folder Include="Views\ControlPage\Developer-Tools\" />
     <Folder Include="Views\Document\ToolDocuments\" />
-    <Folder Include="Views\Extern\" />
   </ItemGroup>
   
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <PRIResource Remove="Views\Extern\**" />
+  </ItemGroup>
 </Project>

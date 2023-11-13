@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EliTool.BasePackage.Contacts.Services;
 using EliTool.BasePackage.Services;
 using EliTool.ExternSDK;
+using ETool.ExternSDK.Model;
 using SimpleExtern.Common;
 using SimpleExtern.ViewModels;
 using SimpleExtern.Views;
@@ -26,10 +27,6 @@ public class Main : IMain
     public string AuthorUrl => "nullptr";
 
     public string IconPath => "Assets\\SimpleExtern.png";
-
-    public List<string> GetExternPageList() => new List<string>() { "SimpleExtern.View.TestPage" };
-
-    public List<string> GetExternSettingsList() => new List<string> { "" };
 
     public IInfo GetInfo() => this;
 
@@ -56,4 +53,11 @@ public class Main : IMain
 
         return service;
     }
+
+    public Dictionary<Type, Type> GetExternPageList() => new Dictionary<Type, Type>()
+    {
+        [typeof(TestPageViewModel)] = typeof(TestPage)
+    };
+
+    public SettingCollection GetExternSettingsCollection() => new SettingCollection();
 }

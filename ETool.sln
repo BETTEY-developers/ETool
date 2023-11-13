@@ -14,13 +14,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Program", "Program", "{74A57245-7501-45A5-8B18-E6E7F4759615}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Externs", "Externs", "{4169B883-ED24-46BB-BA0B-50C781D7C73B}"
-	ProjectSection(SolutionItems) = preProject
-		BuildPackage.bat = BuildPackage.bat
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{BC99244B-E35D-407C-BCD8-7EEC730F6D0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliTool.BasePackage", "EliTool.BasePackage\EliTool.BasePackage.csproj", "{B4C71A4C-1477-474C-93D3-00EA16CFA395}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EliTool.BasePackage", "EliTool.BasePackage\EliTool.BasePackage.csproj", "{B4C71A4C-1477-474C-93D3-00EA16CFA395}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
