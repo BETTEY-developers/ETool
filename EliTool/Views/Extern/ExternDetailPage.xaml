@@ -5,39 +5,92 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:EliTool.Helpers"
+    xmlns:controls="using:EliTool.Controls"
     mc:Ignorable="d">
     <Page.Resources>
         <converter:ExternIconConverter x:Key="IconConverter"/>
         <converter:UriConverter x:Key="UriConverter"/>
     </Page.Resources>
-    <StackPanel x:Name="ContentArea" HorizontalAlignment="Stretch">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="32" Padding="16">
-            <Image Source="{x:Bind ViewModel.DisplayExtern.Manifest.Self, Converter={StaticResource IconConverter}}"
-                   Height="256"
-                   Width="256"
-                   Stretch="Uniform"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center"/>
-            <StackPanel Spacing="10" HorizontalAlignment="Right">
-                <StackPanel Spacing="4">
-                    <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.DisplayName}" 
-                               Style="{ThemeResource TitleLargeTextBlockStyle}"/>
-                    <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.Version}"
-                               Style="{ThemeResource TitleTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-                </StackPanel>
-                
-                <HyperlinkButton NavigateUri="{x:Bind ViewModel.DisplayExtern.Manifest.AuthorUrl, Converter={StaticResource UriConverter}}" Padding="3">
-                    <StackPanel Orientation="Horizontal" Spacing="5">
-                        <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.Author}" VerticalAlignment="Center"/>
-                        <Border Height="30" Width="1" BorderThickness="1" BorderBrush="{ThemeResource ControlStrokeColorSecondaryBrush}"/>
-                        <TextBlock VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorTertiaryBrush}">点击进入</TextBlock>
+    <ScrollViewer x:Name="ContentArea">
+        <StackPanel HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="32" Padding="16">
+                <Image Source="{x:Bind ViewModel.DisplayExtern.Manifest.Self, Converter={StaticResource IconConverter}}"
+               Height="256"
+               Width="256"
+               Stretch="Uniform"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"/>
+                <StackPanel Spacing="10" HorizontalAlignment="Right">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.DisplayName}" 
+                           Style="{ThemeResource TitleLargeTextBlockStyle}"/>
+                        <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.Version}"
+                           Style="{ThemeResource TitleTextBlockStyle}"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
                     </StackPanel>
-                </HyperlinkButton>
 
-                <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.Description}"/>
-                    
+                    <HyperlinkButton BorderBrush="{ThemeResource ControlStrokeColorDefault}" 
+                             NavigateUri="{x:Bind ViewModel.DisplayExtern.Manifest.AuthorUrl, Converter={StaticResource UriConverter}}" 
+                             Padding="8">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.Author}" VerticalAlignment="Center"/>
+                            <Border Height="30" Width="1" BorderThickness="1" BorderBrush="{ThemeResource ControlStrokeColorSecondaryBrush}"/>
+                            <TextBlock VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorTertiaryBrush}">点击进入</TextBlock>
+                        </StackPanel>
+                    </HyperlinkButton>
+
+                    <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.Description}"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Height="50" Width="128">
+                            <StackPanel Spacing="5" Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE711;" />
+                                <TextBlock>禁用</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Height="50" Width="128" Style="{ThemeResource AccentButtonStyle}">
+                            <StackPanel Spacing="5" Orientation="Horizontal">
+                                <FontIcon Glyph="&#xE74D;" />
+                                <TextBlock>卸载</TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
+
+            <controls:ActionCard Title="页面列表">
+                <controls:ActionCard.ActiveCardContent>
+                    <StackPanel Orientation="Horizontal">
+
+                    </StackPanel>
+                </controls:ActionCard.ActiveCardContent>
+                <controls:ActionCard.Action>
+                    <HyperlinkButton>查看详细</HyperlinkButton>
+                </controls:ActionCard.Action>
+            </controls:ActionCard>
+
+            <controls:ActionCard Title="文档列表">
+                <controls:ActionCard.ActiveCardContent>
+                    <StackPanel Orientation="Horizontal">
+
+                    </StackPanel>
+                </controls:ActionCard.ActiveCardContent>
+
+                <controls:ActionCard.Action>
+                    <HyperlinkButton>查看详细</HyperlinkButton>
+                </controls:ActionCard.Action>
+            </controls:ActionCard>
+
+            <controls:ActionCard Title="设置项列表">
+                <controls:ActionCard.ActiveCardContent>
+                    <StackPanel Orientation="Horizontal">
+
+                    </StackPanel>
+                </controls:ActionCard.ActiveCardContent>
+                <controls:ActionCard.Action>
+                    <HyperlinkButton>查看详细</HyperlinkButton>
+                </controls:ActionCard.Action>
+            </controls:ActionCard>
         </StackPanel>
-    </StackPanel>
+    </ScrollViewer>
 </Page>
