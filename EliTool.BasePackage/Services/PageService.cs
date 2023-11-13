@@ -10,10 +10,10 @@ using Windows.Gaming.Input;
 
 namespace EliTool.BasePackage.Services;
 
-public class PageService : ItemMap<ObservableObject, Page>, IPageService
+public class PageService : ItemMap<ObservableRecipient, Page>, IPageService
 {
     public void AddDependence<TKey, TValue>()
-        where TKey : ObservableObject
+        where TKey : ObservableRecipient
         where TValue : Page
         => Configure<TKey, TValue>(t => t.FullName!);
 

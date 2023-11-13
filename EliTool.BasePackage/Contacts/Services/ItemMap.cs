@@ -14,3 +14,12 @@ public interface IItemMap<TKeyBase, TValueBase>
 
     public Type GetDependenceType(string key);
 }
+
+public interface IItemMap
+{
+    public void Configure<TKey, TValue>(Func<Type, string> keyselector)
+        where TKey : class
+        where TValue : class;
+
+    public Type GetDependenceType(string key);
+}

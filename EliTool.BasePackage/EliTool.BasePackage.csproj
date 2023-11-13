@@ -7,6 +7,9 @@
     <UseWinUI>true</UseWinUI>
     <PackageIcon>ETool.png</PackageIcon>
     <PackageOutputPath>..\..\..\CustomNuget</PackageOutputPath>
+    <AssemblyVersion>1.0.2311.5</AssemblyVersion>
+    <FileVersion>1.0.2311.5</FileVersion>
+    <Version>$(AssemblyVersion)</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Downloads\ETool.png">
