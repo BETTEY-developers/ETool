@@ -6,6 +6,24 @@
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		<UseWinUI>true</UseWinUI>
 		<Configurations>Debug;Release;BuildPackage</Configurations>
+		<Version>$(AssemblyVersion)</Version>
+		<AssemblyVersion>1.0.1113.1</AssemblyVersion>
+		<FileVersion>1.0.1113.0</FileVersion>
+		<Title>For ETool Externs SDK and API</Title>
+		<Authors>ETool Team</Authors>
+		<Company>ETool Team</Company>
+		<Product>ETool Extern SDK and API</Product>
+		<Description>This package is for ETool Externs to link ETool and use part in ETool standard control Lib.</Description>
+		<Copyright>Copyright ETool Team 2023-</Copyright>
+		<PackageIcon>ETool.png</PackageIcon>
+		<PackageTags>ETool, SDK, Extern</PackageTags>
+		<AnalysisLevel>none</AnalysisLevel>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Include="..\..\..\..\Downloads\ETool.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>
