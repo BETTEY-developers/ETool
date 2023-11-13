@@ -192,8 +192,6 @@ public class PictureConverterOptions : ObservableObject
 }
 public partial class PictureConverterViewModel : ObservableRecipient
 {
-    
-
     public PictureConverterViewModel()
     {
         AcceleratorActions = new KeyboardAcceleratorActions
