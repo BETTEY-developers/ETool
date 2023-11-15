@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using EliTool.BasePackage.Contacts.Services;
+using EliTool.BasePackage.Contracts.Services;
 using EliTool.BasePackage.Services;
 using EliTool.ExternSDK;
-using ETool.ExternSDK.Model;
+using EliTool.ExternSDK.Model;
 using SimpleExtern.Common;
 using SimpleExtern.ViewModels;
 using SimpleExtern.Views;
@@ -54,10 +54,25 @@ public class Main : IMain
         return service;
     }
 
-    public Dictionary<Type, Type> GetExternPageList() => new Dictionary<Type, Type>()
-    {
-        [typeof(TestPageViewModel)] = typeof(TestPage)
-    };
-
     public SettingCollection GetExternSettingsCollection() => new SettingCollection();
+    public PageInfoGroup GetExternPageGroup()
+    {
+        return new()
+        {
+            Title = "SimpleExtern",
+            Id = "SimpleExtern",
+            ImagePath = "Assets\\SimpleExtern.png",
+            ControlInfos = new List<PageInfoDataItem>()
+            {
+                new PageInfoDataItem()
+                {
+                    ClickType = typeof(TestPageViewModel),
+                    PageType = typeof(TestPage),
+                    Title = "TestPage",
+                    Subtitle = "TestPage",
+                    ImagePath = "Assets\\SimpleExtern.png"
+                }
+            }
+        };
+    }
 }
