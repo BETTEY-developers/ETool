@@ -1,7 +1,7 @@
-﻿using EliTool.BasePackage.Contacts.Services;
+﻿using EliTool.BasePackage.Contracts.Services;
 using EliTool.Contracts.Services;
 using EliTool.ViewModels;
-using EliTool.Views.Extern;
+using EliTool.Views.ExternViews;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 

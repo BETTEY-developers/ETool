@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
-using EliTool.BasePackage.Contacts.Services;
+using EliTool.BasePackage.Contracts.Services;
 using EliTool.Contracts.Services;
 using EliTool.Helpers;
 using EliTool.Models;
@@ -19,7 +19,7 @@ public sealed partial class MainPage : Page
         get;
     }
 
-    public ObservableCollection<ControlInfoDataItem> ControlInfos { get; set; } = new ObservableCollection<ControlInfoDataItem>();
+    public ObservableCollection<PageInfoDataItem> ControlInfos { get; set; } = new ObservableCollection<PageInfoDataItem>();
 
     public MainPage()
     {
@@ -31,14 +31,14 @@ public sealed partial class MainPage : Page
     protected async override void OnNavigatedTo(NavigationEventArgs e)
     {
         ShellPage.Instance.NavigationViewControl.Header = null;
-        List<ControlInfoDataItem> items = new List<ControlInfoDataItem>();
-        foreach (var v in ViewModel.GetControlInfos().Result.ControlInfoGroups) foreach (var s in v.ControlInfos) ControlInfos.Add(s);
+        List<PageInfoDataItem> items = new List<PageInfoDataItem>();
+        foreach (var v in ViewModel.GetControlInfos().ControlInfoGroups) foreach (var s in v.ControlInfos) ControlInfos.Add(s);
         
         base.OnNavigatedTo(e);
     }
 
     private void GridView_ItemClick(object sender, ItemClickEventArgs e)
     {
-        Frame.Navigate(App.GetService<IPageService>().GetPageType((e.ClickedItem as ControlInfoDataItem).ClickPath));
+        Frame.Navigate((e.ClickedItem as PageInfoDataItem).PageType);
     }
 }

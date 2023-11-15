@@ -26,16 +26,21 @@ public class SearchItem
     {
         get; set;
     }
-    public string ClickPath
+    public Type ClickType
+    {
+        get; set;
+    }
+    public Type PageType
     {
         get; set;
     }
 
-    public static SearchItem FromInfoData(ControlInfoDataItem controlInfoDataItem) => new()
+    public static SearchItem FromInfoData(PageInfoDataItem controlInfoDataItem) => new()
     {
         Title = controlInfoDataItem.Title,
         ImagePath = controlInfoDataItem.ImagePath,
-        ClickPath = controlInfoDataItem.ClickPath,
+        ClickType = controlInfoDataItem.ClickType,
+        PageType = controlInfoDataItem.PageType,
         Subtitle = controlInfoDataItem.Subtitle
     };
 }
@@ -103,7 +108,7 @@ public sealed partial class SearchResultViewPage : Page
 
     private void GridView_ItemClick(object sender, ItemClickEventArgs e)
     {
-        App.GetService<INavigationService>().NavigateTo((e.ClickedItem as ControlInfoDataItem).ClickPath);
+        App.GetService<INavigationService>().NavigateTo((e.ClickedItem as SearchItem).ClickType);
     }
 
     private void GridViewControl_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

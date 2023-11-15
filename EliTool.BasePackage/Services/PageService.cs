@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
-using EliTool.BasePackage.Contacts.Services;
+using EliTool.BasePackage.Contracts.Services;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Gaming.Input;
 
@@ -16,6 +16,10 @@ public class PageService : ItemMap<ObservableRecipient, Page>, IPageService
         where TKey : ObservableRecipient
         where TValue : Page
         => Configure<TKey, TValue>(t => t.FullName!);
+    public void AddDependence(Type ViewModel, Type Page)
+    {
+
+    }
 
     public Type GetPageType(string key) => GetDependenceType(key);
 }

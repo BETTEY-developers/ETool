@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EliTool.BasePackage.Contacts.Services;
+using EliTool.BasePackage.Contracts.Services;
 
 namespace EliTool.BasePackage.Services;
 
@@ -21,6 +21,8 @@ public class ItemMap<TKeyBase, TValueBase> : IItemMap<TKeyBase, TValueBase>
         where TKey : class, TKeyBase
         where TValue : class, TValueBase
         => _items.Add(keyselector(typeof(TKey)), typeof(TValue));
+
+    public void Configure(Type Key, Type Value, Func<Type, string> keyselector) => _items.Add(keyselector(Key), Value);
 }
 
 public class ItemMap : IItemMap
@@ -37,4 +39,6 @@ public class ItemMap : IItemMap
         where TKey : class
         where TValue : class
         => _items.Add(keyselector(typeof(TKey)), typeof(TValue));
+
+    public void Configure(Type Key, Type Value, Func<Type, string> keyselector) => _items.Add(keyselector(Key), Value);
 }

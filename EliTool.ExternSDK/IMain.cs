@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using ETool.ExternSDK.Model;
+using EliTool.ExternSDK.Model;
 
 namespace EliTool.ExternSDK;
 
 public interface IMain : IInstall, IUninstall, IInfo
 {
-    public Dictionary<Type, Type> GetExternPageList();
+    public PageInfoGroup GetExternPageGroup();
 
     public SettingCollection GetExternSettingsCollection();
 

@@ -13,7 +13,7 @@ public partial class ExternDetailViewModel : ObservableRecipient
 
     public void Load()
     {
-        displayExtern.GetPages().Values.ToList().ForEach(pages.Add);
+        
     }
 
     [ObservableProperty]

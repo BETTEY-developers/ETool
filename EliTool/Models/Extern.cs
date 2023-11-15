@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using EliTool.Contracts.Services;
 using EliTool.ExternSDK;
-using ETool.ExternSDK.Model;
+using EliTool.ExternSDK.Model;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
@@ -69,18 +69,7 @@ public class Extern
         get; set;
     }
 
-    public Dictionary<ObservableRecipient, Page> GetPages()
-    {
-        var result = new Dictionary<ObservableRecipient, Page>();
-        var org = EntryInstance.GetExternPageList();
-
-        foreach (var page in org)
-        {
-            result.Add((ObservableRecipient)Activator.CreateInstance(page.Key)!, (Page)Activator.CreateInstance(page.Value)!);
-        }
-
-        return result;
-    }
+    public PageInfoGroup GetPageGroup() => EntryInstance.GetExternPageGroup();
 
     public SettingCollection GetSettingCollection()
     {

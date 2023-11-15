@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
+using EliTool.Contracts.Services;
 using EliTool.Helpers;
 using EliTool.Models;
+using EliTool.Services;
 using Windows.Storage;
 
 namespace EliTool.ViewModels;
@@ -14,16 +16,23 @@ public partial class MainViewModel : ObservableRecipient
 
     private static Root LoadedRoot = null;
 
-    public async Task<Root> GetControlInfos()
+    public Root GetControlInfos()
     {
-        if (LoadedRoot == null)
+        LoadedRoot = new Root();
+        LoadedRoot.Version = 1;
+        foreach(var externitem in ExternService.Instance.Externs)
         {
-            var resource = "ControlInfos.json".GetLocalizedRaw("Files/Assets/Control/Info");
-
-            StorageFile storageFile = await StorageFile.GetFileFromPathAsync(resource.ValueAsString);
-
-            LoadedRoot = Newtonsoft.Json.JsonConvert.DeserializeObject<Root>(await FileIO.ReadTextAsync(storageFile)) ;
+            LoadedRoot.ControlInfoGroups.Add(externitem.GetPageGroup());
         }
         return LoadedRoot;
+        //if (LoadedRoot == null)
+        //{
+        //    var resource = "ControlInfos.json".GetLocalizedRaw("Files/Assets/Control/Info");
+
+        //    StorageFile storageFile = await StorageFile.GetFileFromPathAsync(resource.ValueAsString);
+
+        //    LoadedRoot = Newtonsoft.Json.JsonConvert.DeserializeObject<Root>(await FileIO.ReadTextAsync(storageFile)) ;
+        //}
+        //return LoadedRoot;
     }
 }

@@ -53,7 +53,7 @@ public sealed partial class ShellPage : Page
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
         NavigationViewControl.Header = null;
-        foreach (var ControlGroup in App.GetService<MainViewModel>().GetControlInfos().Result.ControlInfoGroups)
+        foreach (var ControlGroup in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
         {
             NavigationViewItem item = new NavigationViewItem();
             item.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ControlGroup.ImagePath)) };
@@ -64,7 +64,7 @@ public sealed partial class ShellPage : Page
                 NavigationViewItem childitem = new NavigationViewItem();
                 childitem.Content = ControlInfo.Title;
                 childitem.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ControlInfo.ImagePath)) };
-                NavigationHelper.SetNavigateTo(childitem, ControlInfo.ClickPath);
+                NavigationHelper.SetNavigateTo(childitem, ControlInfo.ClickType.FullName!);
                 childitem.Tag = ControlGroup.Id;
                 item.MenuItems.Add(childitem);
             }
@@ -137,7 +137,7 @@ public sealed partial class ShellPage : Page
         {
             ObservableCollection<SearchGroup> groups = new();
 
-            foreach (var group in App.GetService<MainViewModel>().GetControlInfos().Result.ControlInfoGroups)
+            foreach (var group in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
             {
                 if (group.ControlInfos.Any(x => x.Title.ToLower().Contains(args.QueryText.ToLower())))
                 {
@@ -159,11 +159,11 @@ public sealed partial class ShellPage : Page
         }
         else
         {
-            var item = args.ChosenSuggestion as ControlInfoDataItem;
-            if (item.ClickPath == "NoResult")
+            var item = args.ChosenSuggestion as PageInfoDataItem;
+            if (item.ClickType == Type.Missing.GetType())
                 return;
 
-            App.GetService<INavigationService>().NavigateTo(item.ClickPath);
+            App.GetService<INavigationService>().NavigateTo(item.PageType);
         }
     }
 
@@ -172,9 +172,9 @@ public sealed partial class ShellPage : Page
         if(args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
             return;
 
-        List<ControlInfoDataItem> result = new();
+        List<PageInfoDataItem> result = new();
 
-        foreach (var toolgroup in App.GetService<MainViewModel>().GetControlInfos().Result.ControlInfoGroups)
+        foreach (var toolgroup in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
         {
             foreach (var item in toolgroup.ControlInfos)
             {
@@ -186,7 +186,7 @@ public sealed partial class ShellPage : Page
         }
         if (result.Count == 0)
         {
-            result.Add(new ControlInfoDataItem() { ImagePath = this.Resources["NoResult"] as string, Title = "没有结果", ClickPath = "NoResult" });
+            result.Add(new PageInfoDataItem() { ImagePath = this.Resources["NoResult"] as string, Title = "没有结果", ClickType = Type.Missing.GetType() });
         }
 
         sender.ItemsSource = result;

@@ -1,11 +1,12 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:externdata="using:EliTool.ExternSDK.Model"
     xmlns:data="using:EliTool.Models"
     xmlns:converters="using:EliTool.Helpers"
     x:Class="EliTool.Controls.ControlItemTemplate_">
     <converters:ExternIconConverter x:Key="IconConverter"/>
-    <DataTemplate x:Key="ControlItemInfoTemplate" x:DataType="data:ControlInfoDataItem">
+    <DataTemplate x:Key="ControlItemInfoTemplate" x:DataType="externdata:PageInfoDataItem">
         <UserControl>
             <Grid
                 x:Name="controlRoot"
@@ -75,7 +76,7 @@
             </Grid>
         </UserControl>
     </DataTemplate>
-    <DataTemplate x:Key="ExternInfoTemplate" x:DataType="data:ExternInfo">
+    <DataTemplate x:Key="ExternInfoTemplate" x:DataType="data:Extern">
         <UserControl>
             <Grid
             x:Name="controlRoot"

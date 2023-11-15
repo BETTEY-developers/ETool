@@ -1,7 +1,7 @@
 ﻿using DocumentViews = EliTool.Views.Document;
 
 using EliTool.Activation;
-using EliTool.BasePackage.Contacts.Services;
+using EliTool.BasePackage.Contracts.Services;
 using EliTool.BasePackage.Services;
 using EliTool.Contracts.Services;
 using EliTool.Controls;
@@ -73,7 +73,9 @@ public partial class App : Application
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
-            services.AddSingleton<IExternService, ExternService>();
+            ExternService ser = new ExternService();
+            ser.Load();
+            services.AddTransient<IExternService, ExternService>();
 
 
             // Core Services
@@ -150,7 +152,7 @@ public partial class App : Application
 
         AppDomain.CurrentDomain.DomainUnload += Exit;
 
-        await App.GetService<IActivationService>().ActivateAsync(args);
+        App.GetService<IActivationService>().ActivateAsync(args).Wait();
     }
 
     private async void Exit(object? sender, EventArgs e)

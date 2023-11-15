@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using EliTool.BasePackage.Contracts.Services;
 using EliTool.Contracts.Services;
 using EliTool.ExternSDK;
 using EliTool.Models;
@@ -31,17 +32,24 @@ internal class ExternService : IExternService
         get; set;
     }
 
-    public ExternService()
+    public static ExternService Instance
     {
-        
+        get; private set;
     }
 
-    public async Task Load()
+    public ExternService()
+    {
+        Instance = this;
+    }
+
+    public async Task<bool> Load()
     {
         await GetExternFolder();
         await GetExternManifest();
         await GetExterns();
         await Unpackages();
+        await RegisterPages();
+
 
         (Externs??new List<Extern>()).ForEach(x =>
         {
@@ -50,6 +58,8 @@ internal class ExternService : IExternService
             x.Manifest = new(x.EntryInstance);
             x.EntryInstance.Install();
         });
+        Instance = this;
+        return true;
     }
 
     public async Task Unload()
@@ -58,6 +68,7 @@ internal class ExternService : IExternService
         {
             x.EntryInstance.Uninstall();
         });
+        Instance = this;
     }
 
     private async Task GetExternFolder()
@@ -112,6 +123,15 @@ internal class ExternService : IExternService
             Externs = JsonSerializer.Deserialize<List<Extern>>(await FileIO.ReadTextAsync(ExternManifest));
         }
         catch { }
+    }
+
+    private async Task RegisterPages()
+    {
+        var ser = App.GetService<IPageService>();
+        foreach (var externitem in Externs)
+        {
+            externitem.GetPageGroup().ControlInfos.ForEach(x => ser.Configure(x.ClickType, x.PageType, t => t.FullName!));
+        }
     }
 
     public Extern GetExtern(string name)

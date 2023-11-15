@@ -30,6 +30,7 @@
   <ItemGroup>
     <Compile Remove="Contracts\Services\IPageService.cs" />
     <Compile Remove="Helpers\BooleanToEnableStateConverter.cs" />
+    <Compile Remove="Models\PageInfoDataItem.cs" />
     <Compile Remove="Services\PageService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +67,6 @@
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.230907" />
-    <PackageReference Include="EliTool.BasePackage" Version="1.0.2311.5" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230602002" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
@@ -74,6 +74,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EliTool.BasePackage\EliTool.BasePackage.csproj" />
     <ProjectReference Include="..\EliTool.Core\EliTool.Core.csproj" />
     <ProjectReference Include="..\EliTool.ExternSDK\EliTool.ExternSDK.csproj" />
   </ItemGroup>

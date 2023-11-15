@@ -14,7 +14,7 @@ public interface IExternService
 {
     public Task Unload();
 
-    public Task Load();
+    public Task<bool> Load();
 
     public Extern GetExtern(string name);
 

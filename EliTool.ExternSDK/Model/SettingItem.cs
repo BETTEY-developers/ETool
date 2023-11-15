@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection.Metadata.Ecma335;
 
-namespace ETool.ExternSDK.Model;
+namespace EliTool.ExternSDK.Model;
 
 public enum FromType
 {

@@ -26,9 +26,6 @@ public class DefaultActivationHandler : ActivationHandler<LaunchActivatedEventAr
     {
         _navigationService.NavigateTo(typeof(MainViewModel).FullName!, args.Arguments);
 
-        var ser = (ExternService)App.GetService<IExternService>();
-        await ser.Load();
-
         await Task.CompletedTask;
     }
 }

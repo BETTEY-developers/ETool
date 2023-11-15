@@ -1,6 +1,6 @@
 ﻿
 using System.Diagnostics.CodeAnalysis;
-using EliTool.BasePackage.Contacts.Services;
+using EliTool.BasePackage.Contracts.Services;
 using EliTool.Contracts.Services;
 using EliTool.Contracts.ViewModels;
 using EliTool.Helpers;
@@ -104,6 +104,11 @@ public class NavigationService : INavigationService
         }
 
         return false;
+    }
+
+    public bool NavigateTo(Type pageViewModel, object? parameter = null, bool clearNavigation = false)
+    {
+        return NavigateTo(pageViewModel.FullName!, parameter, clearNavigation);
     }
 
     private void OnNavigated(object sender, NavigationEventArgs e)

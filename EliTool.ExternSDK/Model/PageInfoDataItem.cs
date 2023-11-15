@@ -1,4 +1,7 @@
-﻿namespace EliTool.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace EliTool.ExternSDK.Model;
 
 public class Root
 {
@@ -6,13 +9,13 @@ public class Root
     {
         get; set;
     }
-    public List<ControlInfoGroup> ControlInfoGroups
+    public List<PageInfoGroup> ControlInfoGroups
     {
         get; set;
     }
 }
 
-public class ControlInfoGroup
+public class PageInfoGroup
 {
     public string Title
     {
@@ -26,13 +29,13 @@ public class ControlInfoGroup
     {
         get; set;
     }
-    public List<ControlInfoDataItem> ControlInfos
+    public List<PageInfoDataItem> ControlInfos
     {
         get; set;
     }
 }
 
-public class ControlInfoDataItem
+public class PageInfoDataItem
 {
     public string Title
     {
@@ -46,7 +49,11 @@ public class ControlInfoDataItem
     {
         get; set;
     }
-    public string ClickPath
+    public Type ClickType
+    {
+        get; set;
+    }
+    public Type PageType
     {
         get; set;
     }

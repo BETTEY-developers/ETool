@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using EliTool.BasePackage.Contacts.Services;
+using EliTool.BasePackage.Contracts.Services;
 using EliTool.Contracts.Services;
 using EliTool.Helpers;
 using EliTool.ViewModels;
