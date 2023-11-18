@@ -55,8 +55,4 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="call BuildPackage.bat SimpleExtern " />
-  </Target>
 </Project>

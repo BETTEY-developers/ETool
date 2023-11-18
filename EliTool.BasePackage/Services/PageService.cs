@@ -18,7 +18,7 @@ public class PageService : ItemMap<ObservableRecipient, Page>, IPageService
         => Configure<TKey, TValue>(t => t.FullName!);
     public void AddDependence(Type ViewModel, Type Page)
     {
-
+        Configure(ViewModel, Page, t => t.FullName!);
     }
 
     public Type GetPageType(string key) => GetDependenceType(key);

@@ -24,6 +24,11 @@ public sealed partial class ShellPage : Page
         get;
     }
 
+    public IExternService ExternService
+    {
+        get;
+    }
+
     public NavigationView NavigationControlProperty => NavigationViewControl;
 
     public static ShellPage Instance { get; private set; }
@@ -31,6 +36,7 @@ public sealed partial class ShellPage : Page
     public ShellPage()
     {
         ViewModel = App.GetService<ShellViewModel>();
+        ExternService = App.GetService<IExternService>();
         InitializeComponent();
 
         ViewModel.NavigationService.Frame = NavigationFrame;
@@ -56,14 +62,14 @@ public sealed partial class ShellPage : Page
         foreach (var ControlGroup in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
         {
             NavigationViewItem item = new NavigationViewItem();
-            item.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ControlGroup.ImagePath)) };
+            item.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ExternResourceHelper.GetExternResourceRealPath(ControlGroup.ImagePath, ControlGroup.Id))) };
             item.Content = ControlGroup.Title;
             item.Name = ControlGroup.Id;
             foreach (var ControlInfo in ControlGroup.ControlInfos)
             {
                 NavigationViewItem childitem = new NavigationViewItem();
                 childitem.Content = ControlInfo.Title;
-                childitem.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ControlInfo.ImagePath)) };
+                childitem.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ExternService.ApplicationExternUnpackageFolder.Path + "\\" + ControlInfo.ImagePath)) };
                 NavigationHelper.SetNavigateTo(childitem, ControlInfo.ClickType.FullName!);
                 childitem.Tag = ControlGroup.Id;
                 item.MenuItems.Add(childitem);

@@ -23,3 +23,24 @@ public class ExternIconConverter : IValueConverter
     }
     public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
 }
+
+public class ExternImageConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, string language)
+    {
+        var ser = App.GetService<IExternService>();
+        var path = value as string;
+        BitmapImage img = new BitmapImage(new Uri(ser.ApplicationExternUnpackageFolder.Path + "\\" + path));
+        return (ImageSource)img;
+    }
+    public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
+}
+
+public class ExternResourceHelper
+{
+    public static string GetExternResourceRealPath(string resourcePath, string externName)
+    {
+        var ser = App.GetService<IExternService>();
+        return ser.ApplicationExternUnpackageFolder.Path + "\\" + externName + "\\" + externName + "\\" + resourcePath;
+    }
+}

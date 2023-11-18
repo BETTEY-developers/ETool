@@ -9,6 +9,7 @@ using EliTool.BasePackage.Contracts.Services;
 using EliTool.Contracts.Services;
 using EliTool.ExternSDK;
 using EliTool.Models;
+using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Storage;
 
@@ -32,14 +33,25 @@ internal class ExternService : IExternService
         get; set;
     }
 
-    public static ExternService Instance
+    private static ExternService Instance
     {
-        get; private set;
+        get; set;
+    }
+
+    private static bool _inited
+    {
+        get; set;
     }
 
     public ExternService()
     {
-        Instance = this;
+        if (_inited)
+        {
+            Externs = Instance.Externs;
+            ExternManifest = Instance.ExternManifest;
+            ApplicationExternFolder = Instance.ApplicationExternFolder;
+            ApplicationExternUnpackageFolder = Instance.ApplicationExternUnpackageFolder;
+        }
     }
 
     public async Task<bool> Load()
@@ -48,8 +60,6 @@ internal class ExternService : IExternService
         await GetExternManifest();
         await GetExterns();
         await Unpackages();
-        await RegisterPages();
-
 
         (Externs??new List<Extern>()).ForEach(x =>
         {
@@ -58,7 +68,13 @@ internal class ExternService : IExternService
             x.Manifest = new(x.EntryInstance);
             x.EntryInstance.Install();
         });
+
+        await RegisterPages();
+
         Instance = this;
+
+        _inited = true;
+
         return true;
     }
 

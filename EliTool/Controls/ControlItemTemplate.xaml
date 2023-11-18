@@ -6,6 +6,7 @@
     xmlns:converters="using:EliTool.Helpers"
     x:Class="EliTool.Controls.ControlItemTemplate_">
     <converters:ExternIconConverter x:Key="IconConverter"/>
+    <converters:ExternImageConverter x:Key="ImageConverter"/>
     <DataTemplate x:Key="ControlItemInfoTemplate" x:DataType="externdata:PageInfoDataItem">
         <UserControl>
             <Grid
@@ -50,7 +51,7 @@
                 Width="48"
                 VerticalAlignment="Center"
                 AutomationProperties.Name="{Binding Title}"
-                Source="{Binding ImagePath}"
+                Source="{Binding ImagePath,Converter={StaticResource ImageConverter}}"
                 Stretch="Uniform" />
                 </Grid>
                 <StackPanel

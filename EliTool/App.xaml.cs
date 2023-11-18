@@ -73,8 +73,6 @@ public partial class App : Application
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
-            ExternService ser = new ExternService();
-            ser.Load();
             services.AddTransient<IExternService, ExternService>();
 
 
@@ -117,8 +115,6 @@ public partial class App : Application
         }).
         Build();
 
-        RegisteryPages();
-
         UnhandledException += App_UnhandledException;
     }
 
@@ -150,9 +146,14 @@ public partial class App : Application
     {
         base.OnLaunched(args);
 
+        ExternService ser = new ExternService();
+        await ser.Load();
+
+        RegisteryPages();
+
         AppDomain.CurrentDomain.DomainUnload += Exit;
 
-        App.GetService<IActivationService>().ActivateAsync(args).Wait();
+        App.GetService<IActivationService>().ActivateAsync(args);
     }
 
     private async void Exit(object? sender, EventArgs e)

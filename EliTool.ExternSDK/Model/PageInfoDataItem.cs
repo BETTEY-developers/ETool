@@ -8,11 +8,12 @@ public class Root
     public int Version
     {
         get; set;
-    }
+    } = 0;
+
     public List<PageInfoGroup> ControlInfoGroups
     {
         get; set;
-    }
+    } = new();
 }
 
 public class PageInfoGroup

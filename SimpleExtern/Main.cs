@@ -70,7 +70,7 @@ public class Main : IMain
                     PageType = typeof(TestPage),
                     Title = "TestPage",
                     Subtitle = "TestPage",
-                    ImagePath = "Assets\\SimpleExtern.png"
+                    ImagePath = "SimpleExtern\\SimpleExtern\\Assets\\SimpleExtern.png"
                 }
             }
         };

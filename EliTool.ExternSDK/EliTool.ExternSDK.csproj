@@ -6,9 +6,9 @@
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		<UseWinUI>true</UseWinUI>
 		<Configurations>Debug;Release;BuildPackage</Configurations>
-		<Version>1.0.1113.5</Version>
-		<AssemblyVersion>1.0.1113.5</AssemblyVersion>
-		<FileVersion>1.0.1113.0</FileVersion>
+		<Version></Version>
+		<AssemblyVersion>1.0.1118.0</AssemblyVersion>
+		<FileVersion>1.0.1118.0</FileVersion>
 		<Title>For ETool Externs SDK and API</Title>
 		<Authors>ETool Team</Authors>
 		<Company>ETool Team</Company>
