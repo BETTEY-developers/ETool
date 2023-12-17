@@ -62,15 +62,15 @@ public sealed partial class ShellPage : Page
         foreach (var ControlGroup in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
         {
             NavigationViewItem item = new NavigationViewItem();
-            item.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ExternResourceHelper.GetExternResourceRealPath(ControlGroup.ImagePath, ControlGroup.Id))) };
+            item.Icon = new ImageIcon() { Source = ControlGroup.Image.AsWinUIImageSource() };
             item.Content = ControlGroup.Title;
             item.Name = ControlGroup.Id;
             foreach (var ControlInfo in ControlGroup.ControlInfos)
             {
                 NavigationViewItem childitem = new NavigationViewItem();
                 childitem.Content = ControlInfo.Title;
-                childitem.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ExternService.ApplicationExternUnpackageFolder.Path + "\\" + ControlInfo.ImagePath)) };
-                NavigationHelper.SetNavigateTo(childitem, ControlInfo.ClickType.FullName!);
+                childitem.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ExternService.ApplicationExternUnpackageFolder.Path + "\\" + ControlInfo.Image)) };
+                NavigationHelper.SetNavigateTo(childitem, ControlInfo.PageViewModel.GetType().FullName!);
                 childitem.Tag = ControlGroup.Id;
                 item.MenuItems.Add(childitem);
             }
@@ -166,10 +166,10 @@ public sealed partial class ShellPage : Page
         else
         {
             var item = args.ChosenSuggestion as PageInfoDataItem;
-            if (item.ClickType == Type.Missing.GetType())
+            if (item.PageViewModel == null)
                 return;
 
-            App.GetService<INavigationService>().NavigateTo(item.PageType);
+            App.GetService<INavigationService>().NavigateTo(item.Page.GetType());
         }
     }
 
@@ -192,7 +192,7 @@ public sealed partial class ShellPage : Page
         }
         if (result.Count == 0)
         {
-            result.Add(new PageInfoDataItem() { ImagePath = this.Resources["NoResult"] as string, Title = "没有结果", ClickType = Type.Missing.GetType() });
+            result.Add(new PageInfoDataItem() { Image = new(this.Resources["NoResult"] as string, false), Title = "没有结果", PageViewModel = null });
         }
 
         sender.ItemsSource = result;

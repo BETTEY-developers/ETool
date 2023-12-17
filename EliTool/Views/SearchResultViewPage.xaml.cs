@@ -12,7 +12,7 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace EliTool.Views;
 
-public class SearchItem
+public class SearchItem : PageInfoDataItem
 {
     public string Title
     {
@@ -22,7 +22,7 @@ public class SearchItem
     {
         get; set;
     }
-    public string ImagePath
+    public ExternSDK.Media.Image Image
     {
         get; set;
     }
@@ -38,9 +38,9 @@ public class SearchItem
     public static SearchItem FromInfoData(PageInfoDataItem controlInfoDataItem) => new()
     {
         Title = controlInfoDataItem.Title,
-        ImagePath = controlInfoDataItem.ImagePath,
-        ClickType = controlInfoDataItem.ClickType,
-        PageType = controlInfoDataItem.PageType,
+        Image = controlInfoDataItem.Image,
+        ClickType = controlInfoDataItem.PageViewModel,
+        PageType = controlInfoDataItem.Page,
         Subtitle = controlInfoDataItem.Subtitle
     };
 }

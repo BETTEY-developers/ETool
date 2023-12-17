@@ -5,21 +5,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:EliTool.Helpers"
+    xmlns:newconverter="using:EliTool.Converters"
     xmlns:controls="using:EliTool.Controls"
     mc:Ignorable="d">
     <Page.Resources>
         <converter:ExternIconConverter x:Key="IconConverter"/>
         <converter:UriConverter x:Key="UriConverter"/>
+        <newconverter:SubListConverter x:Key="SubListConverter"/>
     </Page.Resources>
     <ScrollViewer x:Name="ContentArea">
         <StackPanel HorizontalAlignment="Stretch">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="32" Padding="16">
                 <Image Source="{x:Bind ViewModel.DisplayExtern.Manifest.Self, Converter={StaticResource IconConverter}}"
-               Height="256"
-               Width="256"
-               Stretch="Uniform"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"/>
+                       Height="256"
+                       Width="256"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"/>
                 <StackPanel Spacing="10" HorizontalAlignment="Right">
                     <StackPanel Spacing="4">
                         <TextBlock Text="{x:Bind ViewModel.DisplayExtern.Manifest.DisplayName}" 
@@ -60,9 +62,10 @@
 
             <controls:ActionCard Title="页面列表">
                 <controls:ActionCard.ActiveCardContent>
-                    <StackPanel Orientation="Horizontal">
-                        
-                    </StackPanel>
+                    <GridView ItemTemplate="{ThemeResource ControlItemInfoTemplate}" 
+                              ItemsSource="{x:Bind ViewModel.SubPage()}" 
+                              IsItemClickEnabled="True"
+                              ItemClick="GridView_ItemClick"/>
                 </controls:ActionCard.ActiveCardContent>
                 <controls:ActionCard.Action>
                     <HyperlinkButton>查看详细</HyperlinkButton>

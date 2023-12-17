@@ -1,4 +1,5 @@
-﻿using EliTool.Models;
+﻿using EliTool.Contracts.Services;
+using EliTool.Models;
 using EliTool.ViewModels;
 
 using Microsoft.UI.Xaml.Controls;
@@ -24,5 +25,10 @@ public sealed partial class ExternDetailPage : Page
         base.OnNavigatedTo(e);
 
         ViewModel.DisplayExtern = (Extern)e.Parameter;
+    }
+
+    private void GridView_ItemClick(object sender, ItemClickEventArgs e)
+    {
+        App.GetService<INavigationService>().NavigateTo(typeof(ExternPageDetailViewModel).FullName, e.ClickedItem);
     }
 }

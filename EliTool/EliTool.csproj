@@ -55,6 +55,7 @@
     <None Remove="Views\Dialogs\Developer-Tools\PictureConverterOptionEditer.xaml" />
     <None Remove="Views\Dialogs\Developer-Tools\PictureConverterTitleEditer.xaml" />
     <None Remove="Views\ExternViewPage.xaml" />
+    <None Remove="Views\ExternViews\ExternPageDetailPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,7 +69,7 @@
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.230907" />
     <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.230907" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230602002" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.231202003-experimental1" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
     <PackageReference Include="WinUIEx" Version="2.2" />
   </ItemGroup>
@@ -115,6 +116,9 @@
     <None Update="Assets\NoLight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\ExternViews\ExternPageDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Controls\ControlItemTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -47,12 +47,12 @@
 
                 <Grid Width="72" CornerRadius="{ThemeResource ControlCornerRadius}">
                     <Image
-                x:Name="gridImage"
-                Width="48"
-                VerticalAlignment="Center"
-                AutomationProperties.Name="{Binding Title}"
-                Source="{Binding ImagePath,Converter={StaticResource ImageConverter}}"
-                Stretch="Uniform" />
+                        x:Name="gridImage"
+                        Width="48"
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="{Binding Title}"
+                        Source="{x:Bind Image.AsWinUIImageSource()}"
+                        Stretch="Uniform" />
                 </Grid>
                 <StackPanel
             Grid.Column="1"

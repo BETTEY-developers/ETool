@@ -81,7 +81,9 @@ public partial class App : Application
 
             // Views and ViewModels
             services.AddTransient<ExternDetailViewModel>();
-            services.AddTransient<Views.ExternViews.ExternDetailPage > ();
+            services.AddTransient<Views.ExternViews.ExternDetailPage>();
+            services.AddTransient<ExternPageDetailViewModel>();
+            services.AddTransient<Views.ExternViews.ExternPageDetailPage>();
             services.AddTransient<ExternViewViewModel>();
             services.AddTransient<ExternViewPage>();
             services.AddTransient<LoadingViewModel>();
@@ -134,6 +136,7 @@ public partial class App : Application
         ser.AddDependence<LoadingViewModel, LoadingPage>();
         ser.AddDependence<ExternViewViewModel, ExternViewPage>();
         ser.AddDependence<ExternDetailViewModel, Views.ExternViews.ExternDetailPage>();
+        ser.AddDependence<ExternPageDetailViewModel, Views.ExternViews.ExternPageDetailPage>();
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)

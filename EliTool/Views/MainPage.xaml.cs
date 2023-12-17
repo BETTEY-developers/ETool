@@ -1,11 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Reflection.Metadata;
 using EliTool.BasePackage.Contracts.Services;
 using EliTool.Contracts.Services;
 using EliTool.Helpers;
 using EliTool.Models;
 using EliTool.Services;
 using EliTool.ViewModels;
+using EliTool.Views.ControlPage.DeveloperTools;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
@@ -39,6 +41,14 @@ public sealed partial class MainPage : Page
 
     private void GridView_ItemClick(object sender, ItemClickEventArgs e)
     {
-        Frame.Navigate((e.ClickedItem as PageInfoDataItem).PageType);
+        try
+        {
+            
+        }
+        catch { }
+
+        lock ((e.ClickedItem as PageInfoDataItem).PageViewModel)
+        {
+        }
     }
 }

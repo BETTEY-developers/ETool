@@ -63,7 +63,7 @@ internal class ExternService : IExternService
 
         (Externs??new List<Extern>()).ForEach(x =>
         {
-            x.EntryAssembly = Assembly.LoadFrom(ApplicationExternUnpackageFolder.Path + "\\" + x.Name + "\\" + x.Name + ".dll");
+            x.EntryAssembly = Assembly.LoadFile(ApplicationExternUnpackageFolder.Path + "\\" + x.Name + "\\" + x.Name + ".dll");
             x.EntryInstance = (IMain)x.EntryAssembly.CreateInstance(x.Name + ".Main");
             x.Manifest = new(x.EntryInstance);
             x.EntryInstance.Install();
@@ -146,7 +146,7 @@ internal class ExternService : IExternService
         var ser = App.GetService<IPageService>();
         foreach (var externitem in Externs)
         {
-            externitem.GetPageGroup().ControlInfos.ForEach(x => ser.Configure(x.ClickType, x.PageType, t => t.FullName!));
+            externitem.GetPageGroup().ControlInfos.ForEach(x => ser.Configure(x.PageViewModel.GetType(), x.Page.GetType(), t => t.FullName!));
         }
     }
 

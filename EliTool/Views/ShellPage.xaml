@@ -21,7 +21,7 @@
             </ResourceDictionary.ThemeDictionaries>
             <DataTemplate x:Key="All-SearchItem" x:DataType="models:PageInfoDataItem">
                 <Grid Padding="16">
-                    <Image Height="20" Width="20" Source="{x:Bind ImagePath}" HorizontalAlignment="Left"/>
+                    <Image Height="20" Width="20" Source="{x:Bind Image.AsWinUIImageSource()}" HorizontalAlignment="Left"/>
                     <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Title}" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </Grid>
             </DataTemplate>
