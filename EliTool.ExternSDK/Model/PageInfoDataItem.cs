@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.UI.Xaml.Controls;
 
 namespace EliTool.ExternSDK.Model;
 
@@ -22,7 +23,7 @@ public class PageInfoGroup
     {
         get; set;
     }
-    public string ImagePath
+    public Media.Image Image
     {
         get; set;
     }
@@ -46,15 +47,15 @@ public class PageInfoDataItem
     {
         get; set;
     }
-    public string ImagePath
+    public Media.Image Image
     {
         get; set;
     }
-    public Type ClickType
+    public Type PageViewModel
     {
         get; set;
     }
-    public Type PageType
+    public Type Page
     {
         get; set;
     }
