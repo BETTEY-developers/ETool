@@ -144,7 +144,7 @@ internal class ExternService : IExternService
     private async Task RegisterPages()
     {
         var ser = App.GetService<IPageService>();
-        foreach (var externitem in Externs)
+        foreach (var externitem in Externs?? new())
         {
             externitem.GetPageGroup().ControlInfos.ForEach(x => ser.Configure(x.PageViewModel.GetType(), x.Page.GetType(), t => t.FullName!));
         }
