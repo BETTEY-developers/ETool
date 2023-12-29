@@ -20,7 +20,7 @@ public partial class MainViewModel : ObservableRecipient
     {
         LoadedRoot = new Root();
         LoadedRoot.Version = 1;
-        foreach(var externitem in App.GetService<IExternService>().Externs)
+        foreach(var externitem in App.GetService<IExternService>().Externs??new())
         {
             LoadedRoot.ControlInfoGroups.Add(externitem.GetPageGroup());
         }

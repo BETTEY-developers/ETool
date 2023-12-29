@@ -113,7 +113,7 @@ public partial class OptionUnit : ObservableObject
         var editer = new PictureConverterOptionEditer();
         editer.SetIn(this);
 
-        var dresult = await ContentDialogHelper.PageContentDialog(
+        var dresult = await DialogHelper.PageContentDialog(
             "编辑选项",
            editer,
            Primary: "确定",
@@ -338,7 +338,7 @@ public partial class PictureConverterViewModel : ObservableRecipient
     {
         PictureConverterTitleEditer editer = new();
         editer.SetIn(Options.OptionCollectionName);
-        var dresult = await ContentDialogHelper.PageContentDialog(
+        var dresult = await DialogHelper.PageContentDialog(
             "更改名称",
            editer,
            Primary: "确定",

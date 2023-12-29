@@ -21,6 +21,6 @@ public partial class ExternViewViewModel : ObservableRecipient
 
     public ExternViewViewModel()
     {
-        App.GetService<IExternService>().Externs.ForEach(ExternInfos.Add);
+        (App.GetService<IExternService>().Externs??new List<Extern>()).ForEach(ExternInfos.Add);
     }
 }
