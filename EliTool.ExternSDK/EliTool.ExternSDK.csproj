@@ -7,8 +7,8 @@
 		<UseWinUI>true</UseWinUI>
 		<Configurations>Debug;Release;BuildPackage</Configurations>
 		<Version></Version>
-		<AssemblyVersion>1.0.1216.0</AssemblyVersion>
-		<FileVersion>1.0.1216.0</FileVersion>
+		<AssemblyVersion>1.0.1228.0</AssemblyVersion>
+		<FileVersion>1.0.1228.0</FileVersion>
 		<Title>For ETool Externs SDK and API</Title>
 		<Authors>ETool Team</Authors>
 		<Company>ETool Team</Company>
