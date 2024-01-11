@@ -54,6 +54,7 @@ public class Extern
     {
         get; set;
     }
+
     public IMain EntryInstance
     {
         get; set;

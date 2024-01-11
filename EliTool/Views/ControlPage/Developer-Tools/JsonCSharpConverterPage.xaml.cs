@@ -13,8 +13,6 @@ public sealed partial class JsonCSharpConverterPage : Page
         get;
     }
 
-    private ColorCode.RichTextBlockFormatter formatter = new ColorCode.RichTextBlockFormatter();
-
     public JsonCSharpConverterPage()
     {
         ViewModel = App.GetService<JsonCSharpConverterViewModel>();

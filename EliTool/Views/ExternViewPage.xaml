@@ -15,7 +15,7 @@
     <StackPanel x:Name="ContentArea" Padding="10">
         <Grid x:Name="Header" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <TextBlock HorizontalAlignment="Left" Style="{ThemeResource TitleTextBlockStyle}" FontFamily="{StaticResource PivotTitleFontFamily}">扩展视图</TextBlock>
-            <Button Style="{ThemeResource AccentButtonStyle}" HorizontalAlignment="Right">添加扩展</Button>
+            <Button Style="{ThemeResource AccentButtonStyle}" HorizontalAlignment="Right" Command="{x:Bind PickExternCommand}">添加扩展</Button>
         </Grid>
         <GridView ItemTemplate="{StaticResource ExternInfoTemplate}" ItemsSource="{x:Bind ViewModel.ExternInfos}" IsItemClickEnabled="True" ItemClick="GridView_ItemClick"></GridView>
     </StackPanel>

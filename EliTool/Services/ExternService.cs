@@ -64,7 +64,7 @@ internal class ExternService : IExternService
         (Externs??new List<Extern>()).ForEach(x =>
         {
             x.EntryAssembly = Assembly.LoadFile(ApplicationExternUnpackageFolder.Path + "\\" + x.Name + "\\" + x.Name + ".dll");
-            x.EntryInstance = (IMain)x.EntryAssembly.CreateInstance(x.Name + ".Main");
+            x.EntryInstance = (IMain)x.EntryAssembly.CreateInstance(x.Name + ".Main", false, BindingFlags.Default, null, [App.Current], null, null);
             x.Manifest = new(x.EntryInstance);
             x.EntryInstance.Install();
         });
@@ -131,6 +131,8 @@ internal class ExternService : IExternService
             catch { }
         }
     }
+
+
 
     private async Task GetExterns()
     {

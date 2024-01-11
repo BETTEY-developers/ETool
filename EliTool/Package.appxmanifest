@@ -12,7 +12,7 @@
 
   <Identity
     Name="b05b6fcb-6e2e-4cbc-a682-30099b8de7e3"
-    Publisher="CN=Administrator"
+    Publisher="CN=Amlight Elipese"
     Version="1.0.0.0" />
     
   <mp:PhoneIdentity PhoneProductId="b05b6fcb-6e2e-4cbc-a682-30099b8de7e3" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

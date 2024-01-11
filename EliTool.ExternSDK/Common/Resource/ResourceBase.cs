@@ -71,4 +71,9 @@ public class ResourceBase : IDisposable, IEquatable<ResourceBase>
         if (!Unused)
             ExternBase.InternalSystem.RegisterResource(this);
     }
+
+    public ResourceBase FromUUID(UniverseUsingIdentity uuid)
+    {
+        return ExternBase.InternalSystem.QureyResourceGlobal(uuid);
+    }
 }

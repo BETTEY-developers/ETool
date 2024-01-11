@@ -19,11 +19,14 @@ using Microsoft.UI.Xaml;
 
 using Windows.UI.Core.Preview;
 using Windows.UI.WindowManagement;
+using EliTool.ExternSDK._Internal;
+using EliTool.ExternSDK.Common.Resource;
+using EliTool.ExternSDK.Common;
 
 namespace EliTool;
 
 // To learn more about WinUI 3, see https://docs.microsoft.com/windows/apps/winui/winui3/.
-public partial class App : Application
+public partial class App : Application, IAppContext
 {
     // The .NET Generic Host provides dependency injection, configuration, logging, and other services.
     // https://docs.microsoft.com/dotnet/core/extensions/generic-host
@@ -117,7 +120,20 @@ public partial class App : Application
         }).
         Build();
 
+        ExternSDK.Navigate.Navigate._Navigate += NavigatePage;
+        ExternSDK.Navigate.Navigate._NavigateForArgs += NavigateForArgs;
+
         UnhandledException += App_UnhandledException;
+    }
+
+    private void NavigateForArgs(ExternSDK.ExternBase sender, (Type, object?, bool) args)
+    {
+        GetService<INavigationService>().NavigateTo(args.Item1, args.Item2, args.Item3);
+    }
+
+    private void NavigatePage(ExternSDK.ExternBase sender, Type args)
+    {
+        GetService<INavigationService>().NavigateTo(args);
     }
 
     private void RegisteryPages()
@@ -163,4 +179,6 @@ public partial class App : Application
     {
         await App.GetService<ActivationHandler<EventArgs>>().HandleAsync(e);
     }
+
+    public void Navigate(string path) => throw new NotImplementedException();
 }

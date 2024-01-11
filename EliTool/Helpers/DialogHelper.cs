@@ -56,7 +56,7 @@ public class DialogHelper
     private static FileOpenPicker _OpenFilePickerDialogFactory(
         IList<string> ChooseType,
         PickerViewMode ViewMode = PickerViewMode.List,
-        PickerLocationId Location = PickerLocationId.Unspecified,
+        PickerLocationId Location = PickerLocationId.DocumentsLibrary,
         string CommitButton = "")
     {
         FileOpenPicker fileOpenPicker = new();
@@ -68,7 +68,7 @@ public class DialogHelper
 
         WinRT.Interop.InitializeWithWindow.Initialize(
             fileOpenPicker, 
-            MainWindow.Current.GetWindowHandle()
+            App.MainWindow.GetWindowHandle()
         );
 
         fileOpenPicker.CommitButtonText = CommitButton;
@@ -101,12 +101,12 @@ public class DialogHelper
     public static async Task<StorageFile> OpenSingleFilePicker(
         IList<string> ChooseType,
         PickerViewMode ViewMode = PickerViewMode.List,
-        PickerLocationId Location = PickerLocationId.Unspecified,
+        PickerLocationId Location = PickerLocationId.DocumentsLibrary,
         string CommitButton = "") => await _OpenFilePickerDialogFactory(ChooseType, ViewMode, Location, CommitButton).PickSingleFileAsync();
 
     public static async Task<IReadOnlyList<StorageFile>> OpenMultipleFilesPicker(
         IList<string> ChooseType,
         PickerViewMode ViewMode = PickerViewMode.List,
-        PickerLocationId Location = PickerLocationId.Unspecified,
+        PickerLocationId Location = PickerLocationId.DocumentsLibrary,
         string CommitButton = "") => await _OpenFilePickerDialogFactory(ChooseType, ViewMode, Location, CommitButton).PickMultipleFilesAsync();
 }

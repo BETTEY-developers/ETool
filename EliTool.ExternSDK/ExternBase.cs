@@ -1,4 +1,5 @@
-﻿using EliTool.ExternSDK.Common;
+﻿using EliTool.ExternSDK._Internal;
+using EliTool.ExternSDK.Common;
 using EliTool.ExternSDK.Model;
 
 namespace EliTool.ExternSDK;
@@ -52,9 +53,9 @@ public class ExternBase : IMain
     public virtual void Install() { }
     public virtual void Uninstall() { }
 
-    public ExternBase()
+    public ExternBase(IAppContext appContext)
     {
-        InternalSystem = _InternalSystem._InternalSystem_Factory.Get_InternalSystem();
+        InternalSystem = _InternalSystem._InternalSystem_Factory.Get_InternalSystem(appContext);
         Main = this;
     }
 }
