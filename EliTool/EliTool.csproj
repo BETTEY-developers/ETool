@@ -87,7 +87,6 @@
     <ProjectReference Include="..\EliTool.BasePackage\EliTool.BasePackage.csproj" />
     <ProjectReference Include="..\EliTool.Core\EliTool.Core.csproj" />
     <ProjectReference Include="..\EliTool.ExternSDK\EliTool.ExtensionSDK.csproj" />
-    <ProjectReference Include="..\SimpleExtern\SimpleExtern.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
