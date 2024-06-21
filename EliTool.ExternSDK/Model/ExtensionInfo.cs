@@ -1,39 +1,41 @@
-﻿namespace EliTool.ExternSDK.Model;
+﻿using EliTool.ExtensionSDK.Media;
 
-public interface IInfo
+namespace EliTool.ExtensionSDK.Model;
+
+public class ExtensionInfo
 {
     public string Name
     {
-        get;
+        get; set;
     }
 
     public string DisplayName
     {
-        get;
+        get; set;
     }
 
     public string Description
     {
-        get;
+        get; set;
     }
 
     public string Version
     {
-        get;
+        get; set;
     }
 
     public string Author
     {
-        get;
+        get; set;
     }
 
     public string AuthorUrl
     {
-        get;
+        get; set;
     }
 
     public string IconPath
     {
-        get;
+        get; set;
     }
 }

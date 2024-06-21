@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Media;
 
-namespace EliTool.ExternSDK.File.InterfaceBase;
+namespace EliTool.ExtensionSDK.File.InterfaceBase;
 
 public interface IPicture
 {

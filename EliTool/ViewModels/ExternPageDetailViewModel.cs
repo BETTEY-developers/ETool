@@ -9,5 +9,5 @@ namespace EliTool.ViewModels;
 public partial class ExternPageDetailViewModel : ObservableRecipient
 {
     [ObservableProperty]
-    PageInfoDataItem displayPage;
+    ToolInfo displayPage;
 }

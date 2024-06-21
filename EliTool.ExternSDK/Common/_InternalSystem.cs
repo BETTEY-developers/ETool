@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EliTool.ExternSDK._Internal;
-using EliTool.ExternSDK.Common.Resource;
+using EliTool.ExtensionSDK._Internal;
+using EliTool.ExtensionSDK.Common.Resource;
 
-namespace EliTool.ExternSDK.Common;
+namespace EliTool.ExtensionSDK.Common;
 
 internal class _InternalSystem
 {
     internal class _InternalSystem_Factory
     {
-        public static _InternalSystem Get_InternalSystem(IAppContext appContext)
+        public static _InternalSystem Get_InternalSystem(IContainer container)
         {
-            return new(UniverseUsingIdentity.GeneraterUUID(), appContext);
+            return new(UniverseUsingIdentity.GeneraterUUID(), container);
         }
     }
 
     public UniverseUsingIdentity SystemUniverseUsingIdentity { get; set; }
 
-    private IAppContext AppContext
+    private IContainer Container
     {
         get; set; 
     }
@@ -53,13 +53,15 @@ internal class _InternalSystem
 
     internal ResourceBase? QureyResourceGlobal(UniverseUsingIdentity universeUsingIdentity)
     {
-        return AppContext.QueryResource(universeUsingIdentity);
+        return Container.QueryResource(universeUsingIdentity);
     }
 
-    private _InternalSystem(UniverseUsingIdentity universeUsingIdentity, IAppContext appContext)
+    internal void Navigate(string path) => Container.Navigate(path);
+
+    private _InternalSystem(UniverseUsingIdentity universeUsingIdentity, IContainer container)
     {
         SystemUniverseUsingIdentity = universeUsingIdentity;
-        AppContext = appContext;
+        Container = container;
     }
 }
 

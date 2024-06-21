@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace EliTool.ExternSDK.Common.Resource;
+namespace EliTool.ExtensionSDK.Common.Resource;
 
 public enum ResourceType
 {
@@ -16,7 +17,7 @@ public enum ResourceType
 
 public class ResourceBase : IDisposable, IEquatable<ResourceBase>
 {
-    protected ExternBase m_parent;
+    protected ExtensionBase m_parent;
 
     protected string m_relativePath;
 
@@ -30,7 +31,7 @@ public class ResourceBase : IDisposable, IEquatable<ResourceBase>
 
     protected ResourceType m_resourceType;
 
-    public ExternBase Parent => m_parent;
+    public ExtensionBase Parent => m_parent;
 
     public string RelativePath => m_relativePath;
 
@@ -46,7 +47,7 @@ public class ResourceBase : IDisposable, IEquatable<ResourceBase>
 
     internal void SetUnused() => m_unused = true;
 
-    public void Dispose() => ExternBase.InternalSystem.RegisterResource(this);
+    public void Dispose() => ExtensionBase.GetCurrentExtension().InternalSystem.RegisterResource(this);
 
     public bool Equals(ResourceBase other)
     {
@@ -57,23 +58,23 @@ public class ResourceBase : IDisposable, IEquatable<ResourceBase>
 
     protected string ToAbsolute(string path)
     {
-        return ApplicationData.Current.LocalFolder.Path + "Externs\\Unpackage\\" + m_parent.Name + "\\" + m_parent.Name + path;
+        return Path.Join(ApplicationData.Current.LocalFolder.Path, "Externs\\Unpackage\\", m_parent.Name, m_parent.Name, path);
     }
 
     protected ResourceBase()
     {
-        ExternBase.InternalSystem.RegisterResource(this);
-        m_parent = ExternBase.Main;
+        ExtensionBase.GetCurrentExtension().InternalSystem.RegisterResource(this);
+        m_parent = ExtensionBase.GetCurrentExtension();
     }
 
     ~ResourceBase()
     {
         if (!Unused)
-            ExternBase.InternalSystem.RegisterResource(this);
+            ExtensionBase.GetCurrentExtension().InternalSystem.RegisterResource(this);
     }
 
     public ResourceBase FromUUID(UniverseUsingIdentity uuid)
     {
-        return ExternBase.InternalSystem.QureyResourceGlobal(uuid);
+        return ExtensionBase.GetCurrentExtension().InternalSystem.QureyResourceGlobal(uuid);
     }
 }

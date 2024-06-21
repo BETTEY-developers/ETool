@@ -2,8 +2,9 @@
 using System.Xml.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using EliTool.Contracts.Services;
-using EliTool.ExternSDK;
-using EliTool.ExternSDK.Model;
+using EliTool.ExtensionSDK;
+using EliTool.ExtensionSDK.Model;
+using EliTool.ExtensionSDK.Model.Tool;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
@@ -13,11 +14,11 @@ using Windows.Media.Core;
 
 namespace EliTool.Models;
 
-public class ExternManifestInfo : IInfo
+public class ExtensionManifestInfo
 {
     public Dictionary<string, string> InfoDict { get; set; } = new();
 
-    public ExternManifestInfo(IInfo info)
+    public ExtensionManifestInfo(ExtensionInfo info)
     {
         InfoDict[nameof(Name)] = info.Name;
         InfoDict[nameof(Description)] = info.Description;
@@ -43,12 +44,12 @@ public class ExternManifestInfo : IInfo
 
     public string DisplayName => InfoDict[nameof(DisplayName)];
 
-    public ExternManifestInfo Self
+    public ExtensionManifestInfo Self
     {
         get; set;
     }
 }
-public class Extern
+public class Extension
 {
     public string Name
     {
@@ -65,12 +66,10 @@ public class Extern
         get; set; 
     }
 
-    public ExternManifestInfo Manifest
+    public ExtensionManifestInfo Manifest
     {
         get; set;
     }
-
-    public PageInfoGroup GetPageGroup() => EntryInstance.GetExternPageGroup();
 
     public SettingCollection GetSettingCollection()
     {

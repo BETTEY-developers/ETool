@@ -14,7 +14,7 @@ internal class CloseActivationHandler : ActivationHandler<EventArgs>
 {
     protected async override Task HandleInternalAsync(EventArgs args)
     {
-        var externservice = App.GetService<IExternService>();
+        var externservice = App.GetService<IExtensionService>();
         
         await externservice.Unload();
     }

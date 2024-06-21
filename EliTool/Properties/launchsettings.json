@@ -2,7 +2,8 @@
   "profiles": {
     "EliTool (Package)": {
       "commandName": "MsixPackage",
-      "doNotLaunchApp": false
+      "doNotLaunchApp": false,
+      "nativeDebugging": true
     },
     "EliTool (Unpackaged)": {
       "commandName": "Project"

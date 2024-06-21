@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using EliTool.ExternSDK.Common.Resource;
-using EliTool.ExternSDK.File.InterfaceBase;
+using EliTool.ExtensionSDK.Common.Resource;
+using EliTool.ExtensionSDK.File.InterfaceBase;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 
-namespace EliTool.ExternSDK.Media;
+namespace EliTool.ExtensionSDK.Media;
 
 public sealed class Image : ResourceBase, IFileResource, IPicture
 {
@@ -25,7 +26,6 @@ public sealed class Image : ResourceBase, IFileResource, IPicture
             m_absolutePath = ToAbsolute(Path);
             m_name = Path.Split("\\")[^1];
             m_resourceType = ResourceType.Binary;
-            m_parent = ExternBase.Main;
         }
         else
         {
@@ -33,7 +33,6 @@ public sealed class Image : ResourceBase, IFileResource, IPicture
             m_absolutePath = Path;
             m_name = Path.Split("\\")[^1];
             m_resourceType = ResourceType.Binary;
-            m_parent = ExternBase.Main;
         }
     }
 

@@ -55,15 +55,15 @@ public sealed partial class ExternViewPage : Page
             return;
         }
 
-        var t = await App.GetService<IExternService>().ApplicationExternFolder.TryGetItemAsync(file.Name);
+        var t = await App.GetService<IExtensionService>().ApplicationExtensionFolder.TryGetItemAsync(file.Name);
         if (t != null && t.IsOfType(StorageItemTypes.File))
         {
             await t.DeleteAsync();
         }
 
-        await file.CopyAsync(App.GetService<IExternService>().ApplicationExternFolder);
+        await file.CopyAsync(App.GetService<IExtensionService>().ApplicationExtensionFolder);
 
-        var content = await FileIO.ReadTextAsync(App.GetService<IExternService>().ExternManifest);
+        var content = await FileIO.ReadTextAsync(App.GetService<IExtensionService>().ExtensionManifest);
         var is_empty = false;
 
         if (content == "")
@@ -72,7 +72,7 @@ public sealed partial class ExternViewPage : Page
             is_empty = true;
         }
         
-        var es = JsonSerializer.Deserialize<List<Extern>>(content);
+        var es = JsonSerializer.Deserialize<List<Extension>>(content);
 
         if (is_empty)
             es.Clear();
@@ -87,9 +87,9 @@ public sealed partial class ExternViewPage : Page
 
         stream.Close();
 
-        await App.GetService<IExternService>().Load();
+        await App.GetService<IExtensionService>().Load();
 
         ViewModel.ExternInfos.Clear();
-        (App.GetService<IExternService>().Externs ?? new List<Extern>()).ForEach(ViewModel.ExternInfos.Add);
+        (App.GetService<IExtensionService>().Extensions ?? new List<Extension>()).ForEach(ViewModel.ExternInfos.Add);
     }
 }

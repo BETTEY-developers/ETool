@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EliTool.ExternSDK.Common;
+namespace EliTool.ExtensionSDK.Common;
 
 public struct UniverseUsingIdentity
 {

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EliTool", "EliTool\EliTool.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EliTool.Core", "EliTool.Core\EliTool.Core.csproj", "{04F054BE-AF02-4791-9810-D3EB0785607A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EliTool.ExternSDK", "EliTool.ExternSDK\EliTool.ExternSDK.csproj", "{554E6799-FBDA-4701-A4D7-3412A829DFCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EliTool.ExtensionSDK", "EliTool.ExternSDK\EliTool.ExtensionSDK.csproj", "{554E6799-FBDA-4701-A4D7-3412A829DFCC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleExtern", "SimpleExtern\SimpleExtern.csproj", "{DF1617A6-5EB0-419A-ABB3-D7B5C7D0F3B4}"
 EndProject

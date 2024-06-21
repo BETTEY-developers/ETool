@@ -2,33 +2,53 @@ using System;
 using System.Collections.Generic;
 using EliTool.BasePackage.Contracts.Services;
 using EliTool.BasePackage.Services;
-using EliTool.ExternSDK;
-using EliTool.ExternSDK.Model;
+using EliTool.ExtensionSDK;
+using EliTool.ExtensionSDK._Internal;
+using EliTool.ExtensionSDK.Model;
+using EliTool.ExtensionSDK.Model.Document;
+using EliTool.ExtensionSDK.Model.Tool;
+using Microsoft.UI.Xaml.Controls;
 using SimpleExtern.Common;
 using SimpleExtern.ViewModels;
 using SimpleExtern.Views;
+using SimpleExtern.Views.Tool;
 
 namespace SimpleExtern;
 
-public class Main : ExternBase
+public class Main : ExtensionBase
 {
+    private struct Singleton
+    {
+        Main Instance;
+
+        public Singleton(Main instance)
+            => Instance = instance;
+
+        public Main GetInstance() => Instance;
+    }
+
     private static ServiceRegister _services = new();
+    private static Singleton singleton;
 
-    public override string Name => "SimpleExtern";
+    public override string Name => GetInfo().Name;
 
-    public override string DisplayName => "A Simple Extern";
+    public static ExtensionBase Instance => singleton.GetInstance();
 
-    public override string Description => "For a test";
+    public Main(IContainer container) : base(container)
+    {
+        singleton = new(this);
+    }
 
-    public override string Version => "v1.0";
-
-    public override string Author => "ETool Team";
-
-    public override string AuthorUrl => "nullptr";
-
-    public override string IconPath => "Assets\\SimpleExtern.png";
-
-    public override IInfo GetInfo() => this;
+    public override ExtensionInfo GetInfo() => new()
+    {
+        Name = "SimpleExtern",
+        Author = "ETool Team",
+        DisplayName = "Simple Extern",
+        AuthorUrl = "nullptr",
+        Description = "For a test",
+        IconPath = "\\Assets\\SimpleExtern.png",
+        Version = "v1.0"
+    };
 
     public override void Install()
     {
@@ -55,24 +75,31 @@ public class Main : ExternBase
     }
 
     public override SettingCollection GetExternSettingsCollection() => new SettingCollection();
-    public override PageInfoGroup GetExternPageGroup()
+    public override ToolGroupCollection GetExtensionToolGroups()
     {
         return new()
         {
-            Title = "SimpleExtern",
-            Id = "SimpleExtern",
-            Image = new("Assets\\SimpleExtern.png", true),
-            ControlInfos = new List<PageInfoDataItem>()
+            new()
             {
-                new PageInfoDataItem()
+                Title = "SimpleExtern",
+                Id = "SimpleExtern",
+                HeaderImage = new("Assets\\SimpleExtern.png", true),
+                ToolInfos = new List<ToolInfo>()
                 {
-                    PageViewModel = typeof(TestPageViewModel),
-                    Page = typeof(TestPage),
-                    Title = "TestPage",
-                    Subtitle = "TestPage",
-                    Image = new("\\Assets\\SimpleExtern.png", true)
+                    new ToolInfo()
+                    {
+                        PageViewModel = typeof(TestPageViewModel),
+                        Page = typeof(TestPage),
+                        Title = "Test Page",
+                        Subtitle = "For a test",
+                        HeaderImage = new("Assets\\SimpleExtern.png", true),
+                        LinkMode = ToolLinkMode.Static
+                    }
                 }
             }
         };
     }
+
+
+    public override DocumentGroupCollection GetExtensionDocumentGroups() => new();
 }

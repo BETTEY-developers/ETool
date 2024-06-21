@@ -4,14 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converter="using:EliTool.Helpers"
-    xmlns:newconverter="using:EliTool.Converters"
+    xmlns:converter="using:EliTool.Converters"
     xmlns:controls="using:EliTool.Controls"
     mc:Ignorable="d">
     <Page.Resources>
-        <converter:ExternIconConverter x:Key="IconConverter"/>
+        <converter:ExtensionIconConverter x:Key="IconConverter"/>
         <converter:UriConverter x:Key="UriConverter"/>
-        <newconverter:SubListConverter x:Key="SubListConverter"/>
+        <converter:SubListConverter x:Key="SubListConverter"/>
     </Page.Resources>
     <ScrollViewer x:Name="ContentArea">
         <StackPanel HorizontalAlignment="Stretch">

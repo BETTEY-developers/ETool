@@ -1,4 +1,4 @@
-﻿namespace EliTool.ExternSDK;
+﻿namespace EliTool.ExtensionSDK;
 
 public interface IUninstall
 {

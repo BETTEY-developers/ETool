@@ -4,13 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:helpers="using:EliTool.Helpers"
+    xmlns:converters="using:EliTool.Converters"
     xmlns:xaml="using:Microsoft.UI.Xaml"
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     xmlns:media="using:Microsoft.UI.Xaml.Media"
     mc:Ignorable="d">
     <Page.Resources>
-        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
         <TeachingTip x:Name="ChangedTip" 
                      x:Uid="SearchItemTypeChangedTip">
             <TeachingTip.IconSource>

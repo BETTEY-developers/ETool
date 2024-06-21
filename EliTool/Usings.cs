@@ -1,2 +1,2 @@
 ﻿global using WinUIEx;
-global using EliTool.ExternSDK.Model;
+global using EliTool.ExtensionSDK.Model;

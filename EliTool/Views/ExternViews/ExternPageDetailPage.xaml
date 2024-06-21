@@ -5,38 +5,133 @@
     xmlns:local="using:EliTool.Views.ExternViews"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converter="using:EliTool.Helpers"
-    xmlns:newconverter="using:EliTool.Converters"
+    xmlns:converters="using:EliTool.Converters"
+    xmlns:controls="using:EliTool.Controls"
+    xmlns:model="using:EliTool.ExtensionSDK.Model" 
+    xmlns:viewmodels="using:EliTool.ViewModels"
     mc:Ignorable="d">
     <Page.Resources>
-        <converter:ExternImageConverter x:Key="ImageConverter"/>
-        <converter:UriConverter x:Key="UriConverter"/>
+        <converters:ExtensionImageConverter x:Key="ImageConverter"/>
+        <converters:UriConverter x:Key="UriConverter"/>
     </Page.Resources>
     <ScrollViewer x:Name="ContentArea">
-        <StackPanel HorizontalAlignment="Stretch">
+        <StackPanel HorizontalAlignment="Stretch" Spacing="16">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="32" Padding="16">
-                <Image Source="{x:Bind ViewModel.DisplayPage.Image.AsWinUIImageSource()}"
+                <Image Source="{x:Bind ViewModel.DisplayPage.HeaderImage.AsWinUIImageSource()}"
                    Height="256"
                    Width="256"
                    Stretch="Uniform"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"/>
-                <StackPanel Spacing="10" HorizontalAlignment="Right">
-                    <StackPanel Spacing="4">
-                        <TextBlock Text="{x:Bind ViewModel.DisplayPage.Title}" 
-                       Style="{ThemeResource TitleLargeTextBlockStyle}"/>
-                        <TextBlock Text="{x:Bind ViewModel.DisplayPage.Subtitle}"
-                       Style="{ThemeResource BodyTextBlockStyle}"
-                       Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                <Grid HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                    <StackPanel  Spacing="10">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{x:Bind ViewModel.DisplayPage.Title}" 
+                                       Style="{ThemeResource TitleLargeTextBlockStyle}"/>
+                            <TextBlock Text="{x:Bind ViewModel.DisplayPage.Subtitle}"
+                                       Style="{ThemeResource BodyTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                        </StackPanel>
                     </StackPanel>
-                    <Button Height="50" Width="128" Style="{ThemeResource AccentButtonStyle}">
+
+                    <Button Height="50" Width="128" VerticalAlignment="Bottom" Style="{ThemeResource AccentButtonStyle}">
                         <StackPanel Spacing="5" Orientation="Horizontal">
                             <FontIcon Glyph="&#xE8A7;" />
                             <TextBlock>跳转</TextBlock>
                         </StackPanel>
                     </Button>
-                </StackPanel>
+                </Grid>
             </StackPanel>
+            <controls:SwitchView SwitchValue="{x:Bind ViewModel.DisplayPage.LinkMode}">
+                <controls:SwitchView.Cases>
+                    <controls:SwitchViewCase>
+                        <controls:SwitchViewCase.Threshold>
+                            <model:ToolLinkMode>
+                                Static
+                            </model:ToolLinkMode>
+                        </controls:SwitchViewCase.Threshold>
+                        <controls:SwitchViewCase.Content>
+                                <InfoBar IsOpen="True"
+                                         Title="工具类型"
+                                         Message="此工具为静态类工具，即不联网工作工具，详见"
+                                         Grid.Row="0"
+                                         Margin="0,20,0,20"
+                                         IsClosable="False">
+                                <InfoBar.ActionButton>
+                                    <HyperlinkButton Content="静态类工具" Command="{Binding NavigationToDocumentCommand}">
+                                        <HyperlinkButton.CommandParameter>
+                                            <viewmodels:Documents>
+                                                OfflineTool
+                                            </viewmodels:Documents>
+                                        </HyperlinkButton.CommandParameter>
+                                        <HyperlinkButton.DataContext>
+                                            <viewmodels:DocumentOverviewViewModel/>
+                                        </HyperlinkButton.DataContext>
+                                    </HyperlinkButton>
+                                </InfoBar.ActionButton>
+                            </InfoBar>
+                            </controls:SwitchViewCase.Content>
+                        </controls:SwitchViewCase>
+                    <controls:SwitchViewCase>
+                        <controls:SwitchViewCase.Threshold>
+                            <model:ToolLinkMode>
+                                PartDynamic
+                            </model:ToolLinkMode>
+                        </controls:SwitchViewCase.Threshold>
+                        <controls:SwitchViewCase.Content>
+                                <InfoBar IsOpen="True"
+                                         Severity="Warning"
+                                         Title="工具类型"
+                                         Message="此工具为半静态类工具，即可联网工作工具，详见"
+                                         Grid.Row="0"
+                                         Margin="0,20,0,20"
+                                         IsClosable="False">
+                                    <InfoBar.ActionButton>
+                                        <HyperlinkButton Content="半静态类工具" Command="{Binding NavigationToDocumentCommand}">
+                                            <HyperlinkButton.CommandParameter>
+                                                <viewmodels:Documents>
+                                                    PartialOfflineTool
+                                                </viewmodels:Documents>
+                                            </HyperlinkButton.CommandParameter>
+                                            <HyperlinkButton.DataContext>
+                                                <viewmodels:DocumentOverviewViewModel/>
+                                            </HyperlinkButton.DataContext>
+                                        </HyperlinkButton>
+                                    </InfoBar.ActionButton>
+                                </InfoBar>
+                            </controls:SwitchViewCase.Content>
+                        </controls:SwitchViewCase>
+                    <controls:SwitchViewCase>
+                        <controls:SwitchViewCase.Threshold>
+                            <model:ToolLinkMode>
+                                FullDynamic
+                            </model:ToolLinkMode>
+                        </controls:SwitchViewCase.Threshold>
+                        <controls:SwitchViewCase.Content>
+                            <InfoBar IsOpen="True"
+                                     Severity="Warning"
+                                     Title="工具类型"
+                                     Message="此工具为动态类工具，即联网工作工具，详见"
+                                     Grid.Row="0"
+                                     Margin="0,20,0,20"
+                                     IsClosable="False">
+                                <InfoBar.ActionButton>
+                                    <HyperlinkButton Content="动态类工具" Command="{Binding NavigationToDocumentCommand}">
+                                        <HyperlinkButton.CommandParameter>
+                                            <viewmodels:Documents>
+                                                OnlineTool
+                                            </viewmodels:Documents>
+                                        </HyperlinkButton.CommandParameter>
+                                        <HyperlinkButton.DataContext>
+                                            <viewmodels:DocumentOverviewViewModel/>
+                                        </HyperlinkButton.DataContext>
+                                    </HyperlinkButton>
+                                </InfoBar.ActionButton>
+                            </InfoBar>
+                        </controls:SwitchViewCase.Content>
+                    </controls:SwitchViewCase>
+                </controls:SwitchView.Cases>
+            </controls:SwitchView>
         </StackPanel>
     </ScrollViewer>
 </Page>

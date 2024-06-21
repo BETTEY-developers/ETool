@@ -24,7 +24,7 @@ public sealed partial class ExternDetailPage : Page
     {
         base.OnNavigatedTo(e);
 
-        ViewModel.DisplayExtern = (Extern)e.Parameter;
+        ViewModel.DisplayExtern = (Extension)e.Parameter;
     }
 
     private void GridView_ItemClick(object sender, ItemClickEventArgs e)

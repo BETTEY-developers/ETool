@@ -2,19 +2,19 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
 		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-		<RootNamespace>EliTool.ExternSDK</RootNamespace>
+		<RootNamespace>EliTool.ExtensionSDK</RootNamespace>
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		<UseWinUI>true</UseWinUI>
 		<Configurations>Debug;Release;BuildPackage</Configurations>
 		<Version></Version>
-		<AssemblyVersion>1.0.1228.0</AssemblyVersion>
-		<FileVersion>1.0.1228.0</FileVersion>
+		<AssemblyVersion>1.0.411.0</AssemblyVersion>
+		<FileVersion>1.0.411.0</FileVersion>
 		<Title>For ETool Externs SDK and API</Title>
 		<Authors>ETool Team</Authors>
 		<Company>ETool Team</Company>
 		<Product>ETool Extern SDK and API</Product>
 		<Description>This package is for ETool Externs to link ETool and use part in ETool standard control Lib.</Description>
-		<Copyright>Copyright ETool Team 2023-</Copyright>
+		<Copyright>Copyright ETool Team 2024-</Copyright>
 		<PackageIcon>ETool.png</PackageIcon>
 		<PackageTags>ETool, SDK, Extern</PackageTags>
 		<AnalysisLevel>none</AnalysisLevel>

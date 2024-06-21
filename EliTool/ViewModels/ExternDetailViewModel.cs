@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using EliTool.Helpers;
 using EliTool.Models;
 using Microsoft.UI.Xaml.Controls;
 
@@ -17,14 +18,23 @@ public partial class ExternDetailViewModel : ObservableRecipient
     }
 
     [ObservableProperty]
-    Extern displayExtern = new Extern();
+    Extension displayExtern = new Extension();
 
     [ObservableProperty]
     ObservableCollection<Page> pages = new ObservableCollection<Page>();
 
-    public ObservableCollection<PageInfoDataItem> SubPage()
+    public ObservableCollection<ToolInfo> SubPage()
     {
-        var rl = DisplayExtern.GetPageGroup().ControlInfos;
+        List<ToolInfo> rl = 
+                displayExtern
+                .EntryInstance
+                .GetExtensionToolGroups()
+                .MergeItem<ToolGroup, ToolGroup>((o, g) =>
+                {
+                    foreach (var item in g.ToolInfos)
+                        o.ToolInfos.Add(item);
+                })
+                .ToolInfos;
 
         return new(rl.SkipLast(int.Min(rl.Count-1, 8)));
     }

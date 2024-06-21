@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:EliTool.Controls"
     xmlns:options="using:EliTool.ViewModels"
-    xmlns:converter="using:EliTool.Helpers"
+    xmlns:converter="using:EliTool.Converters"
     xmlns:enumconverter="using:EliTool.Helpers.EnumConverters"
     ProcessKeyboardAccelerators="Page_ProcessKeyboardAccelerators"
     Loaded="Page_Loaded"

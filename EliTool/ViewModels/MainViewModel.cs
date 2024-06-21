@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using EliTool.Contracts.Services;
 using EliTool.Helpers;
+using EliTool.Model;
 using EliTool.Models;
 using EliTool.Services;
 using Windows.Storage;
@@ -16,13 +17,14 @@ public partial class MainViewModel : ObservableRecipient
 
     private static Root LoadedRoot = null;
 
-    public Root GetControlInfos()
+    public Root GetExtensionElements()
     {
         LoadedRoot = new Root();
         LoadedRoot.Version = 1;
-        foreach(var externitem in App.GetService<IExternService>().Externs??new())
+        foreach(var externitem in App.GetService<IExtensionService>().Extensions??new())
         {
-            LoadedRoot.ControlInfoGroups.Add(externitem.GetPageGroup());
+            LoadedRoot.ToolInfoGroups.AddRange(externitem.EntryInstance.GetExtensionToolGroups());
+            LoadedRoot.DocumentGroups.AddRange(externitem.EntryInstance.GetExtensionDocumentGroups());
         }
         return LoadedRoot;
         //if (LoadedRoot == null)

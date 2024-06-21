@@ -24,7 +24,7 @@ public sealed partial class ShellPage : Page
         get;
     }
 
-    public IExternService ExternService
+    public IExtensionService ExternService
     {
         get;
     }
@@ -36,7 +36,7 @@ public sealed partial class ShellPage : Page
     public ShellPage()
     {
         ViewModel = App.GetService<ShellViewModel>();
-        ExternService = App.GetService<IExternService>();
+        ExternService = App.GetService<IExtensionService>();
         InitializeComponent();
 
         ViewModel.NavigationService.Frame = NavigationFrame;
@@ -58,25 +58,55 @@ public sealed partial class ShellPage : Page
 
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
+
         NavigationViewControl.Header = null;
-        foreach (var ControlGroup in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
+
+        var extensions = App
+                .GetService<MainViewModel>()
+                .GetExtensionElements();
+
+        foreach (var ToolGroup in extensions.ToolInfoGroups)
         {
             NavigationViewItem item = new NavigationViewItem();
-            item.Icon = new ImageIcon() { Source = ControlGroup.Image.AsWinUIImageSource() };
-            item.Content = ControlGroup.Title;
-            item.Name = ControlGroup.Id;
-            foreach (var ControlInfo in ControlGroup.ControlInfos)
+
+            item.Icon = new ImageIcon() { Source = ToolGroup.HeaderImage.AsWinUIImageSource() };
+            item.Content = ToolGroup.Title;
+            item.Name = ToolGroup.Id;
+
+            foreach (var ToolInfo in ToolGroup.ToolInfos)
             {
                 NavigationViewItem childitem = new NavigationViewItem();
-                childitem.Content = ControlInfo.Title;
-                childitem.Icon = new ImageIcon() { Source = new BitmapImage(new Uri(ExternService.ApplicationExternUnpackageFolder.Path + "\\" + ControlInfo.Image)) };
-                NavigationHelper.SetNavigateTo(childitem, ControlInfo.PageViewModel.GetType().FullName!);
-                childitem.Tag = ControlGroup.Id;
+                childitem.Content = ToolInfo.Title;
+                childitem.Icon = new ImageIcon { Source = ToolInfo.HeaderImage.AsWinUIImageSource() };
+                
+                NavigationHelper.SetNavigateTo(childitem, ToolInfo.PageViewModel.FullName!);
+                childitem.Tag = ToolGroup.Id;
+
                 item.MenuItems.Add(childitem);
             }
+
             NavigationViewControl.MenuItems.Add(item);
         }
 
+        foreach (var DocumentGroup in extensions.DocumentGroups)
+        {
+            NavigationViewItem groupitem = new();
+
+            groupitem.Icon = new SymbolIcon(DocumentGroup.HeaderSymbol);
+            groupitem.Content = DocumentGroup.Title;
+            groupitem.Name = DocumentGroup.Id;
+
+            foreach (var DocumentInfo in DocumentGroup.DocumentInfos)
+            {
+                NavigationViewItem documentitem = new();
+
+                documentitem.Content = DocumentInfo.Title;
+                NavigationHelper.SetNavigateTo(documentitem, DocumentInfo.Page.FullName);
+                documentitem.Tag = DocumentGroup.Id;
+
+                groupitem.MenuItems.Add(documentitem);
+            }
+        }
         if (Environment.GetCommandLineArgs().Length > 1)
         {
             string str = string.Join('.', Environment.GetCommandLineArgs()[1].Split("//")[1].Split("/"));
@@ -143,15 +173,15 @@ public sealed partial class ShellPage : Page
         {
             ObservableCollection<SearchGroup> groups = new();
 
-            foreach (var group in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
+            foreach (var group in App.GetService<MainViewModel>().GetExtensionElements().ToolInfoGroups)
             {
-                if (group.ControlInfos.Any(x => x.Title.ToLower().Contains(args.QueryText.ToLower())))
+                if (group.ToolInfos.Any(x => x.Title.ToLower().Contains(args.QueryText.ToLower())))
                 {
                     SearchGroup controlInfoGroup = new();
                     controlInfoGroup.Id = group.Id;
                     controlInfoGroup.Title = group.Title;
                     ObservableCollection<SearchItem> items = new();
-                    foreach (var item in group.ControlInfos)
+                    foreach (var item in group.ToolInfos)
                     {
                         if (item.Title.ToLower().Contains(args.QueryText.ToLower()))
                             items.Add(SearchItem.FromInfoData(item));
@@ -165,7 +195,7 @@ public sealed partial class ShellPage : Page
         }
         else
         {
-            var item = args.ChosenSuggestion as PageInfoDataItem;
+            var item = args.ChosenSuggestion as ToolInfo;
             if (item.PageViewModel == null)
                 return;
 
@@ -178,11 +208,11 @@ public sealed partial class ShellPage : Page
         if(args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
             return;
 
-        List<PageInfoDataItem> result = new();
+        List<ToolInfo> result = new();
 
-        foreach (var toolgroup in App.GetService<MainViewModel>().GetControlInfos().ControlInfoGroups)
+        foreach (var toolgroup in App.GetService<MainViewModel>().GetExtensionElements().ToolInfoGroups)
         {
-            foreach (var item in toolgroup.ControlInfos)
+            foreach (var item in toolgroup.ToolInfos)
             {
                 if (item.Title.ToLower().Contains(sender.Text.ToLower()))
                 {
@@ -192,7 +222,7 @@ public sealed partial class ShellPage : Page
         }
         if (result.Count == 0)
         {
-            result.Add(new PageInfoDataItem() { Image = new(this.Resources["NoResult"] as string, false), Title = "没有结果", PageViewModel = null });
+            result.Add(new ToolInfo() { HeaderImage = new(this.Resources["NoResult"] as string, false), Title = "没有结果", PageViewModel = null });
         }
 
         sender.ItemsSource = result;

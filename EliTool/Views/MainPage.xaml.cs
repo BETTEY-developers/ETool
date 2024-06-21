@@ -21,7 +21,7 @@ public sealed partial class MainPage : Page
         get;
     }
 
-    public ObservableCollection<PageInfoDataItem> ControlInfos { get; set; } = new ObservableCollection<PageInfoDataItem>();
+    public ObservableCollection<ToolInfo> ControlInfos { get; set; } = new ObservableCollection<ToolInfo>();
 
     public MainPage()
     {
@@ -33,8 +33,7 @@ public sealed partial class MainPage : Page
     protected async override void OnNavigatedTo(NavigationEventArgs e)
     {
         ShellPage.Instance.NavigationViewControl.Header = null;
-        List<PageInfoDataItem> items = new List<PageInfoDataItem>();
-        foreach (var v in ViewModel.GetControlInfos().ControlInfoGroups) foreach (var s in v.ControlInfos) ControlInfos.Add(s);
+        foreach (var v in ViewModel.GetExtensionElements().ToolInfoGroups) foreach (var s in v.ToolInfos) ControlInfos.Add(s);
         
         base.OnNavigatedTo(e);
     }
@@ -47,7 +46,7 @@ public sealed partial class MainPage : Page
         }
         catch { }
 
-        lock ((e.ClickedItem as PageInfoDataItem).PageViewModel)
+        lock ((e.ClickedItem as ToolInfo).PageViewModel)
         {
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace EliTool.ExternSDK.File.InterfaceBase;
+namespace EliTool.ExtensionSDK.File.InterfaceBase;
 
 public interface IFileResource
 {

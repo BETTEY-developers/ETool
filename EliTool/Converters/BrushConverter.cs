@@ -7,10 +7,10 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI;
 
-namespace EliTool.Helpers;
+namespace EliTool.Converters;
 
 class BrushConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, string language) => (Brush)(new SolidColorBrush((Color)value));
+    public object Convert(object value, Type targetType, object parameter, string language) => new SolidColorBrush((Color)value);
     public object ConvertBack(object value, Type targetType, object parameter, string language) => (value as SolidColorBrush).Color;
 }

@@ -19,14 +19,15 @@ using Microsoft.UI.Xaml;
 
 using Windows.UI.Core.Preview;
 using Windows.UI.WindowManagement;
-using EliTool.ExternSDK._Internal;
-using EliTool.ExternSDK.Common.Resource;
-using EliTool.ExternSDK.Common;
+using EliTool.ExtensionSDK._Internal;
+using EliTool.ExtensionSDK.Common.Resource;
+using EliTool.ExtensionSDK.Common;
+using WinRT;
 
 namespace EliTool;
 
 // To learn more about WinUI 3, see https://docs.microsoft.com/windows/apps/winui/winui3/.
-public partial class App : Application, IAppContext
+public partial class App : Application, IContainer
 {
     // The .NET Generic Host provides dependency injection, configuration, logging, and other services.
     // https://docs.microsoft.com/dotnet/core/extensions/generic-host
@@ -76,7 +77,7 @@ public partial class App : Application, IAppContext
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
-            services.AddTransient<IExternService, ExternService>();
+            services.AddTransient<IExtensionService, ExtensionService>();
 
 
             // Core Services
@@ -120,18 +121,18 @@ public partial class App : Application, IAppContext
         }).
         Build();
 
-        ExternSDK.Navigate.Navigate._Navigate += NavigatePage;
-        ExternSDK.Navigate.Navigate._NavigateForArgs += NavigateForArgs;
+        //ExtensionSDK.Navigate.Navigate._Navigate += NavigatePage;
+        //ExtensionSDK.Navigate.Navigate._NavigateForArgs += NavigateForArgs;
 
         UnhandledException += App_UnhandledException;
     }
 
-    private void NavigateForArgs(ExternSDK.ExternBase sender, (Type, object?, bool) args)
+    private void NavigateForArgs(ExtensionSDK.ExtensionBase sender, (Type, object?, bool) args)
     {
         GetService<INavigationService>().NavigateTo(args.Item1, args.Item2, args.Item3);
     }
 
-    private void NavigatePage(ExternSDK.ExternBase sender, Type args)
+    private void NavigatePage(ExtensionSDK.ExtensionBase sender, Type args)
     {
         GetService<INavigationService>().NavigateTo(args);
     }
@@ -165,7 +166,7 @@ public partial class App : Application, IAppContext
     {
         base.OnLaunched(args);
 
-        ExternService ser = new ExternService();
+        ExtensionService ser = new ExtensionService();
         await ser.Load();
 
         RegisteryPages();
@@ -181,4 +182,5 @@ public partial class App : Application, IAppContext
     }
 
     public void Navigate(string path) => throw new NotImplementedException();
+    public ResourceBase QueryResource(UniverseUsingIdentity UUID) => throw new NotImplementedException();
 }

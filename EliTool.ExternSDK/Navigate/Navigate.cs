@@ -6,32 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 
-namespace EliTool.ExternSDK.Navigate;
+namespace EliTool.ExtensionSDK.Navigate;
 
 public class Navigate
 {
-    /* private Nav event for ETool Main Program */
-    private static TypedEventHandler<ExternBase, Type> NavigateEvent;
-    private static TypedEventHandler<ExternBase, (Type, object?, bool)> NavigateForArgsEvent;
-
-
-    /// <summary>
-    /// Navigate Event. Extern *must not* add listener.
-    /// </summary>
-    public static event TypedEventHandler<ExternBase, Type> _Navigate {  add { NavigateEvent += value; } remove { NavigateEvent -= value; } }
-
-    /// <summary>
-    /// Navigate Event. Extern *must not* add listener.
-    /// </summary>
-    public static event TypedEventHandler<ExternBase, (Type, object?, bool)> _NavigateForArgs { add { NavigateForArgsEvent += value; } remove { NavigateForArgsEvent -= value; } }
-
     /// <summary>
     /// Navigate to page.
     /// </summary>
     /// <param name="pageViewmodel">Page viewmodel type.</param>
     public static void NavigateToType(Type pageViewmodel)
     {
-        NavigateEvent(ExternBase.Main, pageViewmodel);
+        ExtensionBase.GetCurrentExtension().InternalSystem.Navigate(pageViewmodel.FullName);
     }
 
     /// <summary>
@@ -42,6 +27,6 @@ public class Navigate
     /// <param name="cleanstacks">Clean Navigate Stack</param>
     public static void NavigateToType(Type pageViewmodel, object? arg, bool cleanstacks = false)
     {
-        NavigateForArgsEvent(ExternBase.Main, (pageViewmodel, arg, cleanstacks));   
+        //NavigateForArgsEvent(ExtensionBase.GetCurrentExtension(), (pageViewmodel, arg, cleanstacks));   
     }
 }

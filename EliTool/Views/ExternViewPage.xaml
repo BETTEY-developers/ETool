@@ -12,7 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    <StackPanel x:Name="ContentArea" Padding="10">
+    <StackPanel x:Name="ContentArea" Padding="10" Spacing="24">
         <Grid x:Name="Header" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <TextBlock HorizontalAlignment="Left" Style="{ThemeResource TitleTextBlockStyle}" FontFamily="{StaticResource PivotTitleFontFamily}">扩展视图</TextBlock>
             <Button Style="{ThemeResource AccentButtonStyle}" HorizontalAlignment="Right" Command="{x:Bind PickExternCommand}">添加扩展</Button>

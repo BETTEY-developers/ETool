@@ -19,7 +19,7 @@
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <IncludeSymbols>False</IncludeSymbols>
     <Configurations>Release;Debug</Configurations>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <PackageCertificateThumbprint>7C23B66CD5EAD08E005549204CCDD2CF0ABB7691</PackageCertificateThumbprint>
@@ -28,6 +28,7 @@
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Views\Extern\**" />
@@ -58,6 +59,7 @@
     <None Remove="Controls\ControlItemTemplate.xaml" />
     <None Remove="Controls\HeaderTile.xaml" />
     <None Remove="Controls\OperatorBar.xaml" />
+    <None Remove="Controls\SwitchView.xaml" />
     <None Remove="Controls\TileGallery.xaml" />
     <None Remove="Styles\ButtonStyle.xaml" />
     <None Remove="Views\Dialogs\Developer-Tools\PictureConverterOptionEditer.xaml" />
@@ -84,7 +86,8 @@
   <ItemGroup>
     <ProjectReference Include="..\EliTool.BasePackage\EliTool.BasePackage.csproj" />
     <ProjectReference Include="..\EliTool.Core\EliTool.Core.csproj" />
-    <ProjectReference Include="..\EliTool.ExternSDK\EliTool.ExternSDK.csproj" />
+    <ProjectReference Include="..\EliTool.ExternSDK\EliTool.ExtensionSDK.csproj" />
+    <ProjectReference Include="..\SimpleExtern\SimpleExtern.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
@@ -123,6 +126,12 @@
     <None Update="Assets\NoLight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="DebugExtension.enable">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Page Update="Controls\SwitchView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\ExternViews\ExternPageDetailPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

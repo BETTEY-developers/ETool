@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 
-namespace EliTool.Helpers;
+namespace EliTool.Converters;
 
 public class EnumToBooleanConverter : IValueConverter
 {
