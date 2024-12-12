@@ -4,6 +4,7 @@ using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EliTool.Contracts.Services;
+using EliTool.Controls;
 using EliTool.Helpers;
 using EliTool.Views.ControlPage.DeveloperTools;
 using Microsoft.UI.Xaml.Controls;
@@ -16,7 +17,6 @@ namespace EliTool.ViewModels;
 
 public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotifyPropertyChanged
 {
-
     private bool opt_ischanged = true;
 
     private char[] CSBelowNameChars = new char[]
@@ -47,6 +47,20 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
     private string _CSharpString = "";
 
     private string _inputstring;
+
+    public List<FormatOption> FormatOptions
+    {
+        get; set;
+    } = new()
+    {
+        new()
+        {
+            Title = "Element type",
+            Description = "Type of array element.",
+            FormatFlag = "T"
+        }
+    };
+
     public string InputString
     {
         get
@@ -276,11 +290,6 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         return temp;
     }
 
-    public JsonCSharpConverterPage Page
-    {
-        get; set;
-    }
-
     public JsonCSharpConverterViewModel()
     {
     }
@@ -460,7 +469,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         return result;
     }
 
-    public string CreateSimpleTypeProperty(string name, JToken jtoken, string typename = "")
+    public async Task<string> CreateSimpleTypeProperty(string name, JToken jtoken, string typename = "")
     {
         var result = new StringBuilder();
         var propname = name;
@@ -478,14 +487,14 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
                 propname = aftername;
             }
         }
-        string GetType(string name, JTokenType type)
+        async Task<string> GetType(string name, JTokenType type)
         {
             var keytype = new Dictionary<JTokenType, string>
             {
                 [JTokenType.Object] = name,
                 [JTokenType.String] = "string",
                 [JTokenType.Boolean] = "bool",
-                [JTokenType.Array] = $"{name}[]",
+                [JTokenType.Array] = await CreateArrayType(jtoken, name),
                 [JTokenType.Null] = "object",
                 [JTokenType.Uri] = "System.Uri",
                 [JTokenType.Bytes] = "byte[]",
@@ -503,15 +512,59 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         }
         else
         {
-            result.Append(CreateSimplePropertyString(propname, GetType(propname, jtoken.Type)));
+            result.Append(CreateSimplePropertyString(propname, await GetType(propname, jtoken.Type)));
         }
         return result.ToString();
     }
 
+    public string CollectionTypeFormat
+    {
+        get; set;
+    }
+
+    public async Task<string> CreateArrayType(JToken token, string tokenName)
+    {
+        string result = "";
+        try
+        {
+            if (token.First.Type is not
+            JTokenType.Object or
+            JTokenType.Bytes or
+            JTokenType.Array)
+            {
+                result = CollectionTypeFormat.Replace("$T$", token.First.Type switch
+                {
+                    JTokenType.Integer => GetIntegerTypeName(token.First),
+                    JTokenType.Float => "double",
+                    JTokenType.String => "string",
+                    JTokenType.Boolean => "bool",
+                    JTokenType.Guid => "System.Guid",
+                    JTokenType.Uri => "System.Uri",
+                    JTokenType.TimeSpan => "System.DateTime"
+                });
+            }
+            else if (token.First.Type is JTokenType.Bytes) result = CollectionTypeFormat.Replace("$T$", "byte");
+            else if (token.First.Type is JTokenType.Object)
+            {
+                _addClass(await CreateClass(token.First as JObject, tokenName));
+            }
+            else if (token.First.Type == JTokenType.Array) result = CollectionTypeFormat.Replace("$T$", await CreateArrayType(token.First, tokenName));
+        }
+        catch
+        {
+            result = CollectionTypeFormat??"List<$T$>".Replace("$T$", "object");
+        }
+
+        return result;
+    }
+
+    private Action<List<string>> _addClass = null;
 
     public async Task<List<string>> CreateClass(JObject jObject, string name)
     {
+        name = RenameToAllow(name).aftername;
         var Classes = new List<List<string>>();
+        _addClass = (c) => Classes.Add(c);
         var Current = new List<string>();
         var jobj = jObject;
         Current.Add("class " + (NeedClassExname ? ClassExname : "") + name + Environment.NewLine);
@@ -531,11 +584,11 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
                         Classes.Add(await CreateClass(JObject.FromObject(token), kv.Key));
                         break;
                     case JTokenType.Array:
-                        Classes.Add(await CreateClass(JObject.FromObject(token.ToArray()[0]), kv.Key));
+                        //string type = CreateArrayType(token);
                         break;
                 }
             }
-            Current.Add(CreateSimpleTypeProperty(kv.Key, token, kv.Key));
+            Current.Add(await CreateSimpleTypeProperty(kv.Key, token, kv.Key));
             Current.Add(Environment.NewLine);
         }
         Current.RemoveAt(Current.Count - 1);
@@ -544,6 +597,7 @@ public partial class JsonCSharpConverterViewModel : ObservableRecipient, INotify
         {
             Current.AddRange(c);
         }
+        _addClass = null;
         return Current;
     }
 

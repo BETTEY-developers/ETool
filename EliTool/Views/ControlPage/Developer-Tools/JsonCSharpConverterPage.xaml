@@ -190,6 +190,30 @@
                             <ComboBoxItem>private protected</ComboBoxItem>
                         </ComboBox>
                     </toolkit:SettingsCard>
+
+                    <toolkit:SettingsCard x:Uid="ms-resource:///JsonCSharpConverterPage/Modifer">
+                        <SplitButton>
+                            <TextBox TextChanged="CollectionPreset_TextChanged" x:Name="CollectionPreset"/>
+                            <SplitButton.Flyout>
+                                <Flyout>
+                                    <ListView x:Name="CollectionPresetType" SelectedIndex="0" SelectionChanged="CollectionPresetType_SelectionChanged">
+                                        <ListViewItem>List&lt;$T$&gt;</ListViewItem>
+                                        <ListViewItem>ArrayList</ListViewItem>
+                                        <ListViewItem>$T$[]</ListViewItem>
+                                        <ListViewItem>Array&lt;$T$&gt;</ListViewItem>
+                                    </ListView>
+                                </Flyout>
+                            </SplitButton.Flyout>
+                        </SplitButton>
+                    </toolkit:SettingsCard>
+
+                    <toolkit:SettingsCard x:Uid="ms-resource:///JsonCSharpConverterPage/Modifer">
+                        <controls:FormatTextBox x:Name="FTB">
+                            <controls:FormatOption Title="Element Type" Description="Type of array element." FormatFlag="T123"/>
+                            <controls:FormatOption Title="Element Type" Description="Type of array element." FormatFlag="T"/>
+                            
+                        </controls:FormatTextBox>
+                    </toolkit:SettingsCard>
                 </toolkit:SettingsExpander.Items>
             </toolkit:SettingsExpander>
         </Grid>

@@ -20,14 +20,12 @@ using Microsoft.UI.Xaml;
 using Windows.UI.Core.Preview;
 using Windows.UI.WindowManagement;
 using EliTool.ExtensionSDK._Internal;
-using EliTool.ExtensionSDK.Common.Resource;
-using EliTool.ExtensionSDK.Common;
 using WinRT;
 
 namespace EliTool;
 
 // To learn more about WinUI 3, see https://docs.microsoft.com/windows/apps/winui/winui3/.
-public partial class App : Application, IContainer
+public partial class App : Application
 {
     // The .NET Generic Host provides dependency injection, configuration, logging, and other services.
     // https://docs.microsoft.com/dotnet/core/extensions/generic-host
@@ -77,19 +75,12 @@ public partial class App : Application, IContainer
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
-            services.AddTransient<IExtensionService, ExtensionService>();
 
 
             // Core Services
             services.AddSingleton<Core.Contracts.Services.IFileService, Core.Services.FileService>();
 
             // Views and ViewModels
-            services.AddTransient<ExternDetailViewModel>();
-            services.AddTransient<Views.ExternViews.ExternDetailPage>();
-            services.AddTransient<ExternPageDetailViewModel>();
-            services.AddTransient<Views.ExternViews.ExternPageDetailPage>();
-            services.AddTransient<ExternViewViewModel>();
-            services.AddTransient<ExternViewPage>();
             services.AddTransient<LoadingViewModel>();
             services.AddTransient<LoadingPage>();
             services.AddTransient<SearchResultViewViewModel>();
@@ -127,16 +118,6 @@ public partial class App : Application, IContainer
         UnhandledException += App_UnhandledException;
     }
 
-    private void NavigateForArgs(ExtensionSDK.ExtensionBase sender, (Type, object?, bool) args)
-    {
-        GetService<INavigationService>().NavigateTo(args.Item1, args.Item2, args.Item3);
-    }
-
-    private void NavigatePage(ExtensionSDK.ExtensionBase sender, Type args)
-    {
-        GetService<INavigationService>().NavigateTo(args);
-    }
-
     private void RegisteryPages()
     {
         var ser = (PageService)App.GetService<IPageService>();
@@ -151,9 +132,6 @@ public partial class App : Application, IContainer
         ser.AddDependence<PictureConverterViewModel, Views.ControlPage.DeveloperTools.PictureConverterPage>();
         ser.AddDependence<SearchResultViewViewModel, SearchResultViewPage>();
         ser.AddDependence<LoadingViewModel, LoadingPage>();
-        ser.AddDependence<ExternViewViewModel, ExternViewPage>();
-        ser.AddDependence<ExternDetailViewModel, Views.ExternViews.ExternDetailPage>();
-        ser.AddDependence<ExternPageDetailViewModel, Views.ExternViews.ExternPageDetailPage>();
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -166,21 +144,8 @@ public partial class App : Application, IContainer
     {
         base.OnLaunched(args);
 
-        ExtensionService ser = new ExtensionService();
-        await ser.Load();
-
         RegisteryPages();
-
-        AppDomain.CurrentDomain.DomainUnload += Exit;
 
         App.GetService<IActivationService>().ActivateAsync(args);
     }
-
-    private async void Exit(object? sender, EventArgs e)
-    {
-        await App.GetService<ActivationHandler<EventArgs>>().HandleAsync(e);
-    }
-
-    public void Navigate(string path) => throw new NotImplementedException();
-    public ResourceBase QueryResource(UniverseUsingIdentity UUID) => throw new NotImplementedException();
 }

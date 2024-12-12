@@ -33,7 +33,7 @@ public sealed partial class MainPage : Page
     protected async override void OnNavigatedTo(NavigationEventArgs e)
     {
         ShellPage.Instance.NavigationViewControl.Header = null;
-        foreach (var v in ViewModel.GetExtensionElements().ToolInfoGroups) foreach (var s in v.ToolInfos) ControlInfos.Add(s);
+        foreach (var v in (await ViewModel.GetExtensionElements()).ToolInfoGroups) foreach (var s in v.ToolInfos) ControlInfos.Add(s);
         
         base.OnNavigatedTo(e);
     }

@@ -16,9 +16,7 @@ public class ExtensionIconConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        var ser = App.GetService<IExtensionService>();
-        var obj = value as ExtensionManifestInfo;
-        var img = new BitmapImage(new Uri(Path.Combine(ser.ApplicationExtensionUnpackageFolder.Path, obj.Name, obj.Name, obj.IconPath)));
+        var img = new BitmapImage();
         return img;
     }
     public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
@@ -28,19 +26,17 @@ public class ExtensionImageConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language)
     {
-        var ser = App.GetService<IExtensionService>();
-        var path = value as string;
-        var img = new BitmapImage(new Uri(Path.Combine(ser.ApplicationExtensionUnpackageFolder.Path, path)));
+        var img = new BitmapImage(value as Uri);
         return img;
     }
     public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
 }
 
-public class ExtensionResourceHelper
-{
-    public static string GetExtensionResourceRealPath(string resourcePath, string externName)
-    {
-        var ser = App.GetService<IExtensionService>();
-        return Path.Combine(ser.ApplicationExtensionUnpackageFolder.Path, externName, externName, resourcePath);
-    }
-}
+//public class ExtensionResourceHelper
+//{
+//    public static string GetExtensionResourceRealPath(string resourcePath, string externName)
+//    {
+//        var ser = App.GetService<IExtensionService>();
+//        return Path.Combine(ser.ApplicationExtensionUnpackageFolder.Path, externName, externName, resourcePath);
+//    }
+//}

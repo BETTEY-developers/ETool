@@ -17,24 +17,25 @@ public partial class MainViewModel : ObservableRecipient
 
     private static Root LoadedRoot = null;
 
-    public Root GetExtensionElements()
+    public async Task<Root> GetExtensionElements()
     {
-        LoadedRoot = new Root();
-        LoadedRoot.Version = 1;
-        foreach(var externitem in App.GetService<IExtensionService>().Extensions??new())
-        {
-            LoadedRoot.ToolInfoGroups.AddRange(externitem.EntryInstance.GetExtensionToolGroups());
-            LoadedRoot.DocumentGroups.AddRange(externitem.EntryInstance.GetExtensionDocumentGroups());
-        }
-        return LoadedRoot;
-        //if (LoadedRoot == null)
+        //LoadedRoot = new Root();
+        //LoadedRoot.Version = 1;
+        //foreach(var externitem in App.GetService<IExtensionService>().Extensions??new())
         //{
-        //    var resource = "ControlInfos.json".GetLocalizedRaw("Files/Assets/Control/Info");
-
-        //    StorageFile storageFile = await StorageFile.GetFileFromPathAsync(resource.ValueAsString);
-
-        //    LoadedRoot = Newtonsoft.Json.JsonConvert.DeserializeObject<Root>(await FileIO.ReadTextAsync(storageFile)) ;
+        //    LoadedRoot.ToolInfoGroups.AddRange(externitem.EntryInstance.GetExtensionToolGroups());
+        //    LoadedRoot.DocumentGroups.AddRange(externitem.EntryInstance.GetExtensionDocumentGroups());
         //}
         //return LoadedRoot;
+        if (LoadedRoot == null)
+        {
+            var resource = "ControlInfos.json".GetLocalizedRaw("Files/Assets/Control/Info");
+
+
+            StorageFile storageFile = await StorageFile.GetFileFromPathAsync(resource.ValueAsString);
+
+            LoadedRoot = Newtonsoft.Json.JsonConvert.DeserializeObject<Root>(await FileIO.ReadTextAsync(storageFile));
+        }
+        return LoadedRoot;
     }
 }

@@ -24,11 +24,6 @@ public sealed partial class ShellPage : Page
         get;
     }
 
-    public IExtensionService ExternService
-    {
-        get;
-    }
-
     public NavigationView NavigationControlProperty => NavigationViewControl;
 
     public static ShellPage Instance { get; private set; }
@@ -36,7 +31,6 @@ public sealed partial class ShellPage : Page
     public ShellPage()
     {
         ViewModel = App.GetService<ShellViewModel>();
-        ExternService = App.GetService<IExtensionService>();
         InitializeComponent();
 
         ViewModel.NavigationService.Frame = NavigationFrame;
@@ -52,7 +46,7 @@ public sealed partial class ShellPage : Page
         Instance = this;
     }
 
-    private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    private async void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         TitleBarHelper.UpdateTitleBar(RequestedTheme);
 
@@ -61,7 +55,7 @@ public sealed partial class ShellPage : Page
 
         NavigationViewControl.Header = null;
 
-        var extensions = App
+        var extensions = await App
                 .GetService<MainViewModel>()
                 .GetExtensionElements();
 
@@ -69,7 +63,7 @@ public sealed partial class ShellPage : Page
         {
             NavigationViewItem item = new NavigationViewItem();
 
-            item.Icon = new ImageIcon() { Source = ToolGroup.HeaderImage.AsWinUIImageSource() };
+            item.Icon = new ImageIcon() { Source = new BitmapImage(ToolGroup.HeaderImage) };
             item.Content = ToolGroup.Title;
             item.Name = ToolGroup.Id;
 
@@ -77,9 +71,9 @@ public sealed partial class ShellPage : Page
             {
                 NavigationViewItem childitem = new NavigationViewItem();
                 childitem.Content = ToolInfo.Title;
-                childitem.Icon = new ImageIcon { Source = ToolInfo.HeaderImage.AsWinUIImageSource() };
+                childitem.Icon = new ImageIcon { Source = new BitmapImage(ToolGroup.HeaderImage) };
                 
-                NavigationHelper.SetNavigateTo(childitem, ToolInfo.PageViewModel.FullName!);
+                NavigationHelper.SetNavigateTo(childitem, ToolInfo.PageViewModel);
                 childitem.Tag = ToolGroup.Id;
 
                 item.MenuItems.Add(childitem);
@@ -167,13 +161,13 @@ public sealed partial class ShellPage : Page
         }
     }
 
-    private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    private async void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
         if (args.ChosenSuggestion == null)
         {
             ObservableCollection<SearchGroup> groups = new();
 
-            foreach (var group in App.GetService<MainViewModel>().GetExtensionElements().ToolInfoGroups)
+            foreach (var group in (await App.GetService<MainViewModel>().GetExtensionElements()).ToolInfoGroups)
             {
                 if (group.ToolInfos.Any(x => x.Title.ToLower().Contains(args.QueryText.ToLower())))
                 {
@@ -203,14 +197,14 @@ public sealed partial class ShellPage : Page
         }
     }
 
-    private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    private async void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
         if(args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
             return;
 
         List<ToolInfo> result = new();
 
-        foreach (var toolgroup in App.GetService<MainViewModel>().GetExtensionElements().ToolInfoGroups)
+        foreach (var toolgroup in (await App.GetService<MainViewModel>().GetExtensionElements()).ToolInfoGroups)
         {
             foreach (var item in toolgroup.ToolInfos)
             {

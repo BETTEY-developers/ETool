@@ -16,7 +16,6 @@ public sealed partial class JsonCSharpConverterPage : Page
     public JsonCSharpConverterPage()
     {
         ViewModel = App.GetService<JsonCSharpConverterViewModel>();
-        ViewModel.Page = this;
         InitializeComponent();
         CodeTextBox.DataContext = ViewModel;
     }
@@ -44,6 +43,26 @@ public sealed partial class JsonCSharpConverterPage : Page
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
+    }
+
+    private void CollectionPreset_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        foreach (var item in CollectionPresetType.Items)
+        {
+            if ((item as ListViewItem).Content as string == CollectionPreset.Text)
+                goto SUC;
+        }
+        CollectionPresetType.SelectedIndex = -1;
+
+    SUC:
+        ViewModel.CollectionTypeFormat = CollectionPreset.Text;
+        return;
+    }
+
+    private void CollectionPresetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if(CollectionPresetType.SelectedIndex != -1)
+            CollectionPreset.Text = (e.AddedItems[0] as ListViewItem).Content as string;
     }
 }
 

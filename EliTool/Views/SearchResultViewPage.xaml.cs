@@ -22,7 +22,7 @@ public class SearchItem : ToolInfo
     {
         get; set;
     }
-    public ExtensionSDK.Media.Image Image
+    public Uri Image
     {
         get; set;
     }
@@ -39,8 +39,8 @@ public class SearchItem : ToolInfo
     {
         Title = controlInfoDataItem.Title,
         Image = controlInfoDataItem.HeaderImage,
-        ClickType = controlInfoDataItem.PageViewModel,
-        PageType = controlInfoDataItem.Page,
+        ClickType = Type.GetType(controlInfoDataItem.PageViewModel),
+        PageType = Type.GetType(controlInfoDataItem.Page),
         Subtitle = controlInfoDataItem.Subtitle
     };
 }

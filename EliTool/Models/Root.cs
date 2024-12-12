@@ -1,5 +1,6 @@
 ﻿using EliTool.ExtensionSDK.Model.Document;
 using EliTool.ExtensionSDK.Model.Tool;
+using Newtonsoft.Json;
 
 namespace EliTool.Model;
 
@@ -10,12 +11,12 @@ public class Root
         get; set;
     } = 0;
 
-    public ToolGroupCollection ToolInfoGroups
+    public List<ToolGroup> ToolInfoGroups
     {
         get; set;
     } = new();
 
-    public DocumentGroupCollection DocumentGroups
+    public List<DocumentGroup> DocumentGroups
     {
         get; set;
     } = new();
